@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,10 +27,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    tcpclient.cpp \
+    crc16.c
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    crc16.h \
+    tcpclient.h
 
 FORMS += \
         mainwindow.ui

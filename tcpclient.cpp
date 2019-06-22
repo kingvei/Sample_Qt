@@ -49,7 +49,7 @@ void TcpClient::slotReceive(void)
     }
 }
 
-inline void TcpClient::tcpSend(QString msg)
+void TcpClient::tcpSend(QString msg)
 {
     tcpSocket->write(msg.toLatin1(), msg.length());
 }

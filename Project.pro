@@ -29,12 +29,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     tcpclient.cpp \
-    crc16.c
+    crc16.c \
+    bsp.cpp
 
 HEADERS += \
         mainwindow.h \
     crc16.h \
-    tcpclient.h
+    tcpclient.h \
+    bsp.h
 
 FORMS += \
         mainwindow.ui

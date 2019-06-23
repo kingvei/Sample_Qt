@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->srvIPLineEdit->setText("192.168.1.220"); //服务器默认IP
+    ui->srvIPLineEdit->setText("192.168.1.104"); //服务器默认IP
     ui->srvPortLineEdit->setText("5000"); //服务器默认端口
     ui->tcpEstablishButton->setText("连接");
     ui->tcpSendButton->setEnabled(false);
@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::processTcpReceivedMsg(QByteArray msg)
 {
-    board->decodeMsg(msg);
+    //board->decodeMsg(msg);
 
     ui->tcpRecvText->moveCursor(QTextCursor::End);
     ui->tcpRecvText->insertPlainText(msg);
@@ -55,7 +55,7 @@ void MainWindow::on_tcpEstablishButton_clicked()
     {
         ui->tcpEstablishButton->setText("断开");
         ui->tcpSendButton->setEnabled(true);
-        QObject::connect(this->tcpClient, SIGNAL(tcpReceived(QByteArray)), this, SLOT(processTcpReceivedMsg(QByteArray)));
+        connect(this->tcpClient, &TcpClient::tcpReceiveSignal, this, &MainWindow::processTcpReceivedMsg);
     }
     else
     {
@@ -104,7 +104,7 @@ void MainWindow::on_setAllRelayButton_Num_clicked()
         return;
     if(str[0]!='0' || (str[1]!='x' && str[1]!='X') ||
        str[2]<'0' || str[2]>'9' || str[3]<'0' || str[3]>'9')
-        return;
+        return; // todo 增加错误提示
 
     quint8 num = (str[2].toLatin1() -'0')*16 + (str[3].toLatin1() - '0');
 

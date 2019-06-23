@@ -25,7 +25,7 @@ void TcpClient::tcpEstablish(QString ip, QString port)
             return;
         }
         tcpSocket->connectToHost(*srvIP, port.toUShort());
-        QObject::connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(slotReceive()));
+        connect(tcpSocket, &QTcpSocket::readyRead, this, &TcpClient::tcpReceive);
         status = true;
     }
     else
@@ -36,7 +36,7 @@ void TcpClient::tcpEstablish(QString ip, QString port)
 }
 
 
-void TcpClient::slotReceive(void)
+void TcpClient::tcpReceive(void)
 {
     while(tcpSocket->bytesAvailable()>0)
     {
@@ -45,7 +45,7 @@ void TcpClient::slotReceive(void)
         QByteArray msg;
         msg.resize(int(size));
         tcpSocket->read(msg.data(), size);
-        emit tcpReceived(msg);
+        emit tcpReceiveSignal(msg);
     }
 }
 

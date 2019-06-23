@@ -17,13 +17,13 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void processTcpReceivedMsg(QByteArray);
     inline void setSingleRelay(quint8);
 
 private slots:
     void on_tcpEstablishButton_clicked();
-    void on_tcpSendButton_clicked();
 
-    void processTcpReceivedMsg(QByteArray);
+    void on_tcpSendButton_clicked();
 
     void on_setAllRelayButton_Box_clicked();
 

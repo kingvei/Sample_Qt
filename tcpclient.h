@@ -20,11 +20,10 @@ public:
 
     void tcpEstablish(QString ip, QString port);
     void tcpSend(QByteArray msg);
-private slots:
-    void slotReceive(void);
+    void tcpReceive(void);
 
 signals:
-    void tcpReceived(QByteArray);
+    void tcpReceiveSignal(QByteArray);
 };
 
 #endif // TCPCLIENT_H

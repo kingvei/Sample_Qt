@@ -36,6 +36,10 @@ public:
     ~SampleBoard();
 
     int decodeMsg(QByteArray msg);
+    int setSingleRelay();
+    int setAllRelay();
+    int turnOnBoard(void);
+    int turnOffBoard(void);
 
 private:
     quint8 head[4];

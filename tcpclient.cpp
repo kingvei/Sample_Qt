@@ -49,7 +49,7 @@ void TcpClient::slotReceive(void)
     }
 }
 
-void TcpClient::tcpSend(QString msg)
+void TcpClient::tcpSend(QByteArray msg)
 {
-    tcpSocket->write(msg.toLatin1(), msg.length());
+    tcpSocket->write(msg, msg.size());
 }

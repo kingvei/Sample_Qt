@@ -6,12 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
-    <height>432</height>
+    <width>887</width>
+    <height>551</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>29</width>
+    <height>29</height>
+   </size>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLineEdit" name="srvIPLineEdit">
@@ -37,27 +43,27 @@
    <widget class="QTextEdit" name="tcpSendText">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>150</y>
-      <width>104</width>
-      <height>87</height>
+      <x>70</x>
+      <y>130</y>
+      <width>171</width>
+      <height>111</height>
      </rect>
     </property>
    </widget>
    <widget class="QTextEdit" name="tcpRecvText">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>150</y>
-      <width>104</width>
-      <height>87</height>
+      <x>350</x>
+      <y>120</y>
+      <width>191</width>
+      <height>121</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="tcpEstablishButton">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>220</x>
       <y>40</y>
       <width>92</width>
       <height>28</height>
@@ -70,8 +76,8 @@
    <widget class="QPushButton" name="tcpSendButton">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>80</y>
+      <x>560</x>
+      <y>140</y>
       <width>92</width>
       <height>28</height>
      </rect>
@@ -80,13 +86,296 @@
      <string>发送</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>IP</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Port</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="setAllRelayButton_Box">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>390</y>
+      <width>92</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>发送指令</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="relayCheckBox_1">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>390</y>
+      <width>71</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>继电器</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="relayCheckBox_2">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>390</y>
+      <width>71</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>继电器</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="relayCheckBox_3">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>390</y>
+      <width>71</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>继电器</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="relayCheckBox_4">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>390</y>
+      <width>71</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>继电器</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="relayCheckBox_5">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>390</y>
+      <width>71</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>继电器</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="relayCheckBox_6">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>390</y>
+      <width>71</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>继电器</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="relayCheckBox_7">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>390</y>
+      <width>71</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>继电器</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="relayCheckBox_8">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>390</y>
+      <width>71</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>继电器</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="relayNumLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>450</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="setAllRelayButton_Num">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>440</y>
+      <width>92</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>发送指令</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="runSystemButton">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>40</y>
+      <width>92</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>启动</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relayButton_1">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>290</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>闭合</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relayButton_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>290</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>闭合</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relayButton_3">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>290</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>闭合</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relayButton_4">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>290</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>闭合</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relayButton_5">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>290</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>闭合</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relayButton_6">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>290</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>闭合</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relayButton_7">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>290</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>闭合</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="relayButton_8">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>290</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>闭合</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>603</width>
+     <width>887</width>
      <height>26</height>
     </rect>
    </property>

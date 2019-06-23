@@ -19,7 +19,7 @@ public:
     QHostAddress *srvIP;
 
     void tcpEstablish(QString ip, QString port);
-    void tcpSend(QString msg);
+    void tcpSend(QByteArray msg);
 private slots:
     void slotReceive(void);
 

@@ -30,7 +30,7 @@ private:
     QString cltData; //客户端要发送的数据
     QString srvData; //客户端接收的数据
     TcpClient *tcpClient;
-    //SampleBoard board;
+    SampleBoard *board;
 };
 
 #endif // MAINWINDOW_H

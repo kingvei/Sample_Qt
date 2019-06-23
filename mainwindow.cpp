@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tcpEstablishButton->setText("连接");
     ui->tcpSendButton->setEnabled(false);
 
+    this->board = new SampleBoard;
+
     this->srvIP.clear();
     this->srvPort.clear();
     this->srvData.clear();
@@ -23,7 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::processTcpReceivedMsg(QByteArray msg)
 {
-    //处理消息
+    board->decodeMsg(msg);
+
     ui->tcpRecvText->moveCursor(QTextCursor::End);
     ui->tcpRecvText->insertPlainText(msg);
 }
@@ -32,6 +35,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete tcpClient;
+    delete board;
 }
 
 void MainWindow::on_tcpEstablishButton_clicked()

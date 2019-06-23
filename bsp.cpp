@@ -2,8 +2,7 @@
 
 SampleBoard::SampleBoard()
 {
-    memset(this, 0, sizeof(SampleBoard));
-    this->adcData.resize(8);
+    //memset(this, 0, sizeof(SampleBoard));
 }
 
 SampleBoard::~SampleBoard()
@@ -13,42 +12,47 @@ SampleBoard::~SampleBoard()
 
 /*
  * @param: None
- * @ret: -1,没有找到完整的消息
+ * @ret: -1,消息长度小于最小帧长度
+ *       -2，没有找到帧头
  *       0,找到消息
  */
-int SampleBoard::decodeMsg(const QByteArray &msg)
+int SampleBoard::decodeMsg(QByteArray msg)
 {
-    unsigned char head[4] = {0xAA, 0xBB, 0xCC, 0xDD};
-    int startPos = msg.indexOf((char*)head);
-    if(startPos == -1 || (msg.size()-startPos < MIN_FRAME_SIZE))
+    int startPos = msg.indexOf(0xAA);
+    if(msg.size()-startPos < MIN_FRAME_SIZE)
         return -1;
+    if(startPos == -1)
+        return -2;
+    if((quint8)msg[startPos]!=0xAA || (quint8)msg[startPos+1]!=0xBB ||
+       (quint8)msg[startPos+2]!=0xCC || (quint8)msg[startPos+3]!=0xDD)
+        return -2;
 
-    quint16 tmpLen = msg[startPos+6] + (msg[startPos+7]<<8);
+    quint16 tmpLen = (quint8)msg[startPos+6] + ((quint8)msg[startPos+7]<<8);
     if(msg.size()-startPos < tmpLen)
         return -1;
 
     int pos = 4;
-    this->num = msg[pos] + (msg[pos+1]<<8);
+    this->num = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
-    this->len = msg[pos] + (msg[pos+1]<<8);
+    this->len = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
-    this->adcLen = msg[pos] + (msg[pos+1]<<8);
+    this->adcLen = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
-    this->can1Len = msg[pos] + (msg[pos+1]<<8);
+    this->can1Len = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
-    this->can2Len = msg[pos] + (msg[pos+1]<<8);
+    this->can2Len = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
-    this->rs485Len = msg[pos] + (msg[pos+1]<<8);
+    this->rs485Len = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
-    //this->crc16 = msg[pos] + (msg[pos+1]<<8);
+    //this->crc16 = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
-    this->rtc.year = msg[pos++];
-    this->rtc.month = msg[pos++];
-    this->rtc.date = msg[pos++];
-    this->rtc.hours = msg[pos++];
-    this->rtc.minutes = msg[pos++];
-    this->rtc.seconds = msg[pos++];
-    this->din = msg[pos++];
+    this->rtc.year = (quint8)msg[pos++] + 2000;
+    this->rtc.month = (quint8)msg[pos++];
+    this->rtc.date = (quint8)msg[pos++];
+    this->rtc.hours = (quint8)msg[pos++];
+    this->rtc.minutes = (quint8)msg[pos++];
+    this->rtc.seconds = (quint8)msg[pos++];
+    this->din = (quint8)msg[pos++];
 
     int adcPos = pos;
     for(int i=0; i<8; i++)
@@ -58,10 +62,10 @@ int SampleBoard::decodeMsg(const QByteArray &msg)
         for(int j=0; j<adcLen/8; j++)
         {
             if(j%2==0)
-                adcValue = msg[adcPos++];
+                adcValue = (quint8)msg[adcPos++];
             else
             {
-                adcValue += msg[adcPos++] << 8;
+                adcValue += (quint8)msg[adcPos++] << 8;
                 channel.push_back(adcValue);
             }
         }
@@ -75,9 +79,9 @@ int SampleBoard::decodeMsg(const QByteArray &msg)
         CanDataType data;
         char *ptr = const_cast<char*>(msg.data()) + can1Pos;
         data.id = *(reinterpret_cast<quint32*>(ptr));
-        memcpy(&data.ide, ptr+4, 15-4);
+        memcpy(&data.ide, ptr+4, PACKET_CAN_SIZE-4);
         this->can1Data.push_back(data);
-        can1Pos += 15;
+        can1Pos += PACKET_CAN_SIZE;
     }
 
     int can2Pos = pos;
@@ -86,9 +90,9 @@ int SampleBoard::decodeMsg(const QByteArray &msg)
         CanDataType data;
         char *ptr = const_cast<char*>(msg.data()) + can2Pos;
         data.id = *(reinterpret_cast<quint32*>(ptr));
-        memcpy(&data.ide, ptr+4, 15-4);
+        memcpy(&data.ide, ptr+4, PACKET_CAN_SIZE-4);
         this->can2Data.push_back(data);
-        can2Pos += 15;
+        can2Pos += PACKET_CAN_SIZE;
     }
 
     int rs485Pos = pos;

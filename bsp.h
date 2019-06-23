@@ -4,16 +4,16 @@
 #include <QByteArray>
 #include <QVector>
 
-#define MIN_FRAME_SIZE  20
+#define MIN_FRAME_SIZE  18
 #define PACKET_CAN_SIZE 15
 struct RTC
 {
-    char year;
-    char month;
-    char date;
-    char hours;
-    char minutes;
-    char seconds;
+    int year;
+    int month;
+    int date;
+    int hours;
+    int minutes;
+    int seconds;
 
     RTC(){year = month = date = hours = minutes = seconds = 0;}
 };
@@ -35,7 +35,7 @@ public:
     SampleBoard();
     ~SampleBoard();
 
-    int decodeMsg(const QByteArray &msg);
+    int decodeMsg(QByteArray msg);
 
 private:
     quint8 head[4];
@@ -53,8 +53,6 @@ private:
     QVector<CanDataType> can1Data;
     QVector<CanDataType> can2Data;
     QByteArray rs485Data;
-
-    quint8 tail[2];
 };
 
 #endif // BSP_H

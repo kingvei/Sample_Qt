@@ -5,6 +5,7 @@
 #include <QHostAddress>
 #include <QWidget>
 #include <QMainWindow>
+#include <QThread>
 
 class TcpClient : public QObject
 {
@@ -18,9 +19,9 @@ public:
     QTcpSocket *tcpSocket;
     QHostAddress *srvIP;
 
-    void tcpEstablish(QString ip, QString port);
-    void tcpSend(QByteArray msg);
-    void tcpReceive(void);
+    void establish(QString ip, QString port);
+    void send(QByteArray msg);
+    void receive(void);
 
 signals:
     void tcpReceiveSignal(QByteArray);

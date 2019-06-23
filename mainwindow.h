@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "tcpclient.h"
 #include "bsp.h"
+#include <QThread>
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +20,7 @@ public:
 
     void processTcpReceivedMsg(QByteArray);
     inline void setSingleRelay(quint8);
+    void dealClose();
 
 private slots:
     void on_tcpEstablishButton_clicked();
@@ -53,8 +55,9 @@ private:
     QString srvPort;
     QString cltData; //客户端要发送的数据
     QString srvData; //客户端接收的数据
-    TcpClient *tcpClient;
     SampleBoard *board;
+    TcpClient *tcpClient;
+    QThread *thread;
 
 signals:
     void sendCmdSignal(QByteArray cmd);

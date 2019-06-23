@@ -3,6 +3,7 @@
 #include <QTextBrowser>
 #include <QScrollBar>
 #include "crc16.h"
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,27 +14,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->srvPortLineEdit->setText("5000"); //服务器默认端口
     ui->tcpEstablishButton->setText("连接");
     ui->tcpSendButton->setEnabled(false);
-
     ui->runSystemButton->setText(tr("启动系统"));
 
-
-
-    this->board = new SampleBoard;
-
+    this->setWindowTitle(tr("采集控制系统"));
     this->srvIP.clear();
     this->srvPort.clear();
     this->srvData.clear();
     this->cltData.clear();
+    this->board = new SampleBoard;
+
     this->tcpClient = new TcpClient;
-    this->setWindowTitle(tr("采集控制系统"));
-}
+    this->thread = new QThread;
+    tcpClient->moveToThread(thread);
+    thread->start();
 
-void MainWindow::processTcpReceivedMsg(QByteArray msg)
-{
-    //board->decodeMsg(msg);
+    connect(this->tcpClient, &TcpClient::tcpReceiveSignal, this, &MainWindow::processTcpReceivedMsg);
+    //connect(this, &MainWindow::sendCmdSignal, this->tcpClient, &TcpClient::send);
 
-    ui->tcpRecvText->moveCursor(QTextCursor::End);
-    ui->tcpRecvText->insertPlainText(msg);
+
+    connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
 }
 
 MainWindow::~MainWindow()
@@ -43,11 +42,20 @@ MainWindow::~MainWindow()
     delete board;
 }
 
+void MainWindow::processTcpReceivedMsg(QByteArray msg)
+{
+    qDebug() << "MainWindow::processTcpReceivedMsg() threadID is :" << QThread::currentThreadId();
+    //board->decodeMsg(msg);
+
+    ui->tcpRecvText->moveCursor(QTextCursor::End);
+    ui->tcpRecvText->insertPlainText(msg);
+}
+
 void MainWindow::on_tcpEstablishButton_clicked()
 {
     srvIP = ui->srvIPLineEdit->text();
     srvPort = ui->srvPortLineEdit->text();
-    tcpClient->tcpEstablish(srvIP, srvPort);
+    tcpClient->establish(srvIP, srvPort);
     if(tcpClient->status == false)
         return;
 
@@ -55,7 +63,6 @@ void MainWindow::on_tcpEstablishButton_clicked()
     {
         ui->tcpEstablishButton->setText("断开");
         ui->tcpSendButton->setEnabled(true);
-        connect(this->tcpClient, &TcpClient::tcpReceiveSignal, this, &MainWindow::processTcpReceivedMsg);
     }
     else
     {
@@ -67,9 +74,17 @@ void MainWindow::on_tcpEstablishButton_clicked()
 void MainWindow::on_tcpSendButton_clicked()
 {
     cltData = ui->tcpSendText->toPlainText();
-    tcpClient->tcpSend(cltData.toLatin1());
+    tcpClient->send(cltData.toLatin1());
 }
 
+void MainWindow::dealClose()
+{
+    //退出子线程
+    thread->quit();
+    //回收资源
+    thread->wait();
+    delete tcpClient;
+}
 
 /*
  * 使用checkbox设置所有继电器状态

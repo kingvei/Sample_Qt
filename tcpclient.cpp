@@ -1,6 +1,5 @@
 #include "tcpclient.h"
 #include <QMessageBox>
-#include <QDebug>
 
 TcpClient::TcpClient()
 {
@@ -15,7 +14,7 @@ TcpClient::~TcpClient()
     delete srvIP;
 }
 
-void TcpClient::tcpEstablish(QString ip, QString port)
+void TcpClient::establish(QString ip, QString port)
 {
     if(!status) //未建立连接
     {
@@ -25,7 +24,7 @@ void TcpClient::tcpEstablish(QString ip, QString port)
             return;
         }
         tcpSocket->connectToHost(*srvIP, port.toUShort());
-        connect(tcpSocket, &QTcpSocket::readyRead, this, &TcpClient::tcpReceive);
+        connect(tcpSocket, &QTcpSocket::readyRead, this, &TcpClient::receive);
         status = true;
     }
     else
@@ -36,8 +35,9 @@ void TcpClient::tcpEstablish(QString ip, QString port)
 }
 
 
-void TcpClient::tcpReceive(void)
+void TcpClient::receive(void)
 {
+    qDebug() << "TcpClient::receive threadID is :" << QThread::currentThreadId();
     while(tcpSocket->bytesAvailable()>0)
     {
         qint64 size = tcpSocket->bytesAvailable();
@@ -49,7 +49,8 @@ void TcpClient::tcpReceive(void)
     }
 }
 
-void TcpClient::tcpSend(QByteArray msg)
+void TcpClient::send(QByteArray msg)
 {
     tcpSocket->write(msg, msg.size());
+    qDebug() << "TcpClient::send() threadID is :" << QThread::currentThreadId();
 }

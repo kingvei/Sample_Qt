@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tcpEstablishButton->setText("连接");
     ui->tcpSendButton->setEnabled(false);
     ui->runSystemButton->setText(tr("启动系统"));
+    //ui->runSystemButton->setEnabled(false);
 
     this->setWindowTitle(tr("采集控制系统"));
     this->srvIP.clear();
@@ -19,22 +20,22 @@ MainWindow::MainWindow(QWidget *parent) :
     this->cltData.clear();
     this->board = new SampleBoard;
 
+    //tcp接收线程
     this->tcpClient = new TcpClient;
     this->thread = new QThread;
     tcpClient->moveToThread(thread);
     connect(this->tcpClient, &TcpClient::tcpReceiveSignal, this, &MainWindow::processTcpReceivedMsg);
-    //connect(this, &MainWindow::sendCmdSignal, this->tcpClient, &TcpClient::send);
+    //connect(this, &MainWindow::sendCmdSignal, this->tcpClient, &TcpClient::send); //不能放在主线程 todo
     thread->start();
 
+    //定时器，用于更新UI
     this->timer = new QTimer;
-    this->timer->start(20);
+    this->timer->start(500); //启动定时器
     connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
-    connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
+    this->configLineChart();
 
-    this->series = new QLineSeries;
-    this->chart = new QChart();
-    this->chartView = new QChartView(chart);
+    connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
 }
 
 MainWindow::~MainWindow()
@@ -70,18 +71,6 @@ void MainWindow::on_tcpEstablishButton_clicked()
         ui->tcpEstablishButton->setText("连接");
         ui->tcpSendButton->setEnabled(false);
     });
-//    if(ui->tcpEstablishButton->text() == tr("连接"))
-//    {
-//        if(tcpClient->status == false) //未连接成功
-//            return;
-//        ui->tcpEstablishButton->setText("断开");
-//        ui->tcpSendButton->setEnabled(true);
-//    }
-//    else
-//    {
-//        ui->tcpEstablishButton->setText("连接");
-//        ui->tcpSendButton->setEnabled(false);
-//    }
 }
 
 void MainWindow::on_tcpSendButton_clicked()
@@ -147,6 +136,10 @@ void MainWindow::on_runSystemButton_clicked()
     emit sendCmdSignal(cmd);
     tcpClient->send(cmd);
 }
+
+
+
+
 
 /*
  * 设置单个继电器状态
@@ -280,33 +273,21 @@ void MainWindow::updateUI()
                 + QString::number(time.hour())+ ":" + QString::number(time.minute()) + ":" + QString::number(time.second());
     ui->sysTimeLabel->setText(sysTime);
 
-//    this->updateIoState();
-//    this->updateAdcChart();
-//    this->updateCanData();
-//    this->updateRs485Data();
+    this->updateIoState();
+    this->updateAdcChart();
+    this->updateCanData();
+    this->updateRs485Data();
 }
 
 void MainWindow::updateAdcChart()
 {
-    //构建图表的数据源
+    static int x=0;
+    x++;
     series->clear();
-    for(int i=0; i<100; i++) //todo
+    for(int i=0; i<100; i++)
     {
-        series->append(i, 10*qSin(i*3.14159/20.0));
+        series->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
     }
-
-    //构建图表
-    chart->removeAllSeries();
-    chart->legend()->hide(); //隐藏图例
-    chart->addSeries(series);
-    chart->createDefaultAxes();
-    chart->setTitle("ADC");
-
-    //构建 QChartView，并设置抗锯齿、标题、大小
-    chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setWindowTitle("ADC通道1");
-    chartView->resize(400, 300);
-    chartView->show();
 }
 
 void MainWindow::updateCanData()
@@ -368,4 +349,36 @@ void MainWindow::updateIoState()
 //    } else {
 //        ui->ioStateLabel_8->setText("断开");
 //    }
+}
+
+void MainWindow::configLineChart()
+{
+    //画布
+    this->graphScene = new QGraphicsScene;
+    this->graphView = new QGraphicsView(graphScene);
+    graphView->setWindowTitle("ADC数据");
+    graphView->setRenderHint(QPainter::Antialiasing);
+    graphView->setSceneRect(0, 0, 630, 280);
+    graphScene->setBackgroundBrush(QBrush(QColor(240, 240, 240)));
+
+    this->series = new QLineSeries;
+    this->chart = new QChart();
+    chart->legend()->hide(); //隐藏图例
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->setTitle("Simple line chart example");
+    chart->setGeometry(10, 10, 300, 260);
+
+    //设置坐标轴初始显示范围
+    this->axisX = new QValueAxis();//轴变量、数据系列变量，都不能声明为局部临时变量
+    this->axisY = new QValueAxis();//创建X/Y轴
+    axisX->setRange(0, 100); //设置X/Y显示的区间
+    axisY->setRange(0, 5);
+    chart->setAxisX(axisX);
+    chart->setAxisY(axisY); //设置chart的坐标轴
+    series->attachAxis(axisX); //连接数据集与坐标轴。特别注意：如果不连接，那么坐标轴和数据集的尺度就不相同
+    series->attachAxis(axisY);
+
+    graphScene->addItem(chart);
+    graphView->show();
 }

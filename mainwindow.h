@@ -15,7 +15,8 @@
 #include <QtCharts>
 #include <QChartView>
 #include <QGraphicsScene>
-
+#include <QGraphicsView>
+#include <QValueAxis>
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,7 @@ public:
     void processTcpReceivedMsg(QByteArray);
     inline void setSingleRelay(quint8);
     void dealClose();
+    void configLineChart();
 
     void updateUI();
     void updateAdcChart();
@@ -77,7 +79,11 @@ private:
 
     QLineSeries *series;
     QChart *chart;
-    QChartView *chartView;
+    //QChartView *chartView;
+    QGraphicsScene *graphScene;
+    QGraphicsView *graphView;
+    QValueAxis *axisX;
+    QValueAxis *axisY;
 signals:
     void sendCmdSignal(QByteArray cmd);
 };

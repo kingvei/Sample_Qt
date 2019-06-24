@@ -83,13 +83,12 @@ void MainWindow::dealClose()
     thread->quit();
     //回收资源
     thread->wait();
-    delete tcpClient;
 }
 
 /*
  * 使用checkbox复选框设置所有继电器状态
  */
-void MainWindow::on_setAllRelayButton_Box_clicked()
+void MainWindow::on_setAllRelayButton_clicked()
 {
     quint8 num = 0;
     if(ui->relayCheckBox_1->isChecked()) num += 0x01;
@@ -101,36 +100,14 @@ void MainWindow::on_setAllRelayButton_Box_clicked()
     if(ui->relayCheckBox_7->isChecked()) num += 0x01 << 6;
     if(ui->relayCheckBox_8->isChecked()) num += 0x01 << 7;
 
-    char cmd[8] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x02, (char)num, (char)0xFF, (char)0xFC};
-    quint16 crc = crc16(cmd+4, 4);
-    cmd[2] = (char)(crc & 0x0F);
-    cmd[3] = (char)(crc >> 8);
+    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x02, (char)num, (char)0xFF, (char)0xFC, '\0'};
+    quint16 crc = crc16(buf+4, 4);
+    buf[2] = (char)(crc & 0x0F);
+    buf[3] = (char)(crc >> 8);
 
-    emit sendCmdSignal(QByteArray(cmd));
-    tcpClient->send(QByteArray(cmd));
-}
-
-/*
- * 输入十六进制数设置所有继电器状态
- */
-void MainWindow::on_setAllRelayButton_Num_clicked()
-{
-    QString str = ui->relayNumLineEdit->text();
-    if(str.size() != 4)
-        return;
-    if(str[0]!='0' || (str[1]!='x' && str[1]!='X') ||
-       str[2]<'0' || str[2]>'9' || str[3]<'0' || str[3]>'9')
-        return; // todo 增加错误提示
-
-    quint8 num = (str[2].toLatin1() -'0')*16 + (str[3].toLatin1() - '0');
-
-    char cmd[8] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x02, (char)num, (char)0xFF, (char)0xFC};
-    quint16 crc = crc16(cmd+4, 4);
-    cmd[2] = (char)(crc & 0x0F);
-    cmd[3] = (char)(crc >> 8);
-
-    emit sendCmdSignal(QByteArray(cmd));
-    tcpClient->send(QByteArray(cmd));
+    QByteArray cmd = QByteArray::fromRawData(buf, 8);
+    emit sendCmdSignal(cmd);
+    tcpClient->send(cmd);
 }
 
 /*
@@ -138,23 +115,24 @@ void MainWindow::on_setAllRelayButton_Num_clicked()
  */
 void MainWindow::on_runSystemButton_clicked()
 {
-    char cmd[8] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x03, 0, (char)0xFF, (char)0xFC};
+    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x03, 0, (char)0xFF, (char)0xFC, '\0'};
     if(ui->runSystemButton->text() == tr("启动系统"))
     {
-        cmd[5] = 0x01;
+        buf[5] = 0x01;
         ui->runSystemButton->setText(tr("关闭系统"));
     }
     else
     {
-        cmd[5] = 0x01;
+        buf[5] = 0x02;
         ui->runSystemButton->setText(tr("启动系统"));
     }
-    quint16 crc = crc16(cmd+4, 4);
-    cmd[2] = (char)(crc & 0x0F);
-    cmd[3] = (char)(crc >> 8);
+    quint16 crc = crc16(buf+4, 4);
+    buf[2] = (char)(crc & 0x0F);
+    buf[3] = (char)(crc >> 8);
 
-    emit sendCmdSignal(QByteArray(cmd));
-    tcpClient->send(QByteArray(cmd));
+    QByteArray cmd = QByteArray::fromRawData(buf, 8);
+    emit sendCmdSignal(cmd);
+    tcpClient->send(cmd);
 }
 
 /*
@@ -162,13 +140,14 @@ void MainWindow::on_runSystemButton_clicked()
  */
 inline void MainWindow::setSingleRelay(quint8 a)
 {
-    char cmd[8] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x01, (char)a, (char)0xFF, (char)0xFC};
-    quint16 crc = crc16(cmd+4, 4);
-    cmd[2] = (char)(crc & 0x0F);
-    cmd[3] = (char)(crc >> 8);
+    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x01, (char)a, (char)0xFF, (char)0xFC, '\0'};
+    quint16 crc = crc16(buf+4, 4);
+    buf[2] = (char)(crc & 0x0F);
+    buf[3] = (char)(crc >> 8);
 
-    emit sendCmdSignal(QByteArray(cmd));
-    tcpClient->send(QByteArray(cmd));
+    QByteArray cmd = QByteArray::fromRawData(buf, 8);
+    emit sendCmdSignal(cmd);
+    tcpClient->send(cmd);
 }
 
 void MainWindow::on_relayButton_1_clicked()

@@ -27,9 +27,7 @@ private slots:
 
     void on_tcpSendButton_clicked();
 
-    void on_setAllRelayButton_Box_clicked();
-
-    void on_setAllRelayButton_Num_clicked();
+    void on_setAllRelayButton_clicked();
 
     void on_runSystemButton_clicked();
 

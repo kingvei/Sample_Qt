@@ -43,8 +43,8 @@
    <widget class="QTextEdit" name="tcpSendText">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>140</y>
+      <x>580</x>
+      <y>40</y>
       <width>171</width>
       <height>111</height>
      </rect>
@@ -53,8 +53,8 @@
    <widget class="QTextEdit" name="tcpRecvText">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>140</y>
+      <x>360</x>
+      <y>40</y>
       <width>191</width>
       <height>111</height>
      </rect>
@@ -76,8 +76,8 @@
    <widget class="QPushButton" name="tcpSendButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>140</y>
+      <x>670</x>
+      <y>160</y>
       <width>92</width>
       <height>28</height>
      </rect>
@@ -219,8 +219,8 @@
    <widget class="QPushButton" name="runSystemButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>40</y>
+      <x>230</x>
+      <y>80</y>
       <width>92</width>
       <height>28</height>
      </rect>
@@ -336,8 +336,8 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>120</y>
+      <x>580</x>
+      <y>20</y>
       <width>72</width>
       <height>15</height>
      </rect>
@@ -349,8 +349,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>120</y>
+      <x>360</x>
+      <y>20</y>
       <width>72</width>
       <height>15</height>
      </rect>
@@ -370,6 +370,16 @@
     </property>
     <property name="text">
      <string>控制所有继电器</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="rtcLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>190</y>
+      <width>113</width>
+      <height>21</height>
+     </rect>
     </property>
    </widget>
   </widget>

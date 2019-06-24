@@ -41,7 +41,6 @@ public:
     int turnOnBoard(void);
     int turnOffBoard(void);
 
-private:
     quint8 head[4];
     quint16 num;
     quint16 len;

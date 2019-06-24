@@ -26,11 +26,12 @@ MainWindow::MainWindow(QWidget *parent) :
     this->tcpClient = new TcpClient;
     this->thread = new QThread;
     tcpClient->moveToThread(thread);
-
     connect(this->tcpClient, &TcpClient::tcpReceiveSignal, this, &MainWindow::processTcpReceivedMsg);
     //connect(this, &MainWindow::sendCmdSignal, this->tcpClient, &TcpClient::send);
-
     thread->start();
+
+    this->timer = new QTimer;
+    connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
     connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
 }
@@ -252,4 +253,83 @@ void MainWindow::on_relayButton_8_clicked()
         ui->relayButton_8->setText(tr("闭合"));
     }
     this->setSingleRelay(res);
+}
+
+void MainWindow::updateUI()
+{
+    // update time
+    QString str = QString::number(board->rtc.year) + "-" + QString::number(board->rtc.month) + "-" + QString::number(board->rtc.date)
+                + QString::number(board->rtc.hours)+ ":" + QString::number(board->rtc.minutes) + ":" + QString::number(board->rtc.seconds);
+    ui->rtcLineEdit->setText(str);
+
+    this->updateIoState();
+    this->updateAdcChart();
+    this->updateCanData();
+    this->updateRs485Data();
+}
+
+void MainWindow::updateAdcChart()
+{
+    //for(int i=0; i<)
+}
+
+void MainWindow::updateCanData()
+{
+
+}
+
+void MainWindow::updateRs485Data()
+{
+
+}
+
+void MainWindow::updateIoState()
+{
+//    if(board->din & 0x01) {
+//        ui->ioStateLabel_1->setText("闭合");
+//    } else {
+//        ui->ioStateLabel_1->setText("断开");
+//    }
+
+//    if(board->din & (0x01<<1)) {
+//        ui->ioStateLabel_2->setText("闭合");
+//    } else {
+//        ui->ioStateLabel_2->setText("断开");
+//    }
+
+//    if(board->din & (0x01<<2)) {
+//        ui->ioStateLabel_3->setText("闭合");
+//    } else {
+//        ui->ioStateLabel_3->setText("断开");
+//    }
+
+//    if(board->din & (0x01<<3)) {
+//        ui->ioStateLabel_4->setText("闭合");
+//    } else {
+//        ui->ioStateLabel_4->setText("断开");
+//    }
+
+//    if(board->din & (0x01<<4)) {
+//        ui->ioStateLabel_5->setText("闭合");
+//    } else {
+//        ui->ioStateLabel_5->setText("断开");
+//    }
+
+//    if(board->din & (0x01<<5)) {
+//        ui->ioStateLabel_6->setText("闭合");
+//    } else {
+//        ui->ioStateLabel_6->setText("断开");
+//    }
+
+//    if(board->din & (0x01<<6)) {
+//        ui->ioStateLabel_7->setText("闭合");
+//    } else {
+//        ui->ioStateLabel_7->setText("断开");
+//    }
+
+//    if(board->din & (0x01<<7)) {
+//        ui->ioStateLabel_8->setText("闭合");
+//    } else {
+//        ui->ioStateLabel_8->setText("断开");
+//    }
 }

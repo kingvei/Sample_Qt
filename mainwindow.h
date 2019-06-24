@@ -5,6 +5,7 @@
 #include "tcpclient.h"
 #include "bsp.h"
 #include <QThread>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,12 @@ public:
     void processTcpReceivedMsg(QByteArray);
     inline void setSingleRelay(quint8);
     void dealClose();
+
+    void updateUI();
+    void updateAdcChart();
+    void updateCanData();
+    void updateRs485Data();
+    void updateIoState();
 
 private slots:
     void on_tcpEstablishButton_clicked();
@@ -57,6 +64,7 @@ private:
     TcpClient *tcpClient;
     QThread *thread;
 
+    QTimer *timer;
 signals:
     void sendCmdSignal(QByteArray cmd);
 };

@@ -51,6 +51,6 @@ void TcpClient::receive(void)
 
 void TcpClient::send(QByteArray msg)
 {
-    int size = tcpSocket->write(msg, msg.size());
+    tcpSocket->write(msg, msg.size());
     qDebug() << "TcpClient::send() threadID is :" << QThread::currentThreadId();
 }

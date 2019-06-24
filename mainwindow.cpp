@@ -26,11 +26,11 @@ MainWindow::MainWindow(QWidget *parent) :
     this->tcpClient = new TcpClient;
     this->thread = new QThread;
     tcpClient->moveToThread(thread);
-    thread->start();
 
     connect(this->tcpClient, &TcpClient::tcpReceiveSignal, this, &MainWindow::processTcpReceivedMsg);
     //connect(this, &MainWindow::sendCmdSignal, this->tcpClient, &TcpClient::send);
 
+    thread->start();
 
     connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
 }
@@ -87,7 +87,7 @@ void MainWindow::dealClose()
 }
 
 /*
- * 使用checkbox设置所有继电器状态
+ * 使用checkbox复选框设置所有继电器状态
  */
 void MainWindow::on_setAllRelayButton_Box_clicked()
 {
@@ -107,6 +107,7 @@ void MainWindow::on_setAllRelayButton_Box_clicked()
     cmd[3] = (char)(crc >> 8);
 
     emit sendCmdSignal(QByteArray(cmd));
+    tcpClient->send(QByteArray(cmd));
 }
 
 /*
@@ -129,6 +130,7 @@ void MainWindow::on_setAllRelayButton_Num_clicked()
     cmd[3] = (char)(crc >> 8);
 
     emit sendCmdSignal(QByteArray(cmd));
+    tcpClient->send(QByteArray(cmd));
 }
 
 /*
@@ -152,6 +154,7 @@ void MainWindow::on_runSystemButton_clicked()
     cmd[3] = (char)(crc >> 8);
 
     emit sendCmdSignal(QByteArray(cmd));
+    tcpClient->send(QByteArray(cmd));
 }
 
 /*
@@ -165,6 +168,7 @@ inline void MainWindow::setSingleRelay(quint8 a)
     cmd[3] = (char)(crc >> 8);
 
     emit sendCmdSignal(QByteArray(cmd));
+    tcpClient->send(QByteArray(cmd));
 }
 
 void MainWindow::on_relayButton_1_clicked()

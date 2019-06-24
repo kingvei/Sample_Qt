@@ -24,7 +24,7 @@ public:
     void receive(void);
 
 signals:
-    void tcpReceiveSignal(QByteArray);
+    void tcpReceiveSignal(QByteArray msg);
 };
 
 #endif // TCPCLIENT_H

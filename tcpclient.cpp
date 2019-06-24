@@ -4,7 +4,7 @@
 TcpClient::TcpClient()
 {
     this->status = false;
-    tcpSocket = new QTcpSocket(this);
+    tcpSocket = new QTcpSocket;//(this);
     srvIP = new QHostAddress;
 }
 
@@ -51,6 +51,6 @@ void TcpClient::receive(void)
 
 void TcpClient::send(QByteArray msg)
 {
-    tcpSocket->write(msg, msg.size());
+    int size = tcpSocket->write(msg, msg.size());
     qDebug() << "TcpClient::send() threadID is :" << QThread::currentThreadId();
 }

@@ -382,6 +382,19 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLabel" name="sysTimeLabel">
+    <property name="geometry">
+     <rect>
+      <x>661</x>
+      <y>10</y>
+      <width>151</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>sysTime</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -4,6 +4,7 @@
 #include <QScrollBar>
 #include "crc16.h"
 #include <QThread>
+#include <QTime>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     thread->start();
 
     this->timer = new QTimer;
+    this->timer->start(20);
+
     connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
     connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
@@ -258,9 +261,15 @@ void MainWindow::on_relayButton_8_clicked()
 void MainWindow::updateUI()
 {
     // update time
-    QString str = QString::number(board->rtc.year) + "-" + QString::number(board->rtc.month) + "-" + QString::number(board->rtc.date)
-                + QString::number(board->rtc.hours)+ ":" + QString::number(board->rtc.minutes) + ":" + QString::number(board->rtc.seconds);
-    ui->rtcLineEdit->setText(str);
+    QString rtcTime = QString::number(board->rtc.year) + "-" + QString::number(board->rtc.month) + "-" + QString::number(board->rtc.day) + " "
+                + QString::number(board->rtc.hour)+ ":" + QString::number(board->rtc.minute) + ":" + QString::number(board->rtc.second);
+    ui->rtcLineEdit->setText(rtcTime);
+
+    QTime time = QTime::currentTime();
+    QDate date = QDate::currentDate();
+    QString sysTime = QString::number(date.year()) + "-" + QString::number(date.month()) + "-" + QString::number(date.day()) + " "
+                + QString::number(time.hour())+ ":" + QString::number(time.minute()) + ":" + QString::number(time.second());
+    ui->sysTimeLabel->setText(sysTime);
 
     this->updateIoState();
     this->updateAdcChart();

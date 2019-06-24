@@ -48,10 +48,10 @@ int SampleBoard::decodeMsg(QByteArray msg)
     pos += 2;
     this->rtc.year = (quint8)msg[pos++] + 2000;
     this->rtc.month = (quint8)msg[pos++];
-    this->rtc.date = (quint8)msg[pos++];
-    this->rtc.hours = (quint8)msg[pos++];
-    this->rtc.minutes = (quint8)msg[pos++];
-    this->rtc.seconds = (quint8)msg[pos++];
+    this->rtc.day = (quint8)msg[pos++];
+    this->rtc.hour = (quint8)msg[pos++];
+    this->rtc.minute = (quint8)msg[pos++];
+    this->rtc.second = (quint8)msg[pos++];
     this->din = (quint8)msg[pos++];
 
     int adcPos = pos;

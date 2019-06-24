@@ -10,12 +10,12 @@ struct RTC
 {
     int year;
     int month;
-    int date;
-    int hours;
-    int minutes;
-    int seconds;
+    int day;
+    int hour;
+    int minute;
+    int second;
 
-    RTC(){year = month = date = hours = minutes = seconds = 0;}
+    RTC(){year = month = day = hour = minute = second = 0;}
 };
 
 struct CanDataType

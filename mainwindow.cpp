@@ -380,5 +380,6 @@ void MainWindow::configLineChart()
     series->attachAxis(axisY);
 
     graphScene->addItem(chart);
+    graphView->move(50, 50); //窗体移动到某个点
     graphView->show();
 }

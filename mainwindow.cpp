@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
     this->configLineChart();
+    this->board->din = 0xF0;
 
     connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
 }
@@ -85,6 +86,11 @@ void MainWindow::dealClose()
     thread->quit();
     //回收资源
     thread->wait();
+
+    //todo 关闭子窗体
+//    this->timer->stop();
+//    this->graphScene->clear();
+//    this->graphView->close();
 }
 
 /*
@@ -93,14 +99,14 @@ void MainWindow::dealClose()
 void MainWindow::on_setAllRelayButton_clicked()
 {
     quint8 num = 0;
-    if(ui->relayCheckBox_1->isChecked()) num += 0x01;
-    if(ui->relayCheckBox_2->isChecked()) num += 0x01 << 1;
-    if(ui->relayCheckBox_3->isChecked()) num += 0x01 << 2;
-    if(ui->relayCheckBox_4->isChecked()) num += 0x01 << 3;
-    if(ui->relayCheckBox_5->isChecked()) num += 0x01 << 4;
-    if(ui->relayCheckBox_6->isChecked()) num += 0x01 << 5;
-    if(ui->relayCheckBox_7->isChecked()) num += 0x01 << 6;
-    if(ui->relayCheckBox_8->isChecked()) num += 0x01 << 7;
+    if(ui->relayCheckBox_0->isChecked()) num += 0x01;
+    if(ui->relayCheckBox_1->isChecked()) num += 0x01 << 1;
+    if(ui->relayCheckBox_2->isChecked()) num += 0x01 << 2;
+    if(ui->relayCheckBox_3->isChecked()) num += 0x01 << 3;
+    if(ui->relayCheckBox_4->isChecked()) num += 0x01 << 4;
+    if(ui->relayCheckBox_5->isChecked()) num += 0x01 << 5;
+    if(ui->relayCheckBox_6->isChecked()) num += 0x01 << 6;
+    if(ui->relayCheckBox_7->isChecked()) num += 0x01 << 7;
 
     char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x02, (char)num, (char)0xFF, (char)0xFC, '\0'};
     quint16 crc = crc16(buf+4, 4);
@@ -138,9 +144,6 @@ void MainWindow::on_runSystemButton_clicked()
 }
 
 
-
-
-
 /*
  * 设置单个继电器状态
  */
@@ -156,14 +159,27 @@ inline void MainWindow::setSingleRelay(quint8 a)
     tcpClient->send(cmd);
 }
 
+void MainWindow::on_relayButton_0_clicked()
+{
+    quint8 res = 0;
+    if(ui->relayButton_0->text() == tr("闭合")){
+        res = 0x80;
+        ui->relayButton_0->setText(tr("断开"));
+    }else{
+        res = 0x40;
+        ui->relayButton_0->setText(tr("闭合"));
+    }
+    this->setSingleRelay(res);
+}
+
 void MainWindow::on_relayButton_1_clicked()
 {
     quint8 res = 0;
     if(ui->relayButton_1->text() == tr("闭合")){
-        res = 0x80;
+        res = 0x81;
         ui->relayButton_1->setText(tr("断开"));
     }else{
-        res = 0x40;
+        res = 0x41;
         ui->relayButton_1->setText(tr("闭合"));
     }
     this->setSingleRelay(res);
@@ -173,10 +189,10 @@ void MainWindow::on_relayButton_2_clicked()
 {
     quint8 res = 0;
     if(ui->relayButton_2->text() == tr("闭合")){
-        res = 0x81;
+        res = 0x82;
         ui->relayButton_2->setText(tr("断开"));
     }else{
-        res = 0x41;
+        res = 0x42;
         ui->relayButton_2->setText(tr("闭合"));
     }
     this->setSingleRelay(res);
@@ -186,10 +202,10 @@ void MainWindow::on_relayButton_3_clicked()
 {
     quint8 res = 0;
     if(ui->relayButton_3->text() == tr("闭合")){
-        res = 0x82;
+        res = 0x83;
         ui->relayButton_3->setText(tr("断开"));
     }else{
-        res = 0x42;
+        res = 0x43;
         ui->relayButton_3->setText(tr("闭合"));
     }
     this->setSingleRelay(res);
@@ -199,10 +215,10 @@ void MainWindow::on_relayButton_4_clicked()
 {
     quint8 res = 0;
     if(ui->relayButton_4->text() == tr("闭合")){
-        res = 0x83;
+        res = 0x84;
         ui->relayButton_4->setText(tr("断开"));
     }else{
-        res = 0x43;
+        res = 0x44;
         ui->relayButton_4->setText(tr("闭合"));
     }
     this->setSingleRelay(res);
@@ -212,10 +228,10 @@ void MainWindow::on_relayButton_5_clicked()
 {
     quint8 res = 0;
     if(ui->relayButton_5->text() == tr("闭合")){
-        res = 0x84;
+        res = 0x85;
         ui->relayButton_5->setText(tr("断开"));
     }else{
-        res = 0x44;
+        res = 0x45;
         ui->relayButton_5->setText(tr("闭合"));
     }
     this->setSingleRelay(res);
@@ -225,10 +241,10 @@ void MainWindow::on_relayButton_6_clicked()
 {
     quint8 res = 0;
     if(ui->relayButton_6->text() == tr("闭合")){
-        res = 0x85;
+        res = 0x86;
         ui->relayButton_6->setText(tr("断开"));
     }else{
-        res = 0x45;
+        res = 0x46;
         ui->relayButton_6->setText(tr("闭合"));
     }
     this->setSingleRelay(res);
@@ -238,24 +254,11 @@ void MainWindow::on_relayButton_7_clicked()
 {
     quint8 res = 0;
     if(ui->relayButton_7->text() == tr("闭合")){
-        res = 0x86;
+        res = 0x87;
         ui->relayButton_7->setText(tr("断开"));
     }else{
-        res = 0x46;
-        ui->relayButton_7->setText(tr("闭合"));
-    }
-    this->setSingleRelay(res);
-}
-
-void MainWindow::on_relayButton_8_clicked()
-{
-    quint8 res = 0;
-    if(ui->relayButton_8->text() == tr("闭合")){
-        res = 0x87;
-        ui->relayButton_8->setText(tr("断开"));
-    }else{
         res = 0x47;
-        ui->relayButton_8->setText(tr("闭合"));
+        ui->relayButton_7->setText(tr("闭合"));
     }
     this->setSingleRelay(res);
 }
@@ -273,7 +276,7 @@ void MainWindow::updateUI()
                 + QString::number(time.hour())+ ":" + QString::number(time.minute()) + ":" + QString::number(time.second());
     ui->sysTimeLabel->setText(sysTime);
 
-    this->updateIoState();
+    this->updateState();
     this->updateAdcChart();
     this->updateCanData();
     this->updateRs485Data();
@@ -300,55 +303,55 @@ void MainWindow::updateRs485Data()
 
 }
 
-void MainWindow::updateIoState()
+void MainWindow::updateState()
 {
-//    if(board->din & 0x01) {
-//        ui->ioStateLabel_1->setText("闭合");
-//    } else {
-//        ui->ioStateLabel_1->setText("断开");
-//    }
+    if(board->din & 0x01) {
+        ui->stateLabel_0->setText("1号: 闭合");
+    } else {
+        ui->stateLabel_0->setText("1号: 断开");
+    }
 
-//    if(board->din & (0x01<<1)) {
-//        ui->ioStateLabel_2->setText("闭合");
-//    } else {
-//        ui->ioStateLabel_2->setText("断开");
-//    }
+    if(board->din & (0x01<<1)) {
+        ui->stateLabel_1->setText("2号: 闭合");
+    } else {
+        ui->stateLabel_1->setText("2号: 断开");
+    }
 
-//    if(board->din & (0x01<<2)) {
-//        ui->ioStateLabel_3->setText("闭合");
-//    } else {
-//        ui->ioStateLabel_3->setText("断开");
-//    }
+    if(board->din & (0x01<<2)) {
+        ui->stateLabel_2->setText("3号: 闭合");
+    } else {
+        ui->stateLabel_2->setText("3号: 断开");
+    }
 
-//    if(board->din & (0x01<<3)) {
-//        ui->ioStateLabel_4->setText("闭合");
-//    } else {
-//        ui->ioStateLabel_4->setText("断开");
-//    }
+    if(board->din & (0x01<<3)) {
+        ui->stateLabel_3->setText("4号: 闭合");
+    } else {
+        ui->stateLabel_3->setText("4号: 断开");
+    }
 
-//    if(board->din & (0x01<<4)) {
-//        ui->ioStateLabel_5->setText("闭合");
-//    } else {
-//        ui->ioStateLabel_5->setText("断开");
-//    }
+    if(board->din & (0x01<<4)) {
+        ui->stateLabel_4->setText("5号: 闭合");
+    } else {
+        ui->stateLabel_4->setText("5号: 断开");
+    }
 
-//    if(board->din & (0x01<<5)) {
-//        ui->ioStateLabel_6->setText("闭合");
-//    } else {
-//        ui->ioStateLabel_6->setText("断开");
-//    }
+    if(board->din & (0x01<<5)) {
+        ui->stateLabel_5->setText("6号: 闭合");
+    } else {
+        ui->stateLabel_5->setText("6号: 断开");
+    }
 
-//    if(board->din & (0x01<<6)) {
-//        ui->ioStateLabel_7->setText("闭合");
-//    } else {
-//        ui->ioStateLabel_7->setText("断开");
-//    }
+    if(board->din & (0x01<<6)) {
+        ui->stateLabel_6->setText("7号: 闭合");
+    } else {
+        ui->stateLabel_6->setText("7号: 断开");
+    }
 
-//    if(board->din & (0x01<<7)) {
-//        ui->ioStateLabel_8->setText("闭合");
-//    } else {
-//        ui->ioStateLabel_8->setText("断开");
-//    }
+    if(board->din & (0x01<<7)) {
+        ui->stateLabel_7->setText("8号: 闭合");
+    } else {
+        ui->stateLabel_7->setText("8号: 断开");
+    }
 }
 
 void MainWindow::configLineChart()
@@ -373,7 +376,7 @@ void MainWindow::configLineChart()
     this->axisX = new QValueAxis();//轴变量、数据系列变量，都不能声明为局部临时变量
     this->axisY = new QValueAxis();//创建X/Y轴
     axisX->setRange(0, 100); //设置X/Y显示的区间
-    axisY->setRange(0, 5);
+    axisY->setRange(-0.3, 5.3);
     chart->setAxisX(axisX);
     chart->setAxisY(axisY); //设置chart的坐标轴
     series->attachAxis(axisX); //连接数据集与坐标轴。特别注意：如果不连接，那么坐标轴和数据集的尺度就不相同

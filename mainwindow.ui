@@ -115,7 +115,7 @@
    <widget class="QCheckBox" name="relayCheckBox_1">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>130</x>
       <y>440</y>
       <width>71</width>
       <height>19</height>
@@ -128,7 +128,7 @@
    <widget class="QCheckBox" name="relayCheckBox_2">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>210</x>
       <y>440</y>
       <width>71</width>
       <height>19</height>
@@ -141,7 +141,7 @@
    <widget class="QCheckBox" name="relayCheckBox_3">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>290</x>
       <y>440</y>
       <width>71</width>
       <height>19</height>
@@ -154,7 +154,7 @@
    <widget class="QCheckBox" name="relayCheckBox_4">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>370</x>
       <y>440</y>
       <width>71</width>
       <height>19</height>
@@ -167,7 +167,7 @@
    <widget class="QCheckBox" name="relayCheckBox_5">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>450</x>
       <y>440</y>
       <width>71</width>
       <height>19</height>
@@ -180,7 +180,7 @@
    <widget class="QCheckBox" name="relayCheckBox_6">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>530</x>
       <y>440</y>
       <width>71</width>
       <height>19</height>
@@ -193,7 +193,7 @@
    <widget class="QCheckBox" name="relayCheckBox_7">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>610</x>
       <y>440</y>
       <width>71</width>
       <height>19</height>
@@ -203,10 +203,10 @@
      <string>继电器</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="relayCheckBox_8">
+   <widget class="QCheckBox" name="relayCheckBox_0">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>50</x>
       <y>440</y>
       <width>71</width>
       <height>19</height>
@@ -232,7 +232,7 @@
    <widget class="QPushButton" name="relayButton_1">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>130</x>
       <y>390</y>
       <width>71</width>
       <height>28</height>
@@ -245,7 +245,7 @@
    <widget class="QPushButton" name="relayButton_2">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>210</x>
       <y>390</y>
       <width>71</width>
       <height>28</height>
@@ -258,7 +258,7 @@
    <widget class="QPushButton" name="relayButton_3">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>290</x>
       <y>390</y>
       <width>71</width>
       <height>28</height>
@@ -271,7 +271,7 @@
    <widget class="QPushButton" name="relayButton_4">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>370</x>
       <y>390</y>
       <width>71</width>
       <height>28</height>
@@ -284,7 +284,7 @@
    <widget class="QPushButton" name="relayButton_5">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>450</x>
       <y>390</y>
       <width>71</width>
       <height>28</height>
@@ -297,7 +297,7 @@
    <widget class="QPushButton" name="relayButton_6">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>530</x>
       <y>390</y>
       <width>71</width>
       <height>28</height>
@@ -310,7 +310,7 @@
    <widget class="QPushButton" name="relayButton_7">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>610</x>
       <y>390</y>
       <width>71</width>
       <height>28</height>
@@ -320,10 +320,10 @@
      <string>闭合</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="relayButton_8">
+   <widget class="QPushButton" name="relayButton_0">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>50</x>
       <y>390</y>
       <width>71</width>
       <height>28</height>
@@ -395,17 +395,108 @@
      <string>sysTime</string>
     </property>
    </widget>
-   <widget class="QLabel" name="chartLabel">
+   <widget class="QLabel" name="stateLabel_0">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>190</y>
-      <width>291</width>
-      <height>151</height>
+      <x>70</x>
+      <y>220</y>
+      <width>71</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>1号: 状态</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="stateLabel_1">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>220</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>2号: 状态</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="stateLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>230</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>3号: 状态</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="stateLabel_3">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>230</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>4号: 状态</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="stateLabel_4">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>300</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>5号: 状态</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="stateLabel_5">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>290</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>6号: 状态</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="stateLabel_6">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>290</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>7号: 状态</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="stateLabel_7">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>290</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>8号: 状态</string>
     </property>
    </widget>
   </widget>

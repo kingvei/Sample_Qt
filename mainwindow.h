@@ -17,6 +17,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QValueAxis>
+#include <QLabel>
+#include <QPixmap>
 
 namespace Ui {
 class MainWindow;
@@ -39,7 +41,7 @@ public:
     void updateAdcChart();
     void updateCanData();
     void updateRs485Data();
-    void updateIoState();
+    void updateState();
 
 private slots:
     void on_tcpEstablishButton_clicked();
@@ -49,6 +51,8 @@ private slots:
     void on_setAllRelayButton_clicked();
 
     void on_runSystemButton_clicked();
+
+    void on_relayButton_0_clicked();
 
     void on_relayButton_1_clicked();
 
@@ -63,8 +67,6 @@ private slots:
     void on_relayButton_6_clicked();
 
     void on_relayButton_7_clicked();
-
-    void on_relayButton_8_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -84,6 +86,9 @@ private:
     QGraphicsView *graphView;
     QValueAxis *axisX;
     QValueAxis *axisY;
+
+    QPixmap ledOnImg;
+    QPixmap ledOffImg;
 signals:
     void sendCmdSignal(QByteArray cmd);
 };

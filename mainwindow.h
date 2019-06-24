@@ -4,8 +4,18 @@
 #include <QMainWindow>
 #include "tcpclient.h"
 #include "bsp.h"
+#include <QTextBrowser>
+#include <QScrollBar>
+#include "crc16.h"
 #include <QThread>
+#include <QTime>
+#include <QtMath>
 #include <QTimer>
+#include <QLineSeries>
+#include <QtCharts>
+#include <QChartView>
+#include <QGraphicsScene>
+
 
 namespace Ui {
 class MainWindow;
@@ -63,8 +73,11 @@ private:
     SampleBoard *board;
     TcpClient *tcpClient;
     QThread *thread;
-
     QTimer *timer;
+
+    QLineSeries *series;
+    QChart *chart;
+    QChartView *chartView;
 signals:
     void sendCmdSignal(QByteArray cmd);
 };

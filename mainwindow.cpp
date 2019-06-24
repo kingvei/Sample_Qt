@@ -1,17 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QTextBrowser>
-#include <QScrollBar>
-#include "crc16.h"
-#include <QThread>
-#include <QTime>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->srvIPLineEdit->setText("192.168.1.104"); //服务器默认IP
+    ui->srvIPLineEdit->setText("192.168.1.105"); //服务器默认IP
     ui->srvPortLineEdit->setText("5000"); //服务器默认端口
     ui->tcpEstablishButton->setText("连接");
     ui->tcpSendButton->setEnabled(false);
@@ -33,10 +28,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->timer = new QTimer;
     this->timer->start(20);
-
     connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
     connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
+
+    this->series = new QLineSeries;
+    this->chart = new QChart();
+    this->chartView = new QChartView(chart);
 }
 
 MainWindow::~MainWindow()
@@ -60,19 +58,30 @@ void MainWindow::on_tcpEstablishButton_clicked()
     srvIP = ui->srvIPLineEdit->text();
     srvPort = ui->srvPortLineEdit->text();
     tcpClient->establish(srvIP, srvPort);
-    if(tcpClient->status == false)
-        return;
 
-    if(ui->tcpEstablishButton->text() == tr("连接"))
+    connect(tcpClient->tcpSocket, &QTcpSocket::connected, [=]
     {
         ui->tcpEstablishButton->setText("断开");
         ui->tcpSendButton->setEnabled(true);
-    }
-    else
+    });
+
+    connect(tcpClient->tcpSocket, &QTcpSocket::disconnected, [=]
     {
         ui->tcpEstablishButton->setText("连接");
         ui->tcpSendButton->setEnabled(false);
-    }
+    });
+//    if(ui->tcpEstablishButton->text() == tr("连接"))
+//    {
+//        if(tcpClient->status == false) //未连接成功
+//            return;
+//        ui->tcpEstablishButton->setText("断开");
+//        ui->tcpSendButton->setEnabled(true);
+//    }
+//    else
+//    {
+//        ui->tcpEstablishButton->setText("连接");
+//        ui->tcpSendButton->setEnabled(false);
+//    }
 }
 
 void MainWindow::on_tcpSendButton_clicked()
@@ -271,15 +280,33 @@ void MainWindow::updateUI()
                 + QString::number(time.hour())+ ":" + QString::number(time.minute()) + ":" + QString::number(time.second());
     ui->sysTimeLabel->setText(sysTime);
 
-    this->updateIoState();
-    this->updateAdcChart();
-    this->updateCanData();
-    this->updateRs485Data();
+//    this->updateIoState();
+//    this->updateAdcChart();
+//    this->updateCanData();
+//    this->updateRs485Data();
 }
 
 void MainWindow::updateAdcChart()
 {
-    //for(int i=0; i<)
+    //构建图表的数据源
+    series->clear();
+    for(int i=0; i<100; i++) //todo
+    {
+        series->append(i, 10*qSin(i*3.14159/20.0));
+    }
+
+    //构建图表
+    chart->removeAllSeries();
+    chart->legend()->hide(); //隐藏图例
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->setTitle("ADC");
+
+    //构建 QChartView，并设置抗锯齿、标题、大小
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->setWindowTitle("ADC通道1");
+    chartView->resize(400, 300);
+    chartView->show();
 }
 
 void MainWindow::updateCanData()

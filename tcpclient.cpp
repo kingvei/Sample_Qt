@@ -6,6 +6,9 @@ TcpClient::TcpClient()
     this->status = false;
     tcpSocket = new QTcpSocket;//(this);
     srvIP = new QHostAddress;
+
+    connect(tcpSocket, &QTcpSocket::connected, [=]{status = true;});
+    connect(tcpSocket, &QTcpSocket::disconnected, [=]{status = false;});
 }
 
 TcpClient::~TcpClient()

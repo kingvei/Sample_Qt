@@ -8,7 +8,9 @@
 #include <QScrollBar>
 #include "crc16.h"
 #include <QThread>
+#include <QDate>
 #include <QTime>
+#include <QDateTime>
 #include <QtMath>
 #include <QTimer>
 #include <QLineSeries>
@@ -70,6 +72,8 @@ private slots:
     void on_relayButton_7_clicked();
 
     void on_resetSystemButton_clicked();
+
+    void on_calibrateTimeButton_clicked();
 
 private:
     Ui::MainWindow *ui;

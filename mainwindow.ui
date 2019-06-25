@@ -212,7 +212,7 @@
       <x>20</x>
       <y>10</y>
       <width>371</width>
-      <height>141</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="title">
@@ -290,40 +290,17 @@
       <x>20</x>
       <y>150</y>
       <width>361</width>
-      <height>181</height>
+      <height>201</height>
      </rect>
     </property>
     <property name="title">
      <string>状态</string>
     </property>
-    <widget class="QLineEdit" name="rtcLineEdit">
-     <property name="geometry">
-      <rect>
-       <x>187</x>
-       <y>12</y>
-       <width>171</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>136</x>
-       <y>19</y>
-       <width>41</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>RTC</string>
-     </property>
-    </widget>
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>50</y>
+       <y>78</y>
        <width>361</width>
        <height>61</height>
       </rect>
@@ -363,7 +340,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>110</y>
+       <y>138</y>
        <width>361</width>
        <height>61</height>
       </rect>
@@ -398,6 +375,29 @@
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QPushButton" name="calibrateTimeButton">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>30</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>校准时间</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="rtcLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget_3">
@@ -676,19 +676,19 @@
    <widget class="QLabel" name="sysTimeLabel">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>30</x>
       <y>500</y>
-      <width>151</width>
+      <width>141</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>sysTime</string>
+     <string>localTime</string>
     </property>
    </widget>
+   <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
    <zorder>groupBox_3</zorder>
-   <zorder>groupBox_2</zorder>
    <zorder>tabWidget</zorder>
    <zorder>srvIPLineEdit</zorder>
    <zorder>srvPortLineEdit</zorder>

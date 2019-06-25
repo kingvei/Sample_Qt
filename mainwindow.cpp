@@ -106,30 +106,7 @@ void MainWindow::dealClose()
 //    this->graphView->close();
 }
 
-/*
- * 使用checkbox复选框设置所有继电器状态
- */
-void MainWindow::on_setAllRelayButton_clicked()
-{
-    quint8 num = 0;
-    if(ui->relayCheckBox_0->isChecked()) num += 0x01;
-    if(ui->relayCheckBox_1->isChecked()) num += 0x01 << 1;
-    if(ui->relayCheckBox_2->isChecked()) num += 0x01 << 2;
-    if(ui->relayCheckBox_3->isChecked()) num += 0x01 << 3;
-    if(ui->relayCheckBox_4->isChecked()) num += 0x01 << 4;
-    if(ui->relayCheckBox_5->isChecked()) num += 0x01 << 5;
-    if(ui->relayCheckBox_6->isChecked()) num += 0x01 << 6;
-    if(ui->relayCheckBox_7->isChecked()) num += 0x01 << 7;
 
-    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x02, (char)num, (char)0xF0, (char)0xFC, '\0'};
-    quint16 crc = crc16(buf+4, 4);
-    buf[2] = (char)(crc & 0xFF);
-    buf[3] = (char)(crc >> 8);
-
-    QByteArray cmd = QByteArray::fromRawData(buf, 8);
-    emit sendCmdSignal(cmd);
-    tcpClient->send(cmd);
-}
 
 /*
  * 运行系统
@@ -156,11 +133,51 @@ void MainWindow::on_runSystemButton_clicked()
     tcpClient->send(cmd);
 }
 
-
 void MainWindow::on_resetSystemButton_clicked()
 {
     char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x03, (char)0x03, (char)0xF0, (char)0xFC, '\0'};
 
+    quint16 crc = crc16(buf+4, 4);
+    buf[2] = (char)(crc & 0xFF);
+    buf[3] = (char)(crc >> 8);
+
+    QByteArray cmd = QByteArray::fromRawData(buf, 8);
+    emit sendCmdSignal(cmd);
+    tcpClient->send(cmd);
+}
+
+void MainWindow::on_calibrateTimeButton_clicked()
+{
+    QDate newDate = QDate::currentDate();
+    QTime newTime = QTime::currentTime();
+    char buf[15] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x04, (char)(newDate.year()-2000), (char)newDate.month(), (char)newDate.day(), (char)newDate.dayOfWeek(),
+                    (char)newTime.hour(), (char)newTime.minute(), (char)newTime.second(), (char)0xF0, (char)0xFC, '\0'};
+
+    quint16 crc = crc16(buf+4, 10);
+    buf[2] = (char)(crc & 0xFF);
+    buf[3] = (char)(crc >> 8);
+
+    QByteArray cmd = QByteArray::fromRawData(buf, 14);
+    emit sendCmdSignal(cmd);
+    tcpClient->send(cmd);
+}
+
+/*
+ * 使用checkbox复选框设置所有继电器状态
+ */
+void MainWindow::on_setAllRelayButton_clicked()
+{
+    quint8 num = 0;
+    if(ui->relayCheckBox_0->isChecked()) num += 0x01;
+    if(ui->relayCheckBox_1->isChecked()) num += 0x01 << 1;
+    if(ui->relayCheckBox_2->isChecked()) num += 0x01 << 2;
+    if(ui->relayCheckBox_3->isChecked()) num += 0x01 << 3;
+    if(ui->relayCheckBox_4->isChecked()) num += 0x01 << 4;
+    if(ui->relayCheckBox_5->isChecked()) num += 0x01 << 5;
+    if(ui->relayCheckBox_6->isChecked()) num += 0x01 << 6;
+    if(ui->relayCheckBox_7->isChecked()) num += 0x01 << 7;
+
+    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x02, (char)num, (char)0xF0, (char)0xFC, '\0'};
     quint16 crc = crc16(buf+4, 4);
     buf[2] = (char)(crc & 0xFF);
     buf[3] = (char)(crc >> 8);

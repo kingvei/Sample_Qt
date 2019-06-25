@@ -44,6 +44,17 @@ MainWindow::~MainWindow()
     delete ui;
     delete tcpClient;
     delete board;
+    delete timer;
+
+    delete this->graphView;
+    delete this->graphScene;
+    for(int i=0; i<ADC_CH_NUM; i++)
+    {
+        delete this->axisX[i];
+        delete this->axisY[i];
+        delete this->chart[i];
+        delete this->series[i];
+    }
 }
 
 void MainWindow::processTcpReceivedMsg(QByteArray msg)
@@ -348,64 +359,12 @@ void MainWindow::updateAdcChart()
 {
     static int x=0;
     x++;
-//    for(int i=0; i<8; i++)
-//    {
-//        series[i]->clear();
-//        for(int i=0; i<100; i++)
-//        {
-//            series[i]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-//        }
-//    }
 
-//    for(int k=0; k<5; k++)
-//    {
-//        series[k]->clear();
-//        for(int i=0; i<100; i++)
-//            this->series[k]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-//    }
-
-    series[0]->clear();
-    for(int i=0; i<100; i++)
+    for(int k=0; k<ADC_CH_NUM; k++)
     {
-        series[0]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-    }
-
-    series[1]->clear();
-    for(int i=0; i<100; i++)
-    {
-        series[1]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-    }
-
-    series[2]->clear();
-    for(int i=0; i<100; i++)
-    {
-        series[2]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-    }
-
-    series[3]->clear();
-    for(int i=0; i<100; i++)
-    {
-        series[3]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-    }
-
-//    series[4]->clear();
-//    for(int i=0; i<100; i++)
-//    {
-//        series[4]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-//    }
-
-//    series[5]->clear();
-//    for(int i=0; i<100; i++)
-//    {
-//        series[5]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-//    }
-
-
-
-    series1->clear();
-    for(int i=0; i<100; i++)
-    {
-        series1->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
+        series[k]->clear();
+        for(int i=0; i<100; i++)
+            this->series[k]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
     }
 }
 
@@ -419,9 +378,7 @@ void MainWindow::configLineChart()
     graphView->setSceneRect(0, 0, 1630, 1280);
     graphScene->setBackgroundBrush(QBrush(QColor(240, 240, 240)));
 
-    this->series.resize(8);
-    this->chart.resize(8);
-    for(int i=0; i<8; i++)
+    for(int i=0; i<ADC_CH_NUM; i++)
     {
         this->series[i] = new QLineSeries;
         this->chart[i] = new QChart();
@@ -429,32 +386,14 @@ void MainWindow::configLineChart()
         chart[i]->addSeries(series[i]);
         chart[i]->createDefaultAxes();
         chart[i]->setTitle("Simple line chart example");
-        chart[i]->setGeometry(300*i+10, 10, 300, 260);
+
+        if(i<4)
+            chart[i]->setGeometry(300*i+10, 10, 300, 260);
+        else
+            chart[i]->setGeometry(300*(i-4)+10, 270, 300, 260);
     }
 
-    this->series1 = new QLineSeries;
-    this->chart1 = new QChart();
-    chart1->legend()->hide(); //隐藏图例
-    chart1->addSeries(series1);
-    chart1->createDefaultAxes();
-    chart1->setTitle("Simple line chart example");
-    chart1->setGeometry(300, 10, 300, 260);
-
-//    //设置坐标轴初始显示范围
-//    this->axisX = new QValueAxis();//轴变量、数据系列变量，都不能声明为局部临时变量
-//    this->axisY = new QValueAxis();//创建X/Y轴
-//    axisX->setRange(0, 100); //设置X/Y显示的区间
-//    axisY->setRange(-0.3, 5.3);
-
-//    for(int i=0; i<1; i++)
-//    {
-//        chart[i]->setAxisX(axisX);
-//        chart[i]->setAxisY(axisY); //设置chart的坐标轴
-//        series[i]->attachAxis(axisX); //连接数据集与坐标轴。特别注意：如果不连接，那么坐标轴和数据集的尺度就不相同
-//        series[i]->attachAxis(axisY);
-//    }
-
-    for(int i=0; i<5; i++)
+    for(int i=0; i<ADC_CH_NUM; i++)
     {
         //设置坐标轴初始显示范围
         this->axisX[i] = new QValueAxis();//轴变量、数据系列变量，都不能声明为局部临时变量
@@ -468,12 +407,7 @@ void MainWindow::configLineChart()
         series[i]->attachAxis(axisY[i]);
     }
 
-//    graphScene->addItem(chart[0]);
-//    graphScene->addItem(chart[1]);
-//    graphScene->addItem(chart[2]);
-//    graphScene->addItem(chart[3]);
-    for(int i=0; i<5; i++)
-    {
+    for(int i=0; i<ADC_CH_NUM; i++) {
         graphScene->addItem(chart[i]);
     }
 

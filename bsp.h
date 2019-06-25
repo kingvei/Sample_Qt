@@ -6,6 +6,7 @@
 
 #define MIN_FRAME_SIZE  18
 #define PACKET_CAN_SIZE 15
+#define ADC_CH_NUM      8
 struct RTC
 {
     int year;

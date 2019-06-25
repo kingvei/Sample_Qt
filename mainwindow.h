@@ -80,20 +80,20 @@ private:
     QThread *thread;
     QTimer *timer;
 
-    QVector<QLineSeries*> series;
-    QVector<QChart*> chart;
+//    QVector<QLineSeries*> series;
+//    QVector<QChart*> chart;
 //    QVector<QValueAxis*> axisX;
 //    QVector<QValueAxis*> axisY;
-    QValueAxis *axisX[8];
-    QValueAxis *axisY[8];
-    QLineSeries *series1;
-    QChart *chart1;
+    QLineSeries * series[ADC_CH_NUM];
+    QChart * chart[ADC_CH_NUM];
+    QValueAxis *axisX[ADC_CH_NUM];
+    QValueAxis *axisY[ADC_CH_NUM];
 
     QGraphicsScene *graphScene;
     QGraphicsView *graphView;
 
-    QPixmap ledOnImg;
-    QPixmap ledOffImg;
+//    QPixmap ledOnImg;
+//    QPixmap ledOffImg;
 signals:
     void sendCmdSignal(QByteArray cmd);
 };

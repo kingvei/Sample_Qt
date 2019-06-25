@@ -19,6 +19,7 @@
 #include <QValueAxis>
 #include <QLabel>
 #include <QPixmap>
+#include <QVector>
 
 namespace Ui {
 class MainWindow;
@@ -79,13 +80,17 @@ private:
     QThread *thread;
     QTimer *timer;
 
-    QLineSeries *series;
-    QChart *chart;
-    //QChartView *chartView;
+    QVector<QLineSeries*> series;
+    QVector<QChart*> chart;
+//    QVector<QValueAxis*> axisX;
+//    QVector<QValueAxis*> axisY;
+    QValueAxis *axisX[8];
+    QValueAxis *axisY[8];
+    QLineSeries *series1;
+    QChart *chart1;
+
     QGraphicsScene *graphScene;
     QGraphicsView *graphView;
-    QValueAxis *axisX;
-    QValueAxis *axisY;
 
     QPixmap ledOnImg;
     QPixmap ledOffImg;

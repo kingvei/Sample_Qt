@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>839</width>
-    <height>540</height>
+    <width>875</width>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,48 +23,28 @@
    <widget class="QLineEdit" name="srvIPLineEdit">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>40</y>
-      <width>113</width>
-      <height>21</height>
+      <x>90</x>
+      <y>30</y>
+      <width>161</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QLineEdit" name="srvPortLineEdit">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>90</x>
       <y>80</y>
-      <width>113</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="tcpSendText">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>40</y>
-      <width>171</width>
-      <height>111</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="tcpRecvText">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>40</y>
-      <width>191</width>
-      <height>111</height>
+      <width>161</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="tcpEstablishButton">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>40</y>
+      <x>280</x>
+      <y>30</y>
       <width>92</width>
       <height>28</height>
      </rect>
@@ -73,153 +53,10 @@
      <string>连接</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="tcpSendButton">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>160</y>
-      <width>92</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>发送</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>41</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>IP</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>41</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Port</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="relayCheckBox_1">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>440</y>
-      <width>71</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>继电器</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="relayCheckBox_2">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>440</y>
-      <width>71</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>继电器</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="relayCheckBox_3">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>440</y>
-      <width>71</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>继电器</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="relayCheckBox_4">
-    <property name="geometry">
-     <rect>
-      <x>370</x>
-      <y>440</y>
-      <width>71</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>继电器</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="relayCheckBox_5">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>440</y>
-      <width>71</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>继电器</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="relayCheckBox_6">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>440</y>
-      <width>71</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>继电器</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="relayCheckBox_7">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>440</y>
-      <width>71</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>继电器</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="relayCheckBox_0">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>440</y>
-      <width>71</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>继电器</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="runSystemButton">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>280</x>
       <y>80</y>
       <width>92</width>
       <height>28</height>
@@ -229,164 +66,605 @@
      <string>启动系统</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="relayButton_1">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>390</y>
-      <width>71</width>
-      <height>28</height>
+      <x>409</x>
+      <y>10</y>
+      <width>461</width>
+      <height>350</height>
      </rect>
     </property>
-    <property name="text">
-     <string>闭合</string>
+    <property name="currentIndex">
+     <number>4</number>
     </property>
+    <widget class="QWidget" name="can1Tab">
+     <attribute name="title">
+      <string>CAN1</string>
+     </attribute>
+     <widget class="QTextBrowser" name="can1Text">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>0</y>
+        <width>500</width>
+        <height>270</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>290</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>接收：0 Bytes</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="can2Tab">
+     <attribute name="title">
+      <string>CAN2</string>
+     </attribute>
+     <widget class="QTextBrowser" name="can2Text">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>0</y>
+        <width>500</width>
+        <height>270</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>290</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>接收：0 Bytes</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="rs485Tab">
+     <attribute name="title">
+      <string>RS485</string>
+     </attribute>
+     <widget class="QTextBrowser" name="rs485Text">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>0</y>
+        <width>500</width>
+        <height>270</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>290</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>接收：0 Bytes</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="recvTab">
+     <attribute name="title">
+      <string>接收区</string>
+     </attribute>
+     <widget class="QTextEdit" name="tcpRecvText">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>0</y>
+        <width>500</width>
+        <height>270</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>290</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>接收：0 Bytes</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="sendTab">
+     <attribute name="title">
+      <string>发送区</string>
+     </attribute>
+     <widget class="QTextEdit" name="tcpSendText">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>0</y>
+        <width>500</width>
+        <height>270</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="tcpSendButton">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>278</y>
+        <width>121</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>发送</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>290</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>发送：0 Bytes</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
-   <widget class="QPushButton" name="relayButton_2">
+   <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>390</y>
-      <width>71</width>
-      <height>28</height>
+      <x>20</x>
+      <y>10</y>
+      <width>371</width>
+      <height>121</height>
      </rect>
     </property>
-    <property name="text">
-     <string>闭合</string>
+    <property name="title">
+     <string>连接</string>
     </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>30</y>
+       <width>21</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IP</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>22</x>
+       <y>76</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Port</string>
+     </property>
+    </widget>
    </widget>
-   <widget class="QPushButton" name="relayButton_3">
+   <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>390</y>
-      <width>71</width>
-      <height>28</height>
+      <x>20</x>
+      <y>150</y>
+      <width>361</width>
+      <height>181</height>
      </rect>
     </property>
-    <property name="text">
-     <string>闭合</string>
+    <property name="title">
+     <string>状态</string>
     </property>
+    <widget class="QLineEdit" name="rtcLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>187</x>
+       <y>12</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>136</x>
+       <y>19</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>RTC</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>361</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="stateLabel_0">
+        <property name="text">
+         <string>DIN1: 状态</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="stateLabel_1">
+        <property name="text">
+         <string>DIN2: 状态</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="stateLabel_2">
+        <property name="text">
+         <string>DIN3: 状态</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="stateLabel_3">
+        <property name="text">
+         <string>DIN4: 状态</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>110</y>
+       <width>361</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="stateLabel_4">
+        <property name="text">
+         <string>DIN5: 状态</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="stateLabel_5">
+        <property name="text">
+         <string>DIN6: 状态</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="stateLabel_6">
+        <property name="text">
+         <string>DIN7: 状态</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="stateLabel_7">
+        <property name="text">
+         <string>DIN8: 状态</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
-   <widget class="QPushButton" name="relayButton_4">
+   <widget class="QWidget" name="horizontalLayoutWidget_3">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>390</y>
-      <width>71</width>
-      <height>28</height>
+      <x>30</x>
+      <y>385</y>
+      <width>801</width>
+      <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>闭合</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QPushButton" name="relayButton_0">
+       <property name="text">
+        <string>闭合1</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="relayButton_1">
+       <property name="text">
+        <string>闭合2</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="relayButton_2">
+       <property name="text">
+        <string>闭合3</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="relayButton_3">
+       <property name="text">
+        <string>闭合4</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="relayButton_4">
+       <property name="text">
+        <string>闭合5</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="relayButton_5">
+       <property name="text">
+        <string>闭合6</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="relayButton_6">
+       <property name="text">
+        <string>闭合7</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_8">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="relayButton_7">
+       <property name="text">
+        <string>闭合8</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QPushButton" name="relayButton_5">
+   <widget class="QWidget" name="horizontalLayoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>390</y>
-      <width>71</width>
-      <height>28</height>
+      <x>30</x>
+      <y>435</y>
+      <width>801</width>
+      <height>51</height>
      </rect>
     </property>
-    <property name="text">
-     <string>闭合</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <spacer name="horizontalSpacer_9">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="relayCheckBox_0">
+       <property name="text">
+        <string>继电器1</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="relayCheckBox_1">
+       <property name="text">
+        <string>继电器2</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="relayCheckBox_2">
+       <property name="text">
+        <string>继电器3</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="relayCheckBox_3">
+       <property name="text">
+        <string>继电器4</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="relayCheckBox_4">
+       <property name="text">
+        <string>继电器5</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="relayCheckBox_5">
+       <property name="text">
+        <string>继电器6</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="relayCheckBox_6">
+       <property name="text">
+        <string>继电器7</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="relayCheckBox_7">
+       <property name="text">
+        <string>继电器8</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="setAllRelayButton">
+       <property name="text">
+        <string>控制所有继电器</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QPushButton" name="relayButton_6">
+   <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>390</y>
-      <width>71</width>
-      <height>28</height>
+      <x>17</x>
+      <y>360</y>
+      <width>841</width>
+      <height>131</height>
      </rect>
     </property>
-    <property name="text">
-     <string>闭合</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="relayButton_7">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>390</y>
-      <width>71</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>闭合</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="relayButton_0">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>390</y>
-      <width>71</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>闭合</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>20</y>
-      <width>72</width>
-      <height>15</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>发送区</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>20</y>
-      <width>72</width>
-      <height>15</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>接收区</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="setAllRelayButton">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>430</y>
-      <width>121</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>控制所有继电器</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="rtcLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>130</y>
-      <width>113</width>
-      <height>21</height>
-     </rect>
+    <property name="title">
+     <string>控制</string>
     </property>
    </widget>
    <widget class="QLabel" name="sysTimeLabel">
     <property name="geometry">
      <rect>
-      <x>661</x>
-      <y>10</y>
+      <x>20</x>
+      <y>500</y>
       <width>151</width>
       <height>20</height>
      </rect>
@@ -395,117 +673,24 @@
      <string>sysTime</string>
     </property>
    </widget>
-   <widget class="QLabel" name="stateLabel_0">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>220</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>1号: 状态</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="stateLabel_1">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>220</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>2号: 状态</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="stateLabel_2">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>230</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>3号: 状态</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="stateLabel_3">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>230</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>4号: 状态</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="stateLabel_4">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>300</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>5号: 状态</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="stateLabel_5">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>290</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>6号: 状态</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="stateLabel_6">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>290</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>7号: 状态</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="stateLabel_7">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>290</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>8号: 状态</string>
-    </property>
-   </widget>
+   <zorder>groupBox_3</zorder>
+   <zorder>groupBox_2</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>tabWidget</zorder>
+   <zorder>srvIPLineEdit</zorder>
+   <zorder>srvPortLineEdit</zorder>
+   <zorder>tcpEstablishButton</zorder>
+   <zorder>runSystemButton</zorder>
+   <zorder>horizontalLayoutWidget_3</zorder>
+   <zorder>horizontalLayoutWidget_4</zorder>
+   <zorder>sysTimeLabel</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>839</width>
+     <width>875</width>
      <height>26</height>
     </rect>
    </property>

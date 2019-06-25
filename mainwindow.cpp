@@ -173,12 +173,12 @@ inline void MainWindow::setSingleRelay(quint8 a)
 void MainWindow::on_relayButton_0_clicked()
 {
     quint8 res = 0;
-    if(ui->relayButton_0->text() == tr("闭合")){
+    if(ui->relayButton_0->text() == tr("闭合1")){
         res = 0x80;
-        ui->relayButton_0->setText(tr("断开"));
+        ui->relayButton_0->setText(tr("断开1"));
     }else{
         res = 0x40;
-        ui->relayButton_0->setText(tr("闭合"));
+        ui->relayButton_0->setText(tr("闭合1"));
     }
     this->setSingleRelay(res);
 }
@@ -186,12 +186,12 @@ void MainWindow::on_relayButton_0_clicked()
 void MainWindow::on_relayButton_1_clicked()
 {
     quint8 res = 0;
-    if(ui->relayButton_1->text() == tr("闭合")){
+    if(ui->relayButton_1->text() == tr("闭合2")){
         res = 0x81;
-        ui->relayButton_1->setText(tr("断开"));
+        ui->relayButton_1->setText(tr("断开2"));
     }else{
         res = 0x41;
-        ui->relayButton_1->setText(tr("闭合"));
+        ui->relayButton_1->setText(tr("闭合2"));
     }
     this->setSingleRelay(res);
 }
@@ -199,12 +199,12 @@ void MainWindow::on_relayButton_1_clicked()
 void MainWindow::on_relayButton_2_clicked()
 {
     quint8 res = 0;
-    if(ui->relayButton_2->text() == tr("闭合")){
+    if(ui->relayButton_2->text() == tr("闭合3")){
         res = 0x82;
-        ui->relayButton_2->setText(tr("断开"));
+        ui->relayButton_2->setText(tr("断开3"));
     }else{
         res = 0x42;
-        ui->relayButton_2->setText(tr("闭合"));
+        ui->relayButton_2->setText(tr("闭合3"));
     }
     this->setSingleRelay(res);
 }
@@ -212,12 +212,12 @@ void MainWindow::on_relayButton_2_clicked()
 void MainWindow::on_relayButton_3_clicked()
 {
     quint8 res = 0;
-    if(ui->relayButton_3->text() == tr("闭合")){
+    if(ui->relayButton_3->text() == tr("闭合4")){
         res = 0x83;
-        ui->relayButton_3->setText(tr("断开"));
+        ui->relayButton_3->setText(tr("断开4"));
     }else{
         res = 0x43;
-        ui->relayButton_3->setText(tr("闭合"));
+        ui->relayButton_3->setText(tr("闭合4"));
     }
     this->setSingleRelay(res);
 }
@@ -225,12 +225,12 @@ void MainWindow::on_relayButton_3_clicked()
 void MainWindow::on_relayButton_4_clicked()
 {
     quint8 res = 0;
-    if(ui->relayButton_4->text() == tr("闭合")){
+    if(ui->relayButton_4->text() == tr("闭合5")){
         res = 0x84;
-        ui->relayButton_4->setText(tr("断开"));
+        ui->relayButton_4->setText(tr("断开5"));
     }else{
         res = 0x44;
-        ui->relayButton_4->setText(tr("闭合"));
+        ui->relayButton_4->setText(tr("闭合5"));
     }
     this->setSingleRelay(res);
 }
@@ -238,12 +238,12 @@ void MainWindow::on_relayButton_4_clicked()
 void MainWindow::on_relayButton_5_clicked()
 {
     quint8 res = 0;
-    if(ui->relayButton_5->text() == tr("闭合")){
+    if(ui->relayButton_5->text() == tr("闭合6")){
         res = 0x85;
-        ui->relayButton_5->setText(tr("断开"));
+        ui->relayButton_5->setText(tr("断开6"));
     }else{
         res = 0x45;
-        ui->relayButton_5->setText(tr("闭合"));
+        ui->relayButton_5->setText(tr("闭合6"));
     }
     this->setSingleRelay(res);
 }
@@ -251,12 +251,12 @@ void MainWindow::on_relayButton_5_clicked()
 void MainWindow::on_relayButton_6_clicked()
 {
     quint8 res = 0;
-    if(ui->relayButton_6->text() == tr("闭合")){
+    if(ui->relayButton_6->text() == tr("闭合7")){
         res = 0x86;
-        ui->relayButton_6->setText(tr("断开"));
+        ui->relayButton_6->setText(tr("断开7"));
     }else{
         res = 0x46;
-        ui->relayButton_6->setText(tr("闭合"));
+        ui->relayButton_6->setText(tr("闭合7"));
     }
     this->setSingleRelay(res);
 }
@@ -264,12 +264,12 @@ void MainWindow::on_relayButton_6_clicked()
 void MainWindow::on_relayButton_7_clicked()
 {
     quint8 res = 0;
-    if(ui->relayButton_7->text() == tr("闭合")){
+    if(ui->relayButton_7->text() == tr("闭合8")){
         res = 0x87;
-        ui->relayButton_7->setText(tr("断开"));
+        ui->relayButton_7->setText(tr("断开8"));
     }else{
         res = 0x47;
-        ui->relayButton_7->setText(tr("闭合"));
+        ui->relayButton_7->setText(tr("闭合8"));
     }
     this->setSingleRelay(res);
 }
@@ -306,51 +306,51 @@ void MainWindow::updateRs485Data()
 void MainWindow::updateState()
 {
     if(board->din & 0x01) {
-        ui->stateLabel_0->setText("1号: 闭合");
+        ui->stateLabel_0->setText("DIN1: 闭合");
     } else {
-        ui->stateLabel_0->setText("1号: 断开");
+        ui->stateLabel_0->setText("DIN1: 断开");
     }
 
     if(board->din & (0x01<<1)) {
-        ui->stateLabel_1->setText("2号: 闭合");
+        ui->stateLabel_1->setText("DIN2: 闭合");
     } else {
-        ui->stateLabel_1->setText("2号: 断开");
+        ui->stateLabel_1->setText("DIN2: 断开");
     }
 
     if(board->din & (0x01<<2)) {
-        ui->stateLabel_2->setText("3号: 闭合");
+        ui->stateLabel_2->setText("DIN3: 闭合");
     } else {
-        ui->stateLabel_2->setText("3号: 断开");
+        ui->stateLabel_2->setText("DIN3: 断开");
     }
 
     if(board->din & (0x01<<3)) {
-        ui->stateLabel_3->setText("4号: 闭合");
+        ui->stateLabel_3->setText("DIN4: 闭合");
     } else {
-        ui->stateLabel_3->setText("4号: 断开");
+        ui->stateLabel_3->setText("DIN4: 断开");
     }
 
     if(board->din & (0x01<<4)) {
-        ui->stateLabel_4->setText("5号: 闭合");
+        ui->stateLabel_4->setText("DIN5: 闭合");
     } else {
-        ui->stateLabel_4->setText("5号: 断开");
+        ui->stateLabel_4->setText("DIN5: 断开");
     }
 
     if(board->din & (0x01<<5)) {
-        ui->stateLabel_5->setText("6号: 闭合");
+        ui->stateLabel_5->setText("DIN6: 闭合");
     } else {
-        ui->stateLabel_5->setText("6号: 断开");
+        ui->stateLabel_5->setText("DIN6: 断开");
     }
 
     if(board->din & (0x01<<6)) {
-        ui->stateLabel_6->setText("7号: 闭合");
+        ui->stateLabel_6->setText("DIN7: 闭合");
     } else {
-        ui->stateLabel_6->setText("7号: 断开");
+        ui->stateLabel_6->setText("DIN7: 断开");
     }
 
     if(board->din & (0x01<<7)) {
-        ui->stateLabel_7->setText("8号: 闭合");
+        ui->stateLabel_7->setText("DIN8: 闭合");
     } else {
-        ui->stateLabel_7->setText("8号: 断开");
+        ui->stateLabel_7->setText("DIN8: 断开");
     }
 }
 
@@ -407,7 +407,7 @@ void MainWindow::configLineChart()
         series[i]->attachAxis(axisY[i]);
     }
 
-    for(int i=0; i<ADC_CH_NUM; i++) {
+    for(int i=0; i<ADC_CH_NUM; i++)  {
         graphScene->addItem(chart[i]);
     }
 

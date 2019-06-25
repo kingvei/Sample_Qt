@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //定时器，用于更新UI
     this->timer = new QTimer;
-    this->timer->start(500); //启动定时器
+    this->timer->start(20); //启动定时器
     connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
     this->configLineChart();
@@ -289,18 +289,51 @@ void MainWindow::updateUI()
 
     this->updateState();
     this->updateAdcChart();
-    this->updateCanData();
-    this->updateRs485Data();
+//    this->updateCanData();
+//    this->updateRs485Data();
 }
 
 void MainWindow::updateCanData()
 {
+    for(int i=0; i<board->can1Data.size(); i++)
+    {
+        QString str;
+        CanDataType can = board->can1Data[i];
+        if(can.ide == 0) str = "stdID: ";
+        else str = "ExtID: ";
+        str += QString::number(can.id, 10) + " ";
+        str += QString::fromRawData((const QChar*)can.data, can.dlc);
+//        for(int k=0; k<can.dlc; k++)
+//        {
+//            str += QString(char(can.data[k]));
+//        }
+        str += "\n";
 
+        ui->can1Text->moveCursor(QTextCursor::End);
+        ui->can1Text->insertPlainText(str);
+    }
+
+    for(int i=0; i<board->can2Data.size(); i++)
+    {
+        QString str;
+        CanDataType can = board->can2Data[i];
+        str += "ID: " + QString::number(can.id, 10) + " ";
+        for(int k=0; k<can.dlc; k++)
+        {
+            str += QString(char(can.data[k]));
+        }
+        str += "\n";
+
+        ui->can2Text->moveCursor(QTextCursor::End);
+        ui->can2Text->insertPlainText(str);
+    }
 }
 
 void MainWindow::updateRs485Data()
 {
-
+    QString str = QString(board->rs485Data);
+    ui->rs485Text->moveCursor(QTextCursor::End);
+    ui->rs485Text->insertPlainText(str);
 }
 
 void MainWindow::updateState()

@@ -24,8 +24,8 @@
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>30</y>
-      <width>161</width>
+      <y>25</y>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
@@ -34,36 +34,10 @@
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>80</y>
-      <width>161</width>
+      <y>64</y>
+      <width>151</width>
       <height>31</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="tcpEstablishButton">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>30</y>
-      <width>92</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>连接</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="runSystemButton">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>80</y>
-      <width>92</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>启动系统</string>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
@@ -238,7 +212,7 @@
       <x>20</x>
       <y>10</y>
       <width>371</width>
-      <height>121</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="title">
@@ -248,7 +222,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>30</y>
+       <y>25</y>
        <width>21</width>
        <height>16</height>
       </rect>
@@ -261,13 +235,52 @@
      <property name="geometry">
       <rect>
        <x>22</x>
-       <y>76</y>
+       <y>60</y>
        <width>41</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
       <string>Port</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="resetSystemButton">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>90</y>
+       <width>92</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>复位</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="runSystemButton">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>54</y>
+       <width>92</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>启动</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="tcpEstablishButton">
+     <property name="geometry">
+      <rect>
+       <x>261</x>
+       <y>20</y>
+       <width>92</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>连接</string>
      </property>
     </widget>
    </widget>
@@ -392,7 +405,7 @@
      <rect>
       <x>30</x>
       <y>385</y>
-      <width>801</width>
+      <width>836</width>
       <height>51</height>
      </rect>
     </property>
@@ -551,7 +564,7 @@
      <rect>
       <x>30</x>
       <y>435</y>
-      <width>801</width>
+      <width>802</width>
       <height>51</height>
      </rect>
     </property>
@@ -673,14 +686,12 @@
      <string>sysTime</string>
     </property>
    </widget>
+   <zorder>groupBox</zorder>
    <zorder>groupBox_3</zorder>
    <zorder>groupBox_2</zorder>
-   <zorder>groupBox</zorder>
    <zorder>tabWidget</zorder>
    <zorder>srvIPLineEdit</zorder>
    <zorder>srvPortLineEdit</zorder>
-   <zorder>tcpEstablishButton</zorder>
-   <zorder>runSystemButton</zorder>
    <zorder>horizontalLayoutWidget_3</zorder>
    <zorder>horizontalLayoutWidget_4</zorder>
    <zorder>sysTimeLabel</zorder>

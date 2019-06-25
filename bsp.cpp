@@ -12,29 +12,34 @@ SampleBoard::~SampleBoard()
 
 /*
  * @param: None
- * @ret: -1,消息长度小于最小帧长度
- *       -2，没有找到帧头
+ * @ret: 1,没有找到帧头或者帧尾
+ *       2,消息长度小于最小帧长度
  *       0,找到消息
  */
 int SampleBoard::decodeMsg(QByteArray msg)
 {
     int startPos = msg.indexOf(0xAA);
+    if(startPos == -1) //没有找到0xAA
+        return 1;
     if(msg.size()-startPos < MIN_FRAME_SIZE)
-        return -1;
-    if(startPos == -1)
-        return -2;
-    if((quint8)msg[startPos]!=0xAA || (quint8)msg[startPos+1]!=0xBB ||
-       (quint8)msg[startPos+2]!=0xCC || (quint8)msg[startPos+3]!=0xDD)
-        return -2;
+        return 2;
 
-    quint16 tmpLen = (quint8)msg[startPos+6] + ((quint8)msg[startPos+7]<<8);
+    if((quint8)msg[startPos]!=0xAA || (quint8)msg[startPos+1]!=0xBB || (quint8)msg[startPos+2]!=0xCC || (quint8)msg[startPos+3]!=0xDD)
+        return 1;
+
+    quint16 tmpLen = (quint8)msg[startPos+8] + ((quint8)msg[startPos+9]<<8);
     if(msg.size()-startPos < tmpLen)
-        return -1;
+        return 2;
+    if(((quint8)msg[startPos+tmpLen-2]!=0xF0) || ((quint8)msg[startPos+tmpLen-1]!=0xFC)) //没有找到帧尾
+        return 1;
 
-    int pos = 4;
-    this->num = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
+    //偏移地址[4][5]为CRC值。下位机预留位置，但是未计算CRC值。
+    //this->crc16 = (quint8)msg[4] + ((quint8)msg[5]<<8);
+
+    int pos = startPos + 6;
+    this->num = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8); //序号
     pos += 2;
-    this->len = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
+    this->len = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8); //数据包总长度
     pos += 2;
     this->adcLen = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
@@ -44,11 +49,10 @@ int SampleBoard::decodeMsg(QByteArray msg)
     pos += 2;
     this->rs485Len = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
     pos += 2;
-    //this->crc16 = (quint8)msg[pos] + ((quint8)msg[pos+1]<<8);
-    pos += 2;
     this->rtc.year = (quint8)msg[pos++] + 2000;
     this->rtc.month = (quint8)msg[pos++];
     this->rtc.day = (quint8)msg[pos++];
+    this->rtc.weekday = (quint8)msg[pos++];
     this->rtc.hour = (quint8)msg[pos++];
     this->rtc.minute = (quint8)msg[pos++];
     this->rtc.second = (quint8)msg[pos++];
@@ -74,7 +78,7 @@ int SampleBoard::decodeMsg(QByteArray msg)
     pos += adcLen;
 
     int can1Pos = pos;
-    for(int i=0; i<can1Len/15; i++)
+    for(int i=0; i<can1Len/PACKET_CAN_SIZE; i++)
     {
         CanDataType data;
         char *ptr = const_cast<char*>(msg.data()) + can1Pos;

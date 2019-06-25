@@ -69,6 +69,8 @@ private slots:
 
     void on_relayButton_7_clicked();
 
+    void on_resetSystemButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString srvIP;

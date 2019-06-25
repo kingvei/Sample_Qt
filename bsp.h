@@ -12,11 +12,12 @@ struct RTC
     int year;
     int month;
     int day;
+    int weekday; //Monday==1
     int hour;
     int minute;
     int second;
 
-    RTC(){year = month = day = hour = minute = second = 0;}
+    RTC(){year = month = day = weekday = hour = minute = second = 0;}
 };
 
 struct CanDataType

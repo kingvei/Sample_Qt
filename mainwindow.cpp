@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->srvPortLineEdit->setText("5000"); //服务器默认端口
     ui->tcpEstablishButton->setText("连接");
     ui->tcpSendButton->setEnabled(false);
-    ui->runSystemButton->setText(tr("启动系统"));
+    ui->runSystemButton->setText(tr("启动"));
     //ui->runSystemButton->setEnabled(false);
 
     this->setWindowTitle(tr("采集控制系统"));
@@ -62,8 +62,10 @@ void MainWindow::processTcpReceivedMsg(QByteArray msg)
     qDebug() << "MainWindow::processTcpReceivedMsg() threadID is :" << QThread::currentThreadId();
     board->decodeMsg(msg);
 
-    ui->tcpRecvText->moveCursor(QTextCursor::End);
-    ui->tcpRecvText->insertPlainText(msg);
+    //ui->tcpRecvText->moveCursor(QTextCursor::End);
+    //ui->tcpRecvText->insertPlainText(msg);
+    QString sysTime = QTime::currentTime().toString("hh:mm:ss");
+    ui->tcpRecvText->setText(sysTime + "  Receiving Board Data...\n");
 }
 
 void MainWindow::on_tcpEstablishButton_clicked()
@@ -135,15 +137,15 @@ void MainWindow::on_setAllRelayButton_clicked()
 void MainWindow::on_runSystemButton_clicked()
 {
     char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x03, 0, (char)0xF0, (char)0xFC, '\0'};
-    if(ui->runSystemButton->text() == tr("启动系统"))
+    if(ui->runSystemButton->text() == tr("启动"))
     {
         buf[5] = 0x01;
-        ui->runSystemButton->setText(tr("关闭系统"));
+        ui->runSystemButton->setText(tr("关闭"));
     }
     else
     {
         buf[5] = 0x02;
-        ui->runSystemButton->setText(tr("启动系统"));
+        ui->runSystemButton->setText(tr("启动"));
     }
     quint16 crc = crc16(buf+4, 4);
     buf[2] = (char)(crc & 0xFF);
@@ -154,6 +156,19 @@ void MainWindow::on_runSystemButton_clicked()
     tcpClient->send(cmd);
 }
 
+
+void MainWindow::on_resetSystemButton_clicked()
+{
+    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x03, (char)0x03, (char)0xF0, (char)0xFC, '\0'};
+
+    quint16 crc = crc16(buf+4, 4);
+    buf[2] = (char)(crc & 0xFF);
+    buf[3] = (char)(crc >> 8);
+
+    QByteArray cmd = QByteArray::fromRawData(buf, 8);
+    emit sendCmdSignal(cmd);
+    tcpClient->send(cmd);
+}
 
 /*
  * 设置单个继电器状态
@@ -461,3 +476,4 @@ void MainWindow::configLineChart()
     graphView->move(50, 50); //窗体移动到某个点
     graphView->show();
 }
+

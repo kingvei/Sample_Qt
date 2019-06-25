@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->srvIPLineEdit->setText("192.168.1.105"); //服务器默认IP
+    ui->srvIPLineEdit->setText("192.168.1.220"); //服务器默认IP
     ui->srvPortLineEdit->setText("5000"); //服务器默认端口
     ui->tcpEstablishButton->setText("连接");
     ui->tcpSendButton->setEnabled(false);
@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //定时器，用于更新UI
     this->timer = new QTimer;
-    this->timer->start(20); //启动定时器
+    this->timer->start(100); //启动定时器
     connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
     this->configLineChart();
@@ -60,7 +60,7 @@ MainWindow::~MainWindow()
 void MainWindow::processTcpReceivedMsg(QByteArray msg)
 {
     qDebug() << "MainWindow::processTcpReceivedMsg() threadID is :" << QThread::currentThreadId();
-    //board->decodeMsg(msg);
+    board->decodeMsg(msg);
 
     ui->tcpRecvText->moveCursor(QTextCursor::End);
     ui->tcpRecvText->insertPlainText(msg);
@@ -119,9 +119,9 @@ void MainWindow::on_setAllRelayButton_clicked()
     if(ui->relayCheckBox_6->isChecked()) num += 0x01 << 6;
     if(ui->relayCheckBox_7->isChecked()) num += 0x01 << 7;
 
-    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x02, (char)num, (char)0xFF, (char)0xFC, '\0'};
+    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x02, (char)num, (char)0xF0, (char)0xFC, '\0'};
     quint16 crc = crc16(buf+4, 4);
-    buf[2] = (char)(crc & 0x0F);
+    buf[2] = (char)(crc & 0xFF);
     buf[3] = (char)(crc >> 8);
 
     QByteArray cmd = QByteArray::fromRawData(buf, 8);
@@ -134,7 +134,7 @@ void MainWindow::on_setAllRelayButton_clicked()
  */
 void MainWindow::on_runSystemButton_clicked()
 {
-    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x03, 0, (char)0xFF, (char)0xFC, '\0'};
+    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x03, 0, (char)0xF0, (char)0xFC, '\0'};
     if(ui->runSystemButton->text() == tr("启动系统"))
     {
         buf[5] = 0x01;
@@ -146,7 +146,7 @@ void MainWindow::on_runSystemButton_clicked()
         ui->runSystemButton->setText(tr("启动系统"));
     }
     quint16 crc = crc16(buf+4, 4);
-    buf[2] = (char)(crc & 0x0F);
+    buf[2] = (char)(crc & 0xFF);
     buf[3] = (char)(crc >> 8);
 
     QByteArray cmd = QByteArray::fromRawData(buf, 8);
@@ -160,9 +160,9 @@ void MainWindow::on_runSystemButton_clicked()
  */
 inline void MainWindow::setSingleRelay(quint8 a)
 {
-    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x01, (char)a, (char)0xFF, (char)0xFC, '\0'};
+    char buf[9] = {(char)0xAA, (char)0xBB, 0, 0, (char)0x01, (char)a, (char)0xF0, (char)0xFC, '\0'};
     quint16 crc = crc16(buf+4, 4);
-    buf[2] = (char)(crc & 0x0F);
+    buf[2] = (char)(crc & 0xFF);
     buf[3] = (char)(crc >> 8);
 
     QByteArray cmd = QByteArray::fromRawData(buf, 8);
@@ -390,15 +390,29 @@ void MainWindow::updateState()
 
 void MainWindow::updateAdcChart()
 {
-    static int x=0;
-    x++;
+//    series[0]->clear();
+//    for(int i=0; i<100; i++)
+//        series[0]->append(i, board->adcData[0][i] * 5.0 / 65535);
 
-    for(int k=0; k<ADC_CH_NUM; k++)
-    {
-        series[k]->clear();
-        for(int i=0; i<100; i++)
-            this->series[k]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
-    }
+
+//    int chNum = board->adcData.size();
+//    int sampleTimes = board->adcData[0].size();
+//    for(int k=0; k<chNum; k++)
+//    {
+//        series[k]->clear();
+//        for(int i=0; i<sampleTimes; i++)
+//            series[k]->append(i, board->adcData[k][i] * 5.0 / 65535);
+//    }
+
+//    //正弦波测试数据
+//    static int x=0;
+//    x++;
+//    for(int k=0; k<ADC_CH_NUM; k++)
+//    {
+//        series[k]->clear();
+//        for(int i=0; i<100; i++)
+//            this->series[k]->append(i, 2.5+2.5*qSin(2*3.14159/(10.0*x)*i));
+//    }
 }
 
 void MainWindow::configLineChart()

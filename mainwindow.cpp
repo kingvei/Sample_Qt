@@ -309,14 +309,11 @@ void MainWindow::on_relayButton_7_clicked()
 void MainWindow::updateUI()
 {
     // update time
-    QString rtcTime = QString::number(board->rtc.year) + "-" + QString::number(board->rtc.month) + "-" + QString::number(board->rtc.day) + " "
-                + QString::number(board->rtc.hour)+ ":" + QString::number(board->rtc.minute) + ":" + QString::number(board->rtc.second);
+    QDate date(board->rtc.year, board->rtc.month, board->rtc.day);
+    QTime time(board->rtc.hour, board->rtc.minute, board->rtc.second);
+    QString rtcTime = date.toString("yyyy-MM-dd") + " " + time.toString("hh:mm:ss");
     ui->rtcLineEdit->setText(rtcTime);
-
-    QTime time = QTime::currentTime();
-    QDate date = QDate::currentDate();
-    QString sysTime = QString::number(date.year()) + "-" + QString::number(date.month()) + "-" + QString::number(date.day()) + " "
-                + QString::number(time.hour())+ ":" + QString::number(time.minute()) + ":" + QString::number(time.second());
+    QString sysTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     ui->sysTimeLabel->setText(sysTime);
 
     this->updateState();

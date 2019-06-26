@@ -34,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
     this->configLineChart();
-    this->board->din = 0xF0;
 
     connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
 }
@@ -367,53 +366,20 @@ void MainWindow::updateRs485Data()
 
 void MainWindow::updateState()
 {
+    static QLabel *label[8] = {
+        ui->stateLabel_0, ui->stateLabel_1, ui->stateLabel_2, ui->stateLabel_3,
+        ui->stateLabel_4, ui->stateLabel_5, ui->stateLabel_6, ui->stateLabel_7
+    };
+
     quint8 curState = board->din;
-    if(curState & 0x01) {
-        ui->stateLabel_0->setText("DIN1: 闭合");
-    } else {
-        ui->stateLabel_0->setText("DIN1: 断开");
-    }
-
-    if(curState & (0x01<<1)) {
-        ui->stateLabel_1->setText("DIN2: 闭合");
-    } else {
-        ui->stateLabel_1->setText("DIN2: 断开");
-    }
-
-    if(curState & (0x01<<2)) {
-        ui->stateLabel_2->setText("DIN3: 闭合");
-    } else {
-        ui->stateLabel_2->setText("DIN3: 断开");
-    }
-
-    if(curState & (0x01<<3)) {
-        ui->stateLabel_3->setText("DIN4: 闭合");
-    } else {
-        ui->stateLabel_3->setText("DIN4: 断开");
-    }
-
-    if(curState & (0x01<<4)) {
-        ui->stateLabel_4->setText("DIN5: 闭合");
-    } else {
-        ui->stateLabel_4->setText("DIN5: 断开");
-    }
-
-    if(curState & (0x01<<5)) {
-        ui->stateLabel_5->setText("DIN6: 闭合");
-    } else {
-        ui->stateLabel_5->setText("DIN6: 断开");
-    }
-
-    if(curState & (0x01<<6)) {
-        ui->stateLabel_6->setText("DIN7: 闭合");
-    } else {
-        ui->stateLabel_6->setText("DIN7: 断开");
-    }
-
-    if(curState & (0x01<<7)) {
-        ui->stateLabel_7->setText("DIN8: 闭合");
-    } else {
-        ui->stateLabel_7->setText("DIN8: 断开");
+    for(int i=0; i<8; i++)
+    {
+        QString str = "DIN" + QString::number(i+1) + ": ";
+        if(curState & (0x01<<i)) {
+            label[i]->setText(str + "闭合");
+        } else {
+            label[i]->setText(str + "断开");
+        }
     }
 }
 
@@ -457,7 +423,7 @@ void MainWindow::configLineChart()
     this->graphView = new QGraphicsView(graphScene);
     graphView->setWindowTitle("ADC数据");
     graphView->setRenderHint(QPainter::Antialiasing);
-    graphView->setSceneRect(0, 0, 1630, 1280);
+    graphView->setSceneRect(0, 0, 1300, 630);
     graphScene->setBackgroundBrush(QBrush(QColor(240, 240, 240)));
 
     for(int i=0; i<ADC_CH_NUM; i++)
@@ -467,12 +433,42 @@ void MainWindow::configLineChart()
         chart[i]->legend()->hide(); //隐藏图例
         chart[i]->addSeries(series[i]);
         chart[i]->createDefaultAxes();
-        chart[i]->setTitle("Simple line chart example");
+        //chart[i]->setTitle("Simple line chart example");
+        switch(i)
+        {
+            case 0:
+                chart[i]->setTitle("ADC1, 分流器300A:75mV");
+                break;
+            case 1:
+                chart[i]->setTitle("ADC2, 0~1000V");
+                break;
+            case 2:
+                chart[i]->setTitle("ADC3, 0~1000V");
+                break;
+            case 3:
+                chart[i]->setTitle("ADC4, 0~15V");
+                break;
+            case 4:
+                chart[i]->setTitle("ADC5, 0~15V");
+                break;
+            case 5:
+                chart[i]->setTitle("ADC6, 0~24V");
+                break;
+            case 6:
+                chart[i]->setTitle("ADC7, 0~24V");
+                break;
+            case 7:
+                chart[i]->setTitle("ADC8, 互感器20A:20mA");
+                break;
+
+            default:
+                break;
+        }
 
         if(i<4)
-            chart[i]->setGeometry(300*i+10, 10, 300, 260);
+            chart[i]->setGeometry(300*i+10, 10, 350, 300);
         else
-            chart[i]->setGeometry(300*(i-4)+10, 270, 300, 260);
+            chart[i]->setGeometry(300*(i-4)+10, 310, 350, 300);
     }
 
     for(int i=0; i<ADC_CH_NUM; i++)

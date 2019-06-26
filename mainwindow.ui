@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>875</width>
-    <height>619</height>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -456,7 +456,7 @@
       <rect>
        <x>0</x>
        <y>24</y>
-       <width>821</width>
+       <width>836</width>
        <height>51</height>
       </rect>
      </property>
@@ -692,7 +692,7 @@
       <x>2</x>
       <y>500</y>
       <width>831</width>
-      <height>61</height>
+      <height>111</height>
      </rect>
     </property>
     <property name="title">
@@ -731,6 +731,42 @@
       </item>
       <item>
        <widget class="QLineEdit" name="adcValue_8"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>821</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QLineEdit" name="vin_1"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="vin_2"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="vin_3"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="vin_4"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="vin_5"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="vin_6"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="vin_7"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="vin_8"/>
       </item>
      </layout>
     </widget>

@@ -317,8 +317,8 @@ void MainWindow::updateUI()
 
     this->updateState();
     this->updateAdcChart();
-//    this->updateCanData();
-//    this->updateRs485Data();
+    this->updateCanData();
+    this->updateRs485Data();
 }
 
 void MainWindow::updateCanData()
@@ -386,8 +386,14 @@ void MainWindow::updateState()
 
 void MainWindow::updateAdcChart()
 {
-    static QLineEdit *lineEdit[8] = {ui->adcValue_1, ui->adcValue_2, ui->adcValue_3, ui->adcValue_4,
-                                    ui->adcValue_5, ui->adcValue_6, ui->adcValue_7, ui->adcValue_8};
+    static QLineEdit *adcValueLineEdit[8] = {
+        ui->adcValue_1, ui->adcValue_2, ui->adcValue_3, ui->adcValue_4,
+        ui->adcValue_5, ui->adcValue_6, ui->adcValue_7, ui->adcValue_8
+    };
+    static QLineEdit *vinLineEdit[8] = {
+        ui->vin_1, ui->vin_2, ui->vin_3, ui->vin_4,
+        ui->vin_5, ui->vin_6, ui->vin_7, ui->vin_8
+    };
 
     int chNum = board->adcData.size();
     int sampleTimes = (chNum==0) ? 0 : board->adcData[0].size();
@@ -402,7 +408,14 @@ void MainWindow::updateAdcChart()
             series[k]->append(i, temp);
             sum += temp;//sum += adcValue[k][i];
         }
-        lineEdit[k]->setText(QString::number(sum/sampleTimes) + " V");
+        //lineEdit[k]->setText(QString::number(sum/sampleTimes) + " V");
+        char buf[20] = {0};
+        sprintf(buf, "%d: %6.4f V", k+1, sum/sampleTimes);
+        adcValueLineEdit[k]->setText(buf);
+
+        char buf1[20] = {0};
+        sprintf(buf1, "%d: %06.4f", k+1, board->calInputVoltage(k, sum/sampleTimes));
+        vinLineEdit[k]->setText(buf1);
     }
 
 //    //正弦波测试数据
@@ -437,7 +450,7 @@ void MainWindow::configLineChart()
         switch(i)
         {
             case 0:
-                chart[i]->setTitle("ADC1, 分流器300A:75mV");
+                chart[i]->setTitle("ADC1, 分流器250A:75mV");
                 break;
             case 1:
                 chart[i]->setTitle("ADC2, 0~1000V");

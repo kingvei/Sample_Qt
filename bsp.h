@@ -46,6 +46,7 @@ public:
     ~SampleBoard();
 
     int decodeMsg(QByteArray msg);
+    qreal calInputVoltage(int chNum, qreal vout);
     void clear();
 
     quint8 head[4];

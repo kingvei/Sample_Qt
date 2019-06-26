@@ -425,24 +425,10 @@ void MainWindow::updateAdcChart()
 
     int chNum = board->adcData.size();
     int sampleTimes = (chNum==0) ? 0 : board->adcData[0].size();
-//    QVector<QVector<quint16>> adcValue = board->adcData;
-//    int chNum = adcValue.size();
-//    int sampleTimes = (chNum==0) ? 0 : adcValue[0].size();
-    for(int k=0; k<chNum; k++)
-    {
-        quint32 sum = 0;
-        series[k]->clear();
-        for(int i=0; i<sampleTimes; i++)
-             sum += board->adcData[k][i];//sum += adcValue[k][i];
-        lineEdit[k]->setText(QString::number(5.0*sum/sampleTimes/0xFFFF) + " V");
-    }
 
     for(int k=0; k<chNum; k++)
     {
         series[k]->clear();
-//        for(int i=0; i<sampleTimes; i++)
-//            series[k]->append(i, board->adcData[k][i] * 5.0 / 65535);
-
         qreal sum = 0;
         for(int i=0; i<sampleTimes; i++)
         {

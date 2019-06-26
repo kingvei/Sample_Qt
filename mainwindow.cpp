@@ -420,27 +420,37 @@ void MainWindow::updateState()
 
 void MainWindow::updateAdcChart()
 {
-//    series[0]->clear();
-//    for(int i=0; i<100; i++)
-//        series[0]->append(i, board->adcData[0][i] * 5.0 / 65535);
-
     static QLineEdit *lineEdit[8] = {ui->adcValue_1, ui->adcValue_2, ui->adcValue_3, ui->adcValue_4,
                                     ui->adcValue_5, ui->adcValue_6, ui->adcValue_7, ui->adcValue_8};
-    QVector<QVector<quint16>> adcValue = board->adcData;
-//    int chNum = board->adcData.size();
-//    int sampleTimes = board->adcData[0].size();
-    int chNum = adcValue.size();
-    int sampleTimes = (chNum==0) ? 0 : adcValue[0].size();
+
+    int chNum = board->adcData.size();
+    int sampleTimes = (chNum==0) ? 0 : board->adcData[0].size();
+//    QVector<QVector<quint16>> adcValue = board->adcData;
+//    int chNum = adcValue.size();
+//    int sampleTimes = (chNum==0) ? 0 : adcValue[0].size();
     for(int k=0; k<chNum; k++)
     {
-//        series[k]->clear();
+        quint32 sum = 0;
+        series[k]->clear();
+        for(int i=0; i<sampleTimes; i++)
+             sum += board->adcData[k][i];//sum += adcValue[k][i];
+        lineEdit[k]->setText(QString::number(5.0*sum/sampleTimes/0xFFFF) + " V");
+    }
+
+    for(int k=0; k<chNum; k++)
+    {
+        series[k]->clear();
 //        for(int i=0; i<sampleTimes; i++)
 //            series[k]->append(i, board->adcData[k][i] * 5.0 / 65535);
 
-        quint32 sum = 0;
+        qreal sum = 0;
         for(int i=0; i<sampleTimes; i++)
-             sum += adcValue[k][i];
-        lineEdit[k]->setText(QString::number(5.0*sum/sampleTimes/0xFFFF) + " V");
+        {
+            qreal temp = board->adcData[k][i] * 5.0 / 65535;
+            series[k]->append(i, temp);
+            sum += temp;//sum += adcValue[k][i];
+        }
+        lineEdit[k]->setText(QString::number(sum/sampleTimes) + " V");
     }
 
 //    //正弦波测试数据

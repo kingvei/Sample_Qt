@@ -101,34 +101,40 @@ int SampleBoard::decodeMsg(QByteArray msg)
 
     //提取CAN1数据
     int can1Pos = pos;
+    QVector<CanDataType> tempCan1Data;
     for(int i=0; i<can1Len/PACKET_CAN_SIZE; i++)
     {
         CanDataType data;
         char *ptr = const_cast<char*>(msg.data()) + can1Pos;
         data.id = *(reinterpret_cast<quint32*>(ptr));
         memcpy(&data.ide, ptr+4, PACKET_CAN_SIZE-4);
-        this->can1Data.push_back(data);
+        tempCan1Data.push_back(data); //this->can1Data.push_back(data);
         can1Pos += PACKET_CAN_SIZE;
     }
+    this->can1Data = tempCan1Data;
 
     //提取CAN2数据
     int can2Pos = pos;
+    QVector<CanDataType> tempCan2Data;
     for(int i=0; i<can2Len/15; i++)
     {
         CanDataType data;
         char *ptr = const_cast<char*>(msg.data()) + can2Pos;
         data.id = *(reinterpret_cast<quint32*>(ptr));
         memcpy(&data.ide, ptr+4, PACKET_CAN_SIZE-4);
-        this->can2Data.push_back(data);
+        tempCan2Data.push_back(data); //this->can2Data.push_back(data);
         can2Pos += PACKET_CAN_SIZE;
     }
+    this->can2Data = tempCan2Data;
 
     //提取RS485数据
     int rs485Pos = pos;
+    QByteArray tempRs485Data;
     for(int i=0; i<rs485Len; i++)
     {
-        rs485Data.push_back(msg[rs485Pos+i]);
+        tempRs485Data.push_back(msg[rs485Pos+i]); //rs485Data.push_back(msg[rs485Pos+i]);
     }
+    this->rs485Data = tempRs485Data;
 
     return 0;
 }

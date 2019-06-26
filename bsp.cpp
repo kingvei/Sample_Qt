@@ -2,12 +2,31 @@
 
 SampleBoard::SampleBoard()
 {
-    //memset(this, 0, sizeof(SampleBoard));
+    this->clear();
 }
 
 SampleBoard::~SampleBoard()
 {
 
+}
+
+void SampleBoard::clear()
+{
+    memset(this->head, 0, sizeof(this->head));
+    this->crc16 = 0;
+    this->num = 0;
+    this->len = 0;
+    this->adcLen = 0;
+    this->can1Len = 0;
+    this->can2Len = 0;
+    this->rs485Len = 0;
+
+    rtc.clear();
+    this->din = 0;
+    this->adcData.clear();
+    this->can1Data.clear();
+    this->can2Data.clear();
+    this->rs485Data.clear();
 }
 
 /*
@@ -58,7 +77,9 @@ int SampleBoard::decodeMsg(QByteArray msg)
     this->rtc.second = (quint8)msg[pos++];
     this->din = (quint8)msg[pos++];
 
+    //提取ADC数据
     int adcPos = pos;
+    QVector<QVector<quint16>> tempAdcData;
     for(int i=0; i<8; i++)
     {
         QVector<quint16> channel;
@@ -73,10 +94,12 @@ int SampleBoard::decodeMsg(QByteArray msg)
                 channel.push_back(adcValue);
             }
         }
-        this->adcData.push_back(channel);
+        tempAdcData.push_back(channel);//this->adcData.push_back(channel);
     }
+    this->adcData = tempAdcData;
     pos += adcLen;
 
+    //提取CAN1数据
     int can1Pos = pos;
     for(int i=0; i<can1Len/PACKET_CAN_SIZE; i++)
     {
@@ -88,6 +111,7 @@ int SampleBoard::decodeMsg(QByteArray msg)
         can1Pos += PACKET_CAN_SIZE;
     }
 
+    //提取CAN2数据
     int can2Pos = pos;
     for(int i=0; i<can2Len/15; i++)
     {
@@ -99,6 +123,7 @@ int SampleBoard::decodeMsg(QByteArray msg)
         can2Pos += PACKET_CAN_SIZE;
     }
 
+    //提取RS485数据
     int rs485Pos = pos;
     for(int i=0; i<rs485Len; i++)
     {

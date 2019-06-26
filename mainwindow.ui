@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>875</width>
-    <height>588</height>
+    <height>619</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -209,7 +209,7 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>11</x>
       <y>10</y>
       <width>371</width>
       <height>131</height>
@@ -287,10 +287,10 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>11</x>
       <y>150</y>
-      <width>361</width>
-      <height>201</height>
+      <width>371</width>
+      <height>191</height>
      </rect>
     </property>
     <property name="title">
@@ -300,9 +300,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>78</y>
-       <width>361</width>
-       <height>61</height>
+       <y>107</y>
+       <width>371</width>
+       <height>41</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -340,9 +340,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>138</y>
-       <width>361</width>
-       <height>61</height>
+       <y>147</y>
+       <width>371</width>
+       <height>41</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -379,7 +379,7 @@
     <widget class="QPushButton" name="calibrateTimeButton">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>260</x>
        <y>30</y>
        <width>91</width>
        <height>31</height>
@@ -392,279 +392,58 @@
     <widget class="QLineEdit" name="rtcLineEdit">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>60</x>
        <y>30</y>
        <width>161</width>
        <height>31</height>
       </rect>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_3">
-    <property name="geometry">
-     <rect>
-      <x>27</x>
-      <y>385</y>
-      <width>836</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QPushButton" name="relayButton_0">
-       <property name="text">
-        <string>闭合1</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="relayButton_1">
-       <property name="text">
-        <string>闭合2</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="relayButton_2">
-       <property name="text">
-        <string>闭合3</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="relayButton_3">
-       <property name="text">
-        <string>闭合4</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="relayButton_4">
-       <property name="text">
-        <string>闭合5</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_6">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="relayButton_5">
-       <property name="text">
-        <string>闭合6</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_7">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="relayButton_6">
-       <property name="text">
-        <string>闭合7</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_8">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="relayButton_7">
-       <property name="text">
-        <string>闭合8</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_4">
-    <property name="geometry">
-     <rect>
-      <x>27</x>
-      <y>435</y>
-      <width>802</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
-      <spacer name="horizontalSpacer_9">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="relayCheckBox_0">
-       <property name="text">
-        <string>继电器1</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="relayCheckBox_1">
-       <property name="text">
-        <string>继电器2</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="relayCheckBox_2">
-       <property name="text">
-        <string>继电器3</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="relayCheckBox_3">
-       <property name="text">
-        <string>继电器4</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="relayCheckBox_4">
-       <property name="text">
-        <string>继电器5</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="relayCheckBox_5">
-       <property name="text">
-        <string>继电器6</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="relayCheckBox_6">
-       <property name="text">
-        <string>继电器7</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="relayCheckBox_7">
-       <property name="text">
-        <string>继电器8</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="setAllRelayButton">
-       <property name="text">
-        <string>控制所有继电器</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>19</x>
+       <y>72</y>
+       <width>31</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>本地</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="sysTimeLabel">
+     <property name="geometry">
+      <rect>
+       <x>61</x>
+       <y>70</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>localTime</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>31</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>RTC</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>360</y>
+      <x>11</x>
+      <y>350</y>
       <width>851</width>
       <height>131</height>
      </rect>
@@ -672,19 +451,289 @@
     <property name="title">
      <string>控制</string>
     </property>
+    <widget class="QWidget" name="horizontalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>24</y>
+       <width>821</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QPushButton" name="relayButton_0">
+        <property name="text">
+         <string>闭合1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="relayButton_1">
+        <property name="text">
+         <string>闭合2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="relayButton_2">
+        <property name="text">
+         <string>闭合3</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="relayButton_3">
+        <property name="text">
+         <string>闭合4</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="relayButton_4">
+        <property name="text">
+         <string>闭合5</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="relayButton_5">
+        <property name="text">
+         <string>闭合6</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="relayButton_6">
+        <property name="text">
+         <string>闭合7</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_8">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="relayButton_7">
+        <property name="text">
+         <string>闭合8</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_4">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>78</y>
+       <width>851</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QCheckBox" name="relayCheckBox_0">
+        <property name="text">
+         <string>继电器1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="relayCheckBox_1">
+        <property name="text">
+         <string>继电器2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="relayCheckBox_2">
+        <property name="text">
+         <string>继电器3</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="relayCheckBox_3">
+        <property name="text">
+         <string>继电器4</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="relayCheckBox_4">
+        <property name="text">
+         <string>继电器5</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="relayCheckBox_5">
+        <property name="text">
+         <string>继电器6</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="relayCheckBox_6">
+        <property name="text">
+         <string>继电器7</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="relayCheckBox_7">
+        <property name="text">
+         <string>继电器8</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="setAllRelayButton">
+        <property name="text">
+         <string>控制所有继电器</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
-   <widget class="QLabel" name="sysTimeLabel">
+   <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>2</x>
       <y>500</y>
-      <width>161</width>
-      <height>20</height>
+      <width>831</width>
+      <height>61</height>
      </rect>
     </property>
-    <property name="text">
-     <string>localTime</string>
+    <property name="title">
+     <string>ADC</string>
     </property>
+    <widget class="QWidget" name="horizontalLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>821</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLineEdit" name="adcValue_1"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="adcValue_2"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="adcValue_3"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="adcValue_4"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="adcValue_5"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="adcValue_6"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="adcValue_7"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="adcValue_8"/>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
@@ -692,9 +741,7 @@
    <zorder>tabWidget</zorder>
    <zorder>srvIPLineEdit</zorder>
    <zorder>srvPortLineEdit</zorder>
-   <zorder>horizontalLayoutWidget_3</zorder>
-   <zorder>horizontalLayoutWidget_4</zorder>
-   <zorder>sysTimeLabel</zorder>
+   <zorder>groupBox_4</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

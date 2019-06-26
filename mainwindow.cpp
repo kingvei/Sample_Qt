@@ -330,12 +330,12 @@ void MainWindow::updateCanData()
         CanDataType can = board->can1Data[i];
         if(can.ide == 0) str = "stdID: ";
         else str = "ExtID: ";
-        str += QString::number(can.id, 10) + " ";
+        str += QString::number(can.id, 10) + ": ";
         str += QString::fromRawData((const QChar*)can.data, can.dlc);
-//        for(int k=0; k<can.dlc; k++)
-//        {
-//            str += QString(char(can.data[k]));
-//        }
+        for(int k=0; k<can.dlc; k++)
+        {
+            str += QString(char(can.data[k]));
+        }
         str += "\n";
 
         ui->can1Text->moveCursor(QTextCursor::End);
@@ -367,49 +367,50 @@ void MainWindow::updateRs485Data()
 
 void MainWindow::updateState()
 {
-    if(board->din & 0x01) {
+    quint8 curState = board->din;
+    if(curState & 0x01) {
         ui->stateLabel_0->setText("DIN1: 闭合");
     } else {
         ui->stateLabel_0->setText("DIN1: 断开");
     }
 
-    if(board->din & (0x01<<1)) {
+    if(curState & (0x01<<1)) {
         ui->stateLabel_1->setText("DIN2: 闭合");
     } else {
         ui->stateLabel_1->setText("DIN2: 断开");
     }
 
-    if(board->din & (0x01<<2)) {
+    if(curState & (0x01<<2)) {
         ui->stateLabel_2->setText("DIN3: 闭合");
     } else {
         ui->stateLabel_2->setText("DIN3: 断开");
     }
 
-    if(board->din & (0x01<<3)) {
+    if(curState & (0x01<<3)) {
         ui->stateLabel_3->setText("DIN4: 闭合");
     } else {
         ui->stateLabel_3->setText("DIN4: 断开");
     }
 
-    if(board->din & (0x01<<4)) {
+    if(curState & (0x01<<4)) {
         ui->stateLabel_4->setText("DIN5: 闭合");
     } else {
         ui->stateLabel_4->setText("DIN5: 断开");
     }
 
-    if(board->din & (0x01<<5)) {
+    if(curState & (0x01<<5)) {
         ui->stateLabel_5->setText("DIN6: 闭合");
     } else {
         ui->stateLabel_5->setText("DIN6: 断开");
     }
 
-    if(board->din & (0x01<<6)) {
+    if(curState & (0x01<<6)) {
         ui->stateLabel_6->setText("DIN7: 闭合");
     } else {
         ui->stateLabel_6->setText("DIN7: 断开");
     }
 
-    if(board->din & (0x01<<7)) {
+    if(curState & (0x01<<7)) {
         ui->stateLabel_7->setText("DIN8: 闭合");
     } else {
         ui->stateLabel_7->setText("DIN8: 断开");
@@ -423,15 +424,24 @@ void MainWindow::updateAdcChart()
 //    for(int i=0; i<100; i++)
 //        series[0]->append(i, board->adcData[0][i] * 5.0 / 65535);
 
-
+    static QLineEdit *lineEdit[8] = {ui->adcValue_1, ui->adcValue_2, ui->adcValue_3, ui->adcValue_4,
+                                    ui->adcValue_5, ui->adcValue_6, ui->adcValue_7, ui->adcValue_8};
+    QVector<QVector<quint16>> adcValue = board->adcData;
 //    int chNum = board->adcData.size();
 //    int sampleTimes = board->adcData[0].size();
-//    for(int k=0; k<chNum; k++)
-//    {
+    int chNum = adcValue.size();
+    int sampleTimes = (chNum==0) ? 0 : adcValue[0].size();
+    for(int k=0; k<chNum; k++)
+    {
 //        series[k]->clear();
 //        for(int i=0; i<sampleTimes; i++)
 //            series[k]->append(i, board->adcData[k][i] * 5.0 / 65535);
-//    }
+
+        quint32 sum = 0;
+        for(int i=0; i<sampleTimes; i++)
+             sum += adcValue[k][i];
+        lineEdit[k]->setText(QString::number(5.0*sum/sampleTimes/0xFFFF) + " V");
+    }
 
 //    //正弦波测试数据
 //    static int x=0;

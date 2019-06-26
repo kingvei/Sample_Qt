@@ -3,6 +3,7 @@
 
 #include <QByteArray>
 #include <QVector>
+#include <QObject>
 
 #define MIN_FRAME_SIZE  18
 #define PACKET_CAN_SIZE 15
@@ -17,7 +18,8 @@ struct RTC
     int minute;
     int second;
 
-    RTC(){year = month = day = weekday = hour = minute = second = 0;}
+    RTC(){this->clear();}
+    void clear(){year = month = day = weekday = hour = minute = second = 0;}
 };
 
 struct CanDataType
@@ -28,29 +30,32 @@ struct CanDataType
     quint8 dlc;
     quint8 data[8];
 
-    CanDataType(){memset(this, 0, sizeof(*this));}
+    CanDataType(){this->clear();}
+    void clear(){
+        id = ide = rtr = dlc = 0;
+        memset(data, 0, sizeof(data));
+    }
 };
 
-class SampleBoard
+class SampleBoard// : public QObject
 {
+    //Q_OBJECT
+
 public:
     SampleBoard();
     ~SampleBoard();
 
     int decodeMsg(QByteArray msg);
-    int setSingleRelay();
-    int setAllRelay();
-    int turnOnBoard(void);
-    int turnOffBoard(void);
+    void clear();
 
     quint8 head[4];
+    quint16 crc16;
     quint16 num;
     quint16 len;
     quint16 adcLen;
     quint16 can1Len;
     quint16 can2Len;
     quint16 rs485Len;
-    quint16 crc16;
 
     RTC rtc;
     quint8 din;
@@ -58,6 +63,8 @@ public:
     QVector<CanDataType> can1Data;
     QVector<CanDataType> can2Data;
     QByteArray rs485Data;
+
+//signals:
 };
 
 #endif // BSP_H

@@ -155,7 +155,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         break;
     case 1: /* 第1路0~1000V */
         {
-            qreal gain = 4.7 / (510 + 510) * 1.0;
+            qreal gain = 4.7 / (510 + 510 + 4.7) * 1.0;
             qreal R1 = 10.0, R2 = 18.0, R3 = 10.0;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);
@@ -164,7 +164,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         break;
     case 2: /* 第2路0~1000V */
         {
-            qreal gain = 4.7 / (510 + 510) * 1.0;
+            qreal gain = 4.7 / (510 + 510 + 4.7) * 1.0;
             qreal R1 = 10.0, R2 = 18.0, R3 = 10.0;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);

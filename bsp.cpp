@@ -144,34 +144,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
     qreal res = 0;
     switch(chNum)
     {
-    case 0: /* 250A:75mV分流器 */
-        {
-            qreal gain = 8.2 * 10.9;
-            qreal R1 = 10.0, R2 = 13.0, R3 = 10.0;
-            qreal va = -5.0;
-            qreal vin = -R2 * (va / R1 + vout / R3);
-            res = vin / gain; //分流器两端电压
-        }
-        break;
-    case 1: /* 第1路0~1000V */
-        {
-            qreal gain = 4.7 / (510 + 510 + 4.7) * 1.0;
-            qreal R1 = 10.0, R2 = 18.0, R3 = 10.0;
-            qreal va = -5.0;
-            qreal vin = -R2 * (va / R1 + vout / R3);
-            res = vin / gain; //ISO124隔离侧输入电压
-        }
-        break;
-    case 2: /* 第2路0~1000V */
-        {
-            qreal gain = 4.7 / (510 + 510 + 4.7) * 1.0;
-            qreal R1 = 10.0, R2 = 18.0, R3 = 10.0;
-            qreal va = -5.0;
-            qreal vin = -R2 * (va / R1 + vout / R3);
-            res = vin / gain; //ISO124隔离侧输入电压
-        }
-        break;
-    case 3: /* 第1路0~15V */
+    case 0: /* 第1路0~15V */
         {
             qreal R1 = 10.0, R2 = 43.0, R3 = 10.0;
             qreal va = -5.0;
@@ -179,7 +152,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
             res = vin;
         }
         break;
-    case 4: /* 第2路0~15V */
+    case 1: /* 第2路0~15V */
         {
             qreal R1 = 10.0, R2 = 43.0, R3 = 10.0;
             qreal va = -5.0;
@@ -187,7 +160,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
             res = vin;
         }
         break;
-    case 5:
+    case 2: /* 第1路0~24V */
         {
             qreal R1 = 10.0, R2 = 62.0, R3 = 10.0;
             qreal va = -5.0;
@@ -195,7 +168,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
             res = vin;
         }
         break;
-    case 6:
+    case 3: /* 第1路0~24V */
         {
             qreal R1 = 10.0, R2 = 62.0, R3 = 10.0;
             qreal va = -5.0;
@@ -203,13 +176,37 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
             res = vin;
         }
         break;
-    case 7:
+    case 4: /* 互感器20A:20mA */
         {
-            qreal R76 = 10.0, R77 = 10.0, R78 = 30.0; //Uint: kilo Ohm
-            qreal vin = vout * R76 / (R76 + R77 + R78);
-            res = vin; //负载电阻R80两端电压
-            //qreal RL = 10.0; //Uint: Ohm
-            //res = vin / RL / 20.0 * 20.0; //一次侧电流大小
+//            qreal R76 = 10.0, R77 = 10.0, R78 = 30.0; //unit: kilo Ohm
+//            qreal vin = vout * R76 / (R76 + R77 + R78);
+//            res = vin; //负载电阻R80两端电压
+//            //qreal RL = 10.0; //unit: Ohm
+//            //res = vin / RL / 20.0 * 20.0; //一次侧电流大小
+        }
+        break;
+    case 5: /* 第1路0~1000V */
+        {
+            qreal gain = (1.0 / 3) * (220.0 / 100);
+            qreal vin = vout / gain; //ISO124隔离侧输入电压
+            res = vin / 7.5 * (7.5 + 510 + 510); //高压
+        }
+        break;
+    case 6: /* 第2路0~1000V */
+        {
+            qreal gain = (1.0 / 3) * (220.0 / 100);
+            qreal vin = vout / gain; //ISO124隔离侧输入电压
+            res = vin / 7.5 * (7.5 + 510 + 510); //高压
+        }
+        break;
+    case 7: /* 分流器250A:75mV */
+        {
+//            qreal gain = 8.2 * 10.9;
+//            qreal R1 = 10.0, R2 = 13.0, R3 = 10.0;
+//            qreal va = -5.0;
+//            qreal vin = -R2 * (va / R1 + vout / R3);
+//            //res = vin / gain; //分流器两端电压
+//            res = vin / gain / 0.075 * 250;
         }
         break;
 

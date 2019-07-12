@@ -450,28 +450,28 @@ void MainWindow::configLineChart()
         switch(i)
         {
             case 0:
-                chart[i]->setTitle("ADC1, 分流器250A:75mV");
+                chart[i]->setTitle("ADC1, 0~15V");
                 break;
             case 1:
-                chart[i]->setTitle("ADC2, 0~1000V");
+                chart[i]->setTitle("ADC2, 0~15V");
                 break;
             case 2:
-                chart[i]->setTitle("ADC3, 0~1000V");
+                chart[i]->setTitle("ADC3, 0~24V");
                 break;
             case 3:
-                chart[i]->setTitle("ADC4, 0~15V");
+                chart[i]->setTitle("ADC4, 0~24V");
                 break;
             case 4:
-                chart[i]->setTitle("ADC5, 0~15V");
+                chart[i]->setTitle("ADC5, 互感器20A:20mA");
                 break;
             case 5:
-                chart[i]->setTitle("ADC6, 0~24V");
+                chart[i]->setTitle("ADC6, 0~1000V(下)");
                 break;
             case 6:
-                chart[i]->setTitle("ADC7, 0~24V");
+                chart[i]->setTitle("ADC7, 0~1000V(上)");
                 break;
             case 7:
-                chart[i]->setTitle("ADC8, 互感器20A:20mA");
+                chart[i]->setTitle("ADC8, 分流器250A:75mV");
                 break;
 
             default:

@@ -139,6 +139,13 @@ int SampleBoard::decodeMsg(QByteArray msg)
     return 0;
 }
 
+/*
+ * Vout = -R3 * (Va / R1 + Vin / R2)
+ * 与Va(-5Vref)连接的是R1
+ * 与Vin连接的是R2
+ * 与Vout连接的是R3
+ * Vout是ADC测出的电压
+ */
 qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
 {
     qreal res = 0;
@@ -201,12 +208,13 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         break;
     case 7: /* 分流器250A:75mV */
         {
-//            qreal gain = 8.2 * 10.9;
-//            qreal R1 = 10.0, R2 = 13.0, R3 = 10.0;
-//            qreal va = -5.0;
-//            qreal vin = -R2 * (va / R1 + vout / R3);
-//            //res = vin / gain; //分流器两端电压
-//            res = vin / gain / 0.075 * 250;
+            qreal RG = 4.99; //AD8221增益电阻4.99k
+            qreal gain = 8.2 * (49.4 / RG + 1);
+            qreal R1 = 10.0, R2 = 15.0, R3 = 10.0;
+            qreal va = -5.0;
+            qreal vin = -R2 * (va / R1 + vout / R3);
+            //res = vin / gain; //分流器两端电压
+            res = vin / gain / 0.075 * 250; //通过的电流
         }
         break;
 

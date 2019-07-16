@@ -27,6 +27,8 @@ void SampleBoard::clear()
     this->can1Data.clear();
     this->can2Data.clear();
     this->rs485Data.clear();
+
+    this->can1MsgNum = this->can2MsgNum = this->rs485MsgNum = 0;
 }
 
 /*
@@ -101,31 +103,33 @@ int SampleBoard::decodeMsg(QByteArray msg)
 
     //提取CAN1数据
     int can1Pos = pos;
-    QVector<CanDataType> tempCan1Data;
+    if(3000*1024 - can1Data.size() < PACKET_CAN_SIZE) //3000KB，CAN1缓存区最大内存
+        can1Data.clear();
     for(int i=0; i<can1Len/PACKET_CAN_SIZE; i++)
     {
         CanDataType data;
         char *ptr = const_cast<char*>(msg.data()) + can1Pos;
         data.id = *(reinterpret_cast<quint32*>(ptr));
         memcpy(&data.ide, ptr+4, PACKET_CAN_SIZE-4);
-        tempCan1Data.push_back(data); //this->can1Data.push_back(data);
+        this->can1Data.push_back(data);
         can1Pos += PACKET_CAN_SIZE;
     }
-    this->can1Data = tempCan1Data;
+    this->can1MsgNum += can1Len / PACKET_CAN_SIZE;
 
     //提取CAN2数据
     int can2Pos = pos;
-    QVector<CanDataType> tempCan2Data;
+    if(3000*1024 - can2Data.size() < PACKET_CAN_SIZE) //3000KB，CAN2缓存区最大内存
+        can2Data.clear();
     for(int i=0; i<can2Len/15; i++)
     {
         CanDataType data;
         char *ptr = const_cast<char*>(msg.data()) + can2Pos;
         data.id = *(reinterpret_cast<quint32*>(ptr));
         memcpy(&data.ide, ptr+4, PACKET_CAN_SIZE-4);
-        tempCan2Data.push_back(data); //this->can2Data.push_back(data);
+        this->can2Data.push_back(data); //this->can2Data.push_back(data);
         can2Pos += PACKET_CAN_SIZE;
     }
-    this->can2Data = tempCan2Data;
+    this->can2MsgNum += can2Len / PACKET_CAN_SIZE;
 
     //提取RS485数据
     int rs485Pos = pos;
@@ -153,7 +157,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
     {
     case 0: /* 第1路0~15V */
         {
-            qreal R1 = 10.0, R2 = 43.0, R3 = 10.0;
+            qreal R1 = 10.0, R2 = 43.0, R3 = 9.1;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);
             res = vin;
@@ -161,7 +165,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         break;
     case 1: /* 第2路0~15V */
         {
-            qreal R1 = 10.0, R2 = 43.0, R3 = 10.0;
+            qreal R1 = 10.0, R2 = 43.0, R3 = 9.1;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);
             res = vin;
@@ -169,7 +173,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         break;
     case 2: /* 第1路0~24V */
         {
-            qreal R1 = 10.0, R2 = 62.0, R3 = 10.0;
+            qreal R1 = 10.0, R2 = 62.0, R3 = 9.1;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);
             res = vin;
@@ -177,7 +181,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         break;
     case 3: /* 第1路0~24V */
         {
-            qreal R1 = 10.0, R2 = 62.0, R3 = 10.0;
+            qreal R1 = 10.0, R2 = 62.0, R3 = 9.1;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);
             res = vin;

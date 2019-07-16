@@ -65,6 +65,9 @@ public:
     QVector<CanDataType> can2Data;
     QByteArray rs485Data;
 
+    int can1MsgNum;
+    int can2MsgNum;
+    int rs485MsgNum;
 //signals:
 };
 

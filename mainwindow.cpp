@@ -315,7 +315,7 @@ void MainWindow::updateUI()
     QString sysTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     ui->sysTimeLabel->setText(sysTime);
 
-    this->updateState();
+    this->updateDinState();
     this->updateAdcChart();
     this->updateCanData();
     this->updateRs485Data();
@@ -323,38 +323,33 @@ void MainWindow::updateUI()
 
 void MainWindow::updateCanData()
 {
+    QString str("");
     for(int i=0; i<board->can1Data.size(); i++)
     {
-        QString str;
         CanDataType can = board->can1Data[i];
-        if(can.ide == 0) str = "stdID: ";
-        else str = "ExtID: ";
-        str += QString::number(can.id, 10) + ": ";
-        str += QString::fromRawData((const QChar*)can.data, can.dlc);
-        for(int k=0; k<can.dlc; k++)
-        {
-            str += QString(char(can.data[k]));
-        }
-        str += "\n";
-
-        ui->can1Text->moveCursor(QTextCursor::End);
-        ui->can1Text->insertPlainText(str);
+        if(can.ide == 0) str += "StdID ";
+        else str += "ExtID ";
+        str += QString::number(can.id, 10) + ":";
+        str += QString::fromLatin1((const char*)can.data, can.dlc) + "\n";
     }
+    ui->can1Text->moveCursor(QTextCursor::End);
+    ui->can1Text->insertPlainText(str);
+    ui->can1MsgNumLabel->setText("接收:" + QString::number(this->board->can1MsgNum) + "帧");
+    board->can1Data.clear();
 
+    str.clear();
     for(int i=0; i<board->can2Data.size(); i++)
     {
-        QString str;
         CanDataType can = board->can2Data[i];
-        str += "ID: " + QString::number(can.id, 10) + " ";
-        for(int k=0; k<can.dlc; k++)
-        {
-            str += QString(char(can.data[k]));
-        }
-        str += "\n";
-
-        ui->can2Text->moveCursor(QTextCursor::End);
-        ui->can2Text->insertPlainText(str);
+        if(can.ide == 0) str += "StdID ";
+        else str += "ExtID ";
+        str += QString::number(can.id, 10) + ":";
+        str += QString::fromLatin1((const char*)can.data, can.dlc) + "\n";
     }
+    ui->can2Text->moveCursor(QTextCursor::End);
+    ui->can2Text->insertPlainText(str);
+    ui->can2MsgNumLabel->setText("接收:" + QString::number(this->board->can1MsgNum) + "帧");
+    board->can2Data.clear();
 }
 
 void MainWindow::updateRs485Data()
@@ -364,7 +359,7 @@ void MainWindow::updateRs485Data()
     ui->rs485Text->insertPlainText(str);
 }
 
-void MainWindow::updateState()
+void MainWindow::updateDinState()
 {
     static QLabel *label[8] = {
         ui->stateLabel_0, ui->stateLabel_1, ui->stateLabel_2, ui->stateLabel_3,

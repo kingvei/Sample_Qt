@@ -44,7 +44,7 @@ public:
     void updateAdcChart();
     void updateCanData();
     void updateRs485Data();
-    void updateState();
+    void updateDinState();
 
 private slots:
     void on_tcpEstablishButton_clicked();

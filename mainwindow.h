@@ -40,6 +40,7 @@ public:
     void dealClose();
     void configLineChart();
 
+    void resetUI();
     void updateUI();
     void updateAdcChart();
     void updateCanData();

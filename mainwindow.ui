@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>875</width>
-    <height>680</height>
+    <width>890</width>
+    <height>771</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,26 +20,6 @@
    </size>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLineEdit" name="srvIPLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>25</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="srvPortLineEdit">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>64</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
@@ -221,8 +201,8 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>25</y>
+       <x>20</x>
+       <y>20</y>
        <width>21</width>
        <height>16</height>
       </rect>
@@ -234,8 +214,8 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>22</x>
-       <y>60</y>
+       <x>230</x>
+       <y>20</y>
        <width>41</width>
        <height>16</height>
       </rect>
@@ -247,40 +227,60 @@
     <widget class="QPushButton" name="resetSystemButton">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>90</y>
+       <x>270</x>
+       <y>80</y>
        <width>92</width>
        <height>28</height>
       </rect>
      </property>
      <property name="text">
-      <string>复位</string>
+      <string>复位系统</string>
      </property>
     </widget>
     <widget class="QPushButton" name="runSystemButton">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>54</y>
+       <x>150</x>
+       <y>80</y>
        <width>92</width>
        <height>28</height>
       </rect>
      </property>
      <property name="text">
-      <string>启动</string>
+      <string>启动系统</string>
      </property>
     </widget>
     <widget class="QPushButton" name="tcpEstablishButton">
      <property name="geometry">
       <rect>
-       <x>261</x>
-       <y>20</y>
+       <x>30</x>
+       <y>80</y>
        <width>92</width>
        <height>28</height>
       </rect>
      </property>
      <property name="text">
       <string>连接</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="srvIPLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>10</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="srvPortLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>10</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
      </property>
     </widget>
    </widget>
@@ -775,8 +775,6 @@
    <zorder>groupBox</zorder>
    <zorder>groupBox_3</zorder>
    <zorder>tabWidget</zorder>
-   <zorder>srvIPLineEdit</zorder>
-   <zorder>srvPortLineEdit</zorder>
    <zorder>groupBox_4</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -784,7 +782,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>875</width>
+     <width>890</width>
      <height>26</height>
     </rect>
    </property>

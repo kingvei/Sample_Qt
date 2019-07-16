@@ -189,11 +189,12 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         break;
     case 4: /* 互感器20A:20mA */
         {
-//            qreal R76 = 10.0, R77 = 10.0, R78 = 30.0; //unit: kilo Ohm
-//            qreal vin = vout * R76 / (R76 + R77 + R78);
-//            res = vin; //负载电阻R80两端电压
-//            //qreal RL = 10.0; //unit: Ohm
-//            //res = vin / RL / 20.0 * 20.0; //一次侧电流大小
+            qreal R1 = 10.0, R2 = 4.99, R3 = 2.4;
+            qreal va = -5.0;
+            qreal vin2 = -R2 * (va / R1 + vout / R3);
+            qreal vin = vin2 / ((91 + 10) / 10);
+            qreal RL = 10.0; //unit: Ohm
+            res = vin / RL / 0.02 * 20.0; //一次侧电流大小，单位：安培
         }
         break;
     case 5: /* 第1路0~1000V */

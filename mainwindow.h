@@ -76,6 +76,12 @@ private slots:
 
     void on_calibrateTimeButton_clicked();
 
+    void on_clearCan1MsgButton_clicked();
+
+    void on_clearCan2MsgButton_clicked();
+
+    void on_clearRs485MsgButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString srvIP;

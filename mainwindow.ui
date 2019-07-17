@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>890</width>
-    <height>771</height>
+    <width>892</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,9 +25,14 @@
      <rect>
       <x>409</x>
       <y>10</y>
-      <width>461</width>
-      <height>350</height>
+      <width>451</width>
+      <height>361</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
     </property>
     <property name="currentIndex">
      <number>2</number>
@@ -42,7 +47,7 @@
         <x>20</x>
         <y>300</y>
         <width>101</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
@@ -95,6 +100,19 @@
        <string>Hex显示</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="clearCan1MsgButton">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>295</y>
+        <width>92</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>清空</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="can2Tab">
      <attribute name="title">
@@ -106,7 +124,7 @@
         <x>20</x>
         <y>300</y>
         <width>101</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
@@ -159,6 +177,19 @@
        <string>Hex显示</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="clearCan2MsgButton">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>295</y>
+        <width>92</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>清空</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="rs485Tab">
      <attribute name="title">
@@ -170,7 +201,7 @@
         <x>20</x>
         <y>300</y>
         <width>101</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
@@ -223,56 +254,41 @@
        <string>Hex显示</string>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="recvTab">
-     <attribute name="title">
-      <string>接收区</string>
-     </attribute>
-     <widget class="QTextEdit" name="tcpRecvText">
+     <widget class="QPushButton" name="clearRs485MsgButton">
       <property name="geometry">
        <rect>
-        <x>-1</x>
-        <y>0</y>
-        <width>500</width>
-        <height>270</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_4">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>290</y>
-        <width>101</width>
-        <height>16</height>
+        <x>240</x>
+        <y>295</y>
+        <width>92</width>
+        <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>接收：0 Bytes</string>
+       <string>清空</string>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="sendTab">
      <attribute name="title">
-      <string>发送区</string>
+      <string>TX Debug</string>
      </attribute>
      <widget class="QTextEdit" name="tcpSendText">
       <property name="geometry">
        <rect>
         <x>-1</x>
         <y>0</y>
-        <width>500</width>
-        <height>270</height>
+        <width>451</width>
+        <height>291</height>
        </rect>
       </property>
      </widget>
      <widget class="QPushButton" name="tcpSendButton">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>278</y>
-        <width>121</width>
-        <height>40</height>
+        <x>340</x>
+        <y>294</y>
+        <width>92</width>
+        <height>28</height>
        </rect>
       </property>
       <property name="text">
@@ -283,13 +299,41 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>290</y>
+        <y>300</y>
         <width>101</width>
-        <height>16</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="text">
        <string>发送：0 Bytes</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="recvTab">
+     <attribute name="title">
+      <string>RX Debug</string>
+     </attribute>
+     <widget class="QTextEdit" name="tcpRecvText">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>0</y>
+        <width>451</width>
+        <height>291</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>300</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>接收：0 Bytes</string>
       </property>
      </widget>
     </widget>
@@ -303,6 +347,12 @@
       <height>121</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
     <property name="title">
      <string>连接</string>
     </property>
@@ -310,7 +360,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>39</y>
        <width>21</width>
        <height>16</height>
       </rect>
@@ -323,7 +373,7 @@
      <property name="geometry">
       <rect>
        <x>230</x>
-       <y>30</y>
+       <y>36</y>
        <width>41</width>
        <height>20</height>
       </rect>
@@ -336,10 +386,13 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>70</y>
+       <y>80</y>
        <width>92</width>
        <height>28</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>ArrowCursor</cursorShape>
      </property>
      <property name="text">
       <string>复位系统</string>
@@ -349,10 +402,13 @@
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>70</y>
+       <y>80</y>
        <width>92</width>
        <height>28</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>ArrowCursor</cursorShape>
      </property>
      <property name="text">
       <string>启动系统</string>
@@ -362,10 +418,13 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>70</y>
+       <y>80</y>
        <width>92</width>
        <height>28</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>ArrowCursor</cursorShape>
      </property>
      <property name="text">
       <string>连接</string>
@@ -375,7 +434,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>20</y>
+       <y>30</y>
        <width>151</width>
        <height>31</height>
       </rect>
@@ -385,7 +444,7 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>20</y>
+       <y>30</y>
        <width>81</width>
        <height>31</height>
       </rect>
@@ -396,19 +455,33 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>140</y>
+      <y>148</y>
       <width>371</width>
-      <height>191</height>
+      <height>221</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
     <property name="title">
-     <string>状态</string>
+     <string>遥信</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>107</y>
+       <y>130</y>
        <width>351</width>
        <height>41</height>
       </rect>
@@ -416,6 +489,15 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="stateLabel_0">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+          <underline>false</underline>
+          <strikeout>false</strikeout>
+         </font>
+        </property>
         <property name="text">
          <string>DIN1: 状态</string>
         </property>
@@ -448,7 +530,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>147</y>
+       <y>170</y>
        <width>351</width>
        <height>41</height>
       </rect>
@@ -488,10 +570,13 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>30</y>
+       <y>40</y>
        <width>91</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>ArrowCursor</cursorShape>
      </property>
      <property name="text">
       <string>校准时间</string>
@@ -501,7 +586,7 @@
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>20</y>
+       <y>40</y>
        <width>161</width>
        <height>31</height>
       </rect>
@@ -511,7 +596,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>60</y>
+       <y>83</y>
        <width>31</width>
        <height>16</height>
       </rect>
@@ -523,8 +608,8 @@
     <widget class="QLabel" name="sysTimeLabel">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>60</y>
+       <x>61</x>
+       <y>81</y>
        <width>161</width>
        <height>20</height>
       </rect>
@@ -536,8 +621,8 @@
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>30</y>
+       <x>22</x>
+       <y>50</y>
        <width>31</width>
        <height>16</height>
       </rect>
@@ -551,21 +636,26 @@
     <property name="geometry">
      <rect>
       <x>11</x>
-      <y>350</y>
-      <width>851</width>
+      <y>388</y>
+      <width>861</width>
       <height>131</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
+    </property>
     <property name="title">
-     <string>控制</string>
+     <string>遥控</string>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget_3">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>24</y>
-       <width>930</width>
-       <height>89</height>
+       <width>841</width>
+       <height>41</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -721,10 +811,10 @@
     <widget class="QWidget" name="horizontalLayoutWidget_4">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>78</y>
-       <width>882</width>
-       <height>89</height>
+       <width>841</width>
+       <height>41</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -797,21 +887,26 @@
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>2</x>
-      <y>500</y>
-      <width>831</width>
-      <height>171</height>
+      <x>10</x>
+      <y>540</y>
+      <width>861</width>
+      <height>191</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
+    </property>
     <property name="title">
-     <string>ADC</string>
+     <string>模拟量</string>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget_5">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>10</y>
-       <width>821</width>
+       <y>37</y>
+       <width>841</width>
        <height>41</height>
       </rect>
      </property>
@@ -846,8 +941,8 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>60</y>
-       <width>821</width>
+       <y>99</y>
+       <width>841</width>
        <height>41</height>
       </rect>
      </property>
@@ -879,10 +974,10 @@
      </layout>
     </widget>
    </widget>
+   <zorder>tabWidget</zorder>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
    <zorder>groupBox_3</zorder>
-   <zorder>tabWidget</zorder>
    <zorder>groupBox_4</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -890,7 +985,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>890</width>
+     <width>892</width>
      <height>26</height>
     </rect>
    </property>

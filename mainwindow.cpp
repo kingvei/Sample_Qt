@@ -559,3 +559,18 @@ void MainWindow::configLineChart()
     graphView->move(50, 50); //窗体移动到某个点
     graphView->show();
 }
+
+void MainWindow::on_clearCan1MsgButton_clicked()
+{
+    ui->can1Text->clear();
+}
+
+void MainWindow::on_clearCan2MsgButton_clicked()
+{
+    ui->can2Text->clear();
+}
+
+void MainWindow::on_clearRs485MsgButton_clicked()
+{
+    ui->rs485Text->clear();
+}

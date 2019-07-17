@@ -22,6 +22,7 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QVector>
+#include <QScrollArea>
 
 namespace Ui {
 class MainWindow;
@@ -40,7 +41,6 @@ public:
     void dealClose();
     void configLineChart();
 
-    void resetUI();
     void updateUI();
     void updateAdcChart();
     void updateCanData();

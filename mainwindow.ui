@@ -30,33 +30,69 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="can1Tab">
      <attribute name="title">
       <string>CAN1</string>
      </attribute>
-     <widget class="QTextBrowser" name="can1Text">
-      <property name="geometry">
-       <rect>
-        <x>-1</x>
-        <y>0</y>
-        <width>500</width>
-        <height>270</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="can1MsgNumLabel">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>290</y>
+        <y>300</y>
         <width>101</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>接收：0 Bytes</string>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="can1TextscrollArea">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>451</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>449</width>
+         <height>289</height>
+        </rect>
+       </property>
+       <widget class="QTextBrowser" name="can1Text">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>451</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QCheckBox" name="isCan1HexCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>300</y>
+        <width>88</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Hex显示</string>
       </property>
      </widget>
     </widget>
@@ -64,27 +100,63 @@
      <attribute name="title">
       <string>CAN2</string>
      </attribute>
-     <widget class="QTextBrowser" name="can2Text">
-      <property name="geometry">
-       <rect>
-        <x>-1</x>
-        <y>0</y>
-        <width>500</width>
-        <height>270</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="can2MsgNumLabel">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>290</y>
+        <y>300</y>
         <width>101</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>接收：0 Bytes</string>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="can2ScrollArea">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>451</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>449</width>
+         <height>289</height>
+        </rect>
+       </property>
+       <widget class="QTextBrowser" name="can2Text">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>451</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QCheckBox" name="isCan2HexCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>300</y>
+        <width>88</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Hex显示</string>
       </property>
      </widget>
     </widget>
@@ -92,27 +164,63 @@
      <attribute name="title">
       <string>RS485</string>
      </attribute>
-     <widget class="QTextBrowser" name="rs485Text">
-      <property name="geometry">
-       <rect>
-        <x>-1</x>
-        <y>0</y>
-        <width>500</width>
-        <height>270</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QLabel" name="rs485MsgNumLabel">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>290</y>
+        <y>300</y>
         <width>101</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>接收：0 Bytes</string>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>451</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>449</width>
+         <height>289</height>
+        </rect>
+       </property>
+       <widget class="QTextBrowser" name="rs485Text">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>451</width>
+          <height>291</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QCheckBox" name="isRs485HexCheckBox">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>300</y>
+        <width>88</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Hex显示</string>
       </property>
      </widget>
     </widget>
@@ -192,7 +300,7 @@
       <x>11</x>
       <y>10</y>
       <width>371</width>
-      <height>131</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="title">
@@ -202,7 +310,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>20</y>
+       <y>30</y>
        <width>21</width>
        <height>16</height>
       </rect>
@@ -215,9 +323,9 @@
      <property name="geometry">
       <rect>
        <x>230</x>
-       <y>20</y>
+       <y>30</y>
        <width>41</width>
-       <height>16</height>
+       <height>20</height>
       </rect>
      </property>
      <property name="text">
@@ -228,7 +336,7 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>80</y>
+       <y>70</y>
        <width>92</width>
        <height>28</height>
       </rect>
@@ -240,8 +348,8 @@
     <widget class="QPushButton" name="runSystemButton">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>80</y>
+       <x>170</x>
+       <y>70</y>
        <width>92</width>
        <height>28</height>
       </rect>
@@ -253,8 +361,8 @@
     <widget class="QPushButton" name="tcpEstablishButton">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>80</y>
+       <x>20</x>
+       <y>70</y>
        <width>92</width>
        <height>28</height>
       </rect>
@@ -266,8 +374,8 @@
     <widget class="QLineEdit" name="srvIPLineEdit">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>10</y>
+       <x>40</x>
+       <y>20</y>
        <width>151</width>
        <height>31</height>
       </rect>
@@ -276,8 +384,8 @@
     <widget class="QLineEdit" name="srvPortLineEdit">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>10</y>
+       <x>270</x>
+       <y>20</y>
        <width>81</width>
        <height>31</height>
       </rect>
@@ -287,8 +395,8 @@
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>150</y>
+      <x>10</x>
+      <y>140</y>
       <width>371</width>
       <height>191</height>
      </rect>
@@ -299,9 +407,9 @@
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>107</y>
-       <width>371</width>
+       <width>351</width>
        <height>41</height>
       </rect>
      </property>
@@ -339,9 +447,9 @@
     <widget class="QWidget" name="horizontalLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>147</y>
-       <width>371</width>
+       <width>351</width>
        <height>41</height>
       </rect>
      </property>
@@ -379,7 +487,7 @@
     <widget class="QPushButton" name="calibrateTimeButton">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>270</x>
        <y>30</y>
        <width>91</width>
        <height>31</height>
@@ -393,7 +501,7 @@
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>30</y>
+       <y>20</y>
        <width>161</width>
        <height>31</height>
       </rect>
@@ -402,8 +510,8 @@
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>19</x>
-       <y>72</y>
+       <x>20</x>
+       <y>60</y>
        <width>31</width>
        <height>16</height>
       </rect>
@@ -415,8 +523,8 @@
     <widget class="QLabel" name="sysTimeLabel">
      <property name="geometry">
       <rect>
-       <x>61</x>
-       <y>70</y>
+       <x>60</x>
+       <y>60</y>
        <width>161</width>
        <height>20</height>
       </rect>
@@ -429,7 +537,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>40</y>
+       <y>30</y>
        <width>31</width>
        <height>16</height>
       </rect>
@@ -456,8 +564,8 @@
       <rect>
        <x>0</x>
        <y>24</y>
-       <width>836</width>
-       <height>51</height>
+       <width>930</width>
+       <height>89</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -615,8 +723,8 @@
       <rect>
        <x>0</x>
        <y>78</y>
-       <width>851</width>
-       <height>51</height>
+       <width>882</width>
+       <height>89</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -692,7 +800,7 @@
       <x>2</x>
       <y>500</y>
       <width>831</width>
-      <height>111</height>
+      <height>171</height>
      </rect>
     </property>
     <property name="title">

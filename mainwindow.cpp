@@ -29,24 +29,36 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(this, &MainWindow::sendCmdSignal, this->tcpClient, &TcpClient::send); //不能放在主线程 todo
     thread->start();
 
-    connect(tcpClient->tcpSocket, &QTcpSocket::connected, [=]
-    {
-        ui->tcpEstablishButton->setText("断开");
-        ui->tcpSendButton->setEnabled(true);
-    });
-
-    connect(tcpClient->tcpSocket, &QTcpSocket::disconnected, [=]
-    {
-        ui->tcpEstablishButton->setText("连接");
-        ui->tcpSendButton->setEnabled(false);
-    });
-
     //定时器，用于更新UI
     this->timer = new QTimer;
-    this->timer->start(100); //启动定时器
+    //this->timer->start(100); //启动定时器
     connect(this->timer, &QTimer::timeout, this, &MainWindow::updateUI);
 
     this->configLineChart();
+
+    //TCP连接时UI的配置
+    connect(tcpClient->tcpSocket, &QTcpSocket::connected, [=]
+    {
+        ui->tcpEstablishButton->setText("断开");
+        ui->runSystemButton->setEnabled(true);
+        ui->resetSystemButton->setEnabled(true);
+        ui->tcpSendButton->setEnabled(true);
+
+        this->timer->start(100); //启动定时器
+    });
+
+    //TCP断开时UI的配置
+    connect(tcpClient->tcpSocket, &QTcpSocket::disconnected, [=]
+    {
+        ui->tcpEstablishButton->setText("连接");
+        ui->runSystemButton->setText("启动系统");
+        ui->runSystemButton->setEnabled(false);
+        ui->resetSystemButton->setText("复位系统");
+        ui->resetSystemButton->setEnabled(false);
+        ui->tcpSendButton->setEnabled(false);
+
+        this->timer->stop(); //关闭定时器，否则can1显示区的光标会一直移动到最后面
+    });
 
     connect(this, &MainWindow::destroyed, this, &MainWindow::dealClose);
 }
@@ -117,11 +129,13 @@ void MainWindow::on_runSystemButton_clicked()
     if(ui->runSystemButton->text() == tr("启动系统"))
     {
         buf[5] = 0x01;
+        this->timer->start(100);
         ui->runSystemButton->setText(tr("关闭系统"));
     }
     else
     {
         buf[5] = 0x02;
+        this->timer->stop(); //关闭定时器，否则can1显示区的光标会一直移动到最后面
         ui->runSystemButton->setText(tr("启动系统"));
     }
     quint16 crc = crc16(buf+4, 4);
@@ -322,35 +336,45 @@ void MainWindow::updateUI()
     this->updateCanData();
     this->updateRs485Data();
 
-    if(tcpClient->status == true)
-    {
-        ui->runSystemButton->setEnabled(true);
-        ui->resetSystemButton->setEnabled(true);
-    }
-    else
-    {
-        this->resetUI();
-    }
+//    if(tcpClient->status == true)
+//    {
+//        ui->runSystemButton->setEnabled(true);
+//        ui->resetSystemButton->setEnabled(true);
+//    }
+//    else
+//    {
+//        ui->runSystemButton->setText("启动系统");
+//        ui->runSystemButton->setEnabled(false);
+//        ui->resetSystemButton->setText("复位系统");
+//        ui->resetSystemButton->setEnabled(false);
+//    }
 }
 
 void MainWindow::updateCanData()
 {
+    bool isCan1Hex = ui->isCan1HexCheckBox->isChecked();
     QString str("");
     for(int i=0; i<board->can1Data.size(); i++)
     {
         CanDataType can = board->can1Data[i];
         if(can.ide == 0) str += "StdID 0x";
         else str += "ExtID 0x";
-        str += QString::number(can.id, 16) + ":";
-        for(int k=0; k<can.dlc; k++)
+        str += QString::number(can.id, 16) + ": ";
+        if(isCan1Hex)
         {
-            str.push_back((can.data[k]>>4) + '0');
-            str.push_back((can.data[k]&0x0F) + '0');
-            str.push_back(' ');
+            for(int k=0; k<can.dlc; k++)
+            {
+                str.push_back((can.data[k]>>4) + '0');
+                str.push_back((can.data[k]&0x0F) + '0');
+                str.push_back(' ');
+            }
+            str += "\n";
+            if(can.id == 0x10) str += '\n'; //方便调试
         }
-        str += "\n";
-        if(can.id == 0x10) str += '\n'; //方便调试
-        //str += QString::fromLatin1((const char*)can.data, can.dlc) + "\n";
+        else
+        {
+            str += QString::fromLatin1((const char*)can.data, can.dlc) + "\n";
+        }
     }
     ui->can1Text->moveCursor(QTextCursor::End);
     ui->can1Text->insertPlainText(str);
@@ -358,20 +382,28 @@ void MainWindow::updateCanData()
     board->can1Data.clear();
 
     str.clear();
+    bool isCan2Hex = ui->isCan2HexCheckBox->isChecked();
     for(int i=0; i<board->can2Data.size(); i++)
     {
         CanDataType can = board->can2Data[i];
         if(can.ide == 0) str += "StdID 0x";
         else str += "ExtID 0x";
-        str += QString::number(can.id, 16) + ":";
-        for(int k=0; k<can.dlc; k++)
+        str += QString::number(can.id, 16) + ": ";
+        if(isCan2Hex)
         {
-            str.push_back((can.data[k]>>4)+'0');
-            str.push_back((can.data[k] & 0x0F) + '0');
-            str.push_back(' ');
+            for(int k=0; k<can.dlc; k++)
+            {
+                str.push_back((can.data[k]>>4)+'0');
+                str.push_back((can.data[k] & 0x0F) + '0');
+                str.push_back(' ');
+            }
+            str += "\n";
+            if(can.id == 0x10) str += '\n'; //方便调试
         }
-        str += "\n";
-        //str += QString::fromLatin1((const char*)can.data, can.dlc) + "\n";
+        else
+        {
+            str += QString::fromLatin1((const char*)can.data, can.dlc) + "\n";
+        }
     }
     ui->can2Text->moveCursor(QTextCursor::End);
     ui->can2Text->insertPlainText(str);
@@ -526,12 +558,4 @@ void MainWindow::configLineChart()
 
     graphView->move(50, 50); //窗体移动到某个点
     graphView->show();
-}
-
-void MainWindow::resetUI()
-{
-    ui->runSystemButton->setText("启动系统");
-    ui->runSystemButton->setEnabled(false);
-    ui->resetSystemButton->setText("复位系统");
-    ui->resetSystemButton->setEnabled(false);
 }

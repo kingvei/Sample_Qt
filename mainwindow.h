@@ -47,6 +47,8 @@ public:
     void updateRs485Data();
     void updateDinState();
 
+    void initializeUI();
+
 private slots:
     void on_tcpEstablishButton_clicked();
 

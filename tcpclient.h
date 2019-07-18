@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QMainWindow>
 #include <QThread>
+#include <QQueue>
 
 class TcpClient : public QObject
 {
@@ -18,6 +19,7 @@ public:
     bool status;
     QTcpSocket *tcpSocket;
     QHostAddress *srvIP;
+    QQueue<QByteArray> receivedMsg;
 
     void establish(QString ip, QString port);
     void send(QByteArray msg);

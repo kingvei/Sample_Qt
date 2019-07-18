@@ -48,6 +48,7 @@ void TcpClient::receive(void)
         QByteArray msg;
         msg.resize(int(size));
         tcpSocket->read(msg.data(), size);
+        this->receivedMsg.push_back(msg);
         emit tcpReceiveSignal(msg);
     }
 }

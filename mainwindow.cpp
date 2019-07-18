@@ -6,19 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->srvIPLineEdit->setText("192.168.1.220"); //服务器默认IP
-    ui->srvPortLineEdit->setText("5000"); //服务器默认端口
-    ui->tcpEstablishButton->setText("连接");
-    ui->tcpSendButton->setEnabled(false);
-    ui->runSystemButton->setText(tr("启动系统"));
-    //ui->runSystemButton->setEnabled(false);
-    ui->resetSystemButton->setText(tr("复位系统"));
 
-    this->setWindowTitle(tr("采集控制系统"));
-    this->srvIP.clear();
-    this->srvPort.clear();
-    this->srvData.clear();
-    this->cltData.clear();
+    this->initializeUI();
     this->board = new SampleBoard;
 
     //tcp接收线程
@@ -51,9 +40,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(tcpClient->tcpSocket, &QTcpSocket::disconnected, [=]
     {
         ui->tcpEstablishButton->setText("连接");
-        ui->runSystemButton->setText("启动系统");
+        //ui->runSystemButton->setText("启动系统");
         ui->runSystemButton->setEnabled(false);
-        ui->resetSystemButton->setText("复位系统");
+        //ui->resetSystemButton->setText("复位系统");
         ui->resetSystemButton->setEnabled(false);
         ui->tcpSendButton->setEnabled(false);
 
@@ -84,12 +73,30 @@ MainWindow::~MainWindow()
 void MainWindow::processTcpReceivedMsg(QByteArray msg)
 {
     qDebug() << "MainWindow::processTcpReceivedMsg() threadID is :" << QThread::currentThreadId();
-    board->decodeMsg(msg);
+    while(tcpClient->receivedMsg.size() > 0)
+    {
+        board->decodeMsg(tcpClient->receivedMsg.front());
+        tcpClient->receivedMsg.pop_front();
+
+
+//        QByteArray a = tcpClient->receivedMsg.front();
+//        a.push_back('\0');
+//        tcpClient->receivedMsg.pop_front();
+//        ui->tcpRecvText->moveCursor(QTextCursor::End);
+//        QString str;
+//        for(int i=0; i<a.size(); i++)
+//        {
+//            if((a[i]>='0' && a[i]<='9') || a[i]=='\n')
+//                str += a[i];
+//        }
+//        ui->tcpRecvText->insertPlainText(str);
+    }
+    //board->decodeMsg(msg);
 
     //ui->tcpRecvText->moveCursor(QTextCursor::End);
     //ui->tcpRecvText->insertPlainText(msg);
-    QString sysTime = QTime::currentTime().toString("hh:mm:ss");
-    ui->tcpRecvText->setText(sysTime + "  Receiving Board Data...\n");
+//    QString sysTime = QTime::currentTime().toString("hh:mm:ss");
+//    ui->tcpRecvText->setText(sysTime + "  Receiving Board Data...\n");
 }
 
 void MainWindow::on_tcpEstablishButton_clicked()
@@ -159,6 +166,8 @@ void MainWindow::on_resetSystemButton_clicked()
     QByteArray cmd = QByteArray::fromRawData(buf, 8);
     emit sendCmdSignal(cmd);
     tcpClient->send(cmd);
+
+    this->initializeUI();
 }
 
 void MainWindow::on_calibrateTimeButton_clicked()
@@ -364,8 +373,8 @@ void MainWindow::updateCanData()
         {
             for(int k=0; k<can.dlc; k++)
             {
-                str.push_back((can.data[k]>>4) + '0');
-                str.push_back((can.data[k]&0x0F) + '0');
+                str.push_back((can.data[k] >> 4) + '0');
+                str.push_back((can.data[k] & 0x0F) + '0');
                 str.push_back(' ');
             }
             str += "\n";
@@ -376,10 +385,14 @@ void MainWindow::updateCanData()
             str += QString::fromLatin1((const char*)can.data, can.dlc) + "\n";
         }
     }
-    ui->can1Text->moveCursor(QTextCursor::End);
-    ui->can1Text->insertPlainText(str);
+    if(board->can1Data.size() > 0)
+    {
+        ui->can1Text->moveCursor(QTextCursor::End);
+        ui->can1Text->insertPlainText(str);
+    }
     ui->can1MsgNumLabel->setText("接收:" + QString::number(this->board->can1MsgNum) + "帧");
     board->can1Data.clear();
+
 
     str.clear();
     bool isCan2Hex = ui->isCan2HexCheckBox->isChecked();
@@ -393,7 +406,7 @@ void MainWindow::updateCanData()
         {
             for(int k=0; k<can.dlc; k++)
             {
-                str.push_back((can.data[k]>>4)+'0');
+                str.push_back((can.data[k] >> 4)+'0');
                 str.push_back((can.data[k] & 0x0F) + '0');
                 str.push_back(' ');
             }
@@ -405,8 +418,11 @@ void MainWindow::updateCanData()
             str += QString::fromLatin1((const char*)can.data, can.dlc) + "\n";
         }
     }
-    ui->can2Text->moveCursor(QTextCursor::End);
-    ui->can2Text->insertPlainText(str);
+    if(board->can2Data.size() > 0)
+    {
+        ui->can2Text->moveCursor(QTextCursor::End);
+        ui->can2Text->insertPlainText(str);
+    }
     ui->can2MsgNumLabel->setText("接收:" + QString::number(this->board->can2MsgNum) + "帧");
     board->can2Data.clear();
 }
@@ -440,13 +456,20 @@ void MainWindow::updateDinState()
 
 void MainWindow::updateAdcChart()
 {
+    //ADC电压
     static QLineEdit *adcValueLineEdit[8] = {
         ui->adcValue_1, ui->adcValue_2, ui->adcValue_3, ui->adcValue_4,
         ui->adcValue_5, ui->adcValue_6, ui->adcValue_7, ui->adcValue_8
     };
-    static QLineEdit *vinLineEdit[8] = {
-        ui->vin_1, ui->vin_2, ui->vin_3, ui->vin_4,
-        ui->vin_5, ui->vin_6, ui->vin_7, ui->vin_8
+    //AIN理论输入
+    static QLineEdit *ainLineEdit[8] = {
+        ui->ain_1, ui->ain_2, ui->ain_3, ui->ain_4,
+        ui->ain_5, ui->ain_6, ui->ain_7, ui->ain_8
+    };
+    //AIN标定输入
+    static QLineEdit *calibAinLineEdit[8] = {
+        ui->calibAin_1, ui->calibAin_2, ui->calibAin_3, ui->calibAin_4,
+        ui->calibAin_5, ui->calibAin_6, ui->calibAin_7, ui->calibAin_8
     };
 
     int chNum = board->adcData.size();
@@ -462,14 +485,21 @@ void MainWindow::updateAdcChart()
             series[k]->append(i, temp);
             sum += temp;//sum += adcValue[k][i];
         }
-        //lineEdit[k]->setText(QString::number(sum/sampleTimes) + " V");
+
+        //ADC电压值
         char buf[20] = {0};
         sprintf(buf, "%d: %6.4f V", k+1, sum/sampleTimes);
         adcValueLineEdit[k]->setText(buf);
 
+        //AIN理论输入
         char buf1[20] = {0};
-        sprintf(buf1, "%d: %06.4f", k+1, board->calInputVoltage(k, sum/sampleTimes));
-        vinLineEdit[k]->setText(buf1);
+        sprintf(buf1, "%d: %06.4f", k+1, board->calculateAin(k, sum/sampleTimes));
+        ainLineEdit[k]->setText(buf1);
+
+        //AIN标定输入
+        char buf2[20] = {0};
+        sprintf(buf2, "%d: %06.4f", k+1, board->calculateCalibAin(k, sum/sampleTimes));
+        calibAinLineEdit[k]->setText(buf2);
     }
 
 //    //正弦波测试数据
@@ -563,14 +593,38 @@ void MainWindow::configLineChart()
 void MainWindow::on_clearCan1MsgButton_clicked()
 {
     ui->can1Text->clear();
+    board->can1MsgNum = 0;
+    ui->can1MsgNumLabel->setText("接收:0帧");
 }
 
 void MainWindow::on_clearCan2MsgButton_clicked()
 {
     ui->can2Text->clear();
+    board->can2MsgNum = 0;
+    ui->can2MsgNumLabel->setText("接收:0帧");
 }
 
 void MainWindow::on_clearRs485MsgButton_clicked()
 {
     ui->rs485Text->clear();
+    board->rs485MsgNum = 0;
+    ui->rs485MsgNumLabel->setText("接收:0帧");
+}
+
+void MainWindow::initializeUI()
+{
+    ui->srvIPLineEdit->setText("192.168.1.220"); //服务器默认IP
+    ui->srvPortLineEdit->setText("5000"); //服务器默认端口
+    ui->tcpEstablishButton->setText("连接");
+    ui->tcpSendButton->setEnabled(false);
+    ui->runSystemButton->setText(tr("启动系统"));
+    ui->runSystemButton->setEnabled(false);
+    ui->resetSystemButton->setText(tr("复位系统"));
+    ui->resetSystemButton->setEnabled(false);
+
+    this->setWindowTitle(tr("采集控制系统"));
+    this->srvIP.clear();
+    this->srvPort.clear();
+    this->srvData.clear();
+    this->cltData.clear();
 }

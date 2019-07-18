@@ -150,7 +150,7 @@ int SampleBoard::decodeMsg(QByteArray msg)
  * 与Vout连接的是R3
  * Vout是ADC测出的电压
  */
-qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
+qreal SampleBoard::calculateAin(int chNum, qreal vout)
 {
     qreal res = 0;
     switch(chNum)
@@ -189,7 +189,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         break;
     case 4: /* 互感器20A:20mA */
         {
-            qreal R1 = 10.0, R2 = 4.99, R3 = 2.4;
+            qreal R1 = 10.0, R2 = 4.99, R3 = 9.1;
             qreal va = -5.0;
             qreal vin2 = -R2 * (va / R1 + vout / R3);
             qreal vin = vin2 / ((91 + 10) / 10);
@@ -197,14 +197,14 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
             res = vin / RL / 0.02 * 20.0; //一次侧电流大小，单位：安培
         }
         break;
-    case 5: /* 第1路0~1000V */
+    case 5: /* 第2路0~1000V */
         {
             qreal gain = (1.0 / 3) * (220.0 / 100);
             qreal vin = vout / gain; //ISO124隔离侧输入电压
             res = vin / 7.5 * (7.5 + 510 + 510); //高压
         }
         break;
-    case 6: /* 第2路0~1000V */
+    case 6: /* 第1路0~1000V */
         {
             qreal gain = (1.0 / 3) * (220.0 / 100);
             qreal vin = vout / gain; //ISO124隔离侧输入电压
@@ -215,7 +215,7 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
         {
             qreal RG = 4.99; //AD8221增益电阻4.99k
             qreal gain = 8.2 * (49.4 / RG + 1);
-            qreal R1 = 10.0, R2 = 15.0, R3 = 10.0;
+            qreal R1 = 10.0, R2 = 15.0, R3 = 9.1;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);
             //res = vin / gain; //分流器两端电压
@@ -229,3 +229,97 @@ qreal SampleBoard::calInputVoltage(int chNum, qreal vout)
     return res;
 }
 
+
+/*
+ * Vout = -R3 * (Va / R1 + Vin / R2)
+ * 与Va(-5Vref)连接的是R1
+ * 与Vin连接的是R2
+ * 与Vout连接的是R3
+ * Vout是ADC测出的电压
+ */
+qreal SampleBoard::calculateCalibAin(int chNum, qreal vout)
+{
+    qreal res = 0;
+    switch(chNum)
+    {
+    case 0: /* 第1路0~15V */
+        {
+            qreal R1 = 10.0, R2 = 43.0, R3 = 9.1;
+            qreal va = -5.0;
+            qreal vin = -R2 * (va / R1 + vout / R3);
+            res = 1.0061 * vin + 0.0384; //校准
+        }
+        break;
+    case 1: /* 第2路0~15V */
+        {
+            qreal R1 = 10.0, R2 = 43.0, R3 = 9.1;
+            qreal va = -5.0;
+            qreal vin = -R2 * (va / R1 + vout / R3);
+            res = 1.0053 * vin + 0.0014; //校准
+        }
+        break;
+    case 2: /* 第1路0~24V */
+        {
+            qreal R1 = 10.0, R2 = 62.0, R3 = 9.1;
+            qreal va = -5.0;
+            qreal vin = -R2 * (va / R1 + vout / R3);
+            res = 1.0046 * vin + 0.1226; //校准
+        }
+        break;
+    case 3: /* 第2路0~24V */
+        {
+            qreal R1 = 10.0, R2 = 62.0, R3 = 9.1;
+            qreal va = -5.0;
+            qreal vin = -R2 * (va / R1 + vout / R3);
+            res = 0.9979 * vin + 0.1428; //校准
+        }
+        break;
+    case 4: /* 互感器20A:20mA */
+        {
+            qreal R1 = 10.0, R2 = 4.99, R3 = 9.1;
+            qreal va = -5.0;
+            qreal vin2 = -R2 * (va / R1 + vout / R3);
+            qreal vin = vin2 / ((91 + 10) / 10);
+            qreal RL = 10.0; //unit: Ohm
+            res = vin / RL / 0.02 * 20.0; //一次侧电流大小，单位：安培
+            //分段校准
+            if(res < 1)
+                res = 1.0121 * res + 0.21; //校准
+            else
+                res = 0.9944 * res + 0.4469; //校准
+        }
+        break;
+    case 5: /* 第2路0~1000V */
+        {
+            qreal gain = (1.0 / 3) * (220.0 / 100);
+            qreal vin = vout / gain; //ISO124隔离侧输入电压
+            vin = 1.0018 * vin + 0.0162; //校准输入的分压
+            res = vin / 7.5 * (7.5 + 510 + 510); //高压
+        }
+        break;
+    case 6: /* 第1路0~1000V */
+        {
+            qreal gain = (1.0 / 3) * (220.0 / 100);
+            qreal vin = vout / gain; //ISO124隔离侧输入电压
+            //vin = 1.0018 * vin + 0.0162; //校准输入的分压
+            res = vin / 7.5 * (7.5 + 510 + 510); //高压
+            res = 1.0192 * res - 6.5378;
+        }
+        break;
+    case 7: /* 分流器250A:75mV */
+        {
+            qreal RG = 4.99; //AD8221增益电阻4.99k
+            qreal gain = 8.2 * (49.4 / RG + 1);
+            qreal R1 = 10.0, R2 = 15.0, R3 = 9.1;
+            qreal va = -5.0;
+            qreal vin = -R2 * (va / R1 + vout / R3);
+            vin = 1.0137 * (vin / gain) - 0.0008; //校准分流器两端电压
+            res = vin / 0.075 * 250; //通过的电流
+        }
+        break;
+
+    default:
+        break;
+    }
+    return res;
+}

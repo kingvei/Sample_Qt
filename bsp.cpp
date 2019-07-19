@@ -213,12 +213,10 @@ qreal SampleBoard::calculateAin(int chNum, qreal vout)
         break;
     case 7: /* 分流器250A:75mV */
         {
-            qreal RG = 4.99; //AD8221增益电阻4.99k
-            qreal gain = 8.2 * (49.4 / RG + 1);
+            qreal gain = 8.2 * (49.4 / 4.99 + 1); //AD8221增益电阻4.99k
             qreal R1 = 10.0, R2 = 15.0, R3 = 9.1;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);
-            //res = vin / gain; //分流器两端电压
             res = vin / gain / 0.075 * 250; //通过的电流
         }
         break;
@@ -283,38 +281,57 @@ qreal SampleBoard::calculateCalibAin(int chNum, qreal vout)
             qreal RL = 10.0; //unit: Ohm
             res = vin / RL / 0.02 * 20.0; //一次侧电流大小，单位：安培
             //分段校准
+//            if(res < 1)
+//                res = 1.0121 * res + 0.21; //校准
+//            else
+//                res = 0.9944 * res + 0.4469; //校准
             if(res < 1)
-                res = 1.0121 * res + 0.21; //校准
+                res = res;
+            else if(res < 15)
+                res = 0.9725 * res + 0.2054;
             else
-                res = 0.9944 * res + 0.4469; //校准
+                res = 0.9868 * res + 0.1162;
         }
         break;
     case 5: /* 第2路0~1000V */
         {
             qreal gain = (1.0 / 3) * (220.0 / 100);
             qreal vin = vout / gain; //ISO124隔离侧输入电压
-            vin = 1.0018 * vin + 0.0162; //校准输入的分压
+            //校准方法1
+//            vin = 1.0018 * vin + 0.0162; //校准输入的分压
+//            res = vin / 7.5 * (7.5 + 510 + 510); //高压
+            //校准方法2 现场测试200~750V
             res = vin / 7.5 * (7.5 + 510 + 510); //高压
+            if(res < 500)
+                res = 1.0002 * res + 2.2209;
+            else
+                res = 0.9748 * res + 14.759;
         }
         break;
     case 6: /* 第1路0~1000V */
         {
             qreal gain = (1.0 / 3) * (220.0 / 100);
             qreal vin = vout / gain; //ISO124隔离侧输入电压
-            //vin = 1.0018 * vin + 0.0162; //校准输入的分压
+            //校准方法2 现场测试200~750V
             res = vin / 7.5 * (7.5 + 510 + 510); //高压
-            res = 1.0192 * res - 6.5378;
+            if(res < 500)
+                res = 0.9954 * res + 2.0678;
+            else
+                res = 0.9736 * res + 12.726;
         }
         break;
     case 7: /* 分流器250A:75mV */
         {
-            qreal RG = 4.99; //AD8221增益电阻4.99k
-            qreal gain = 8.2 * (49.4 / RG + 1);
+            qreal gain = 8.2 * (49.4 / 4.99 + 1); //AD8221增益电阻4.99k
             qreal R1 = 10.0, R2 = 15.0, R3 = 9.1;
             qreal va = -5.0;
             qreal vin = -R2 * (va / R1 + vout / R3);
-            vin = 1.0137 * (vin / gain) - 0.0008; //校准分流器两端电压
-            res = vin / 0.075 * 250; //通过的电流
+            //校准方法1
+            //vin = 1.0137 * (vin / gain) - 0.0008; //直流电源数据校准分流器两端电压
+            //res = vin / 0.075 * 250; //通过的电流
+            //校准方法2 现场测试5~20A
+            res = vin / gain / 0.075 * 250; //通过的电流
+            res = 1.0194 * res - 0.2; // 5~20A测试数据拟合
         }
         break;
 

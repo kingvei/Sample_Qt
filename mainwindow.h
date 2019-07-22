@@ -23,6 +23,8 @@
 #include <QPixmap>
 #include <QVector>
 #include <QScrollArea>
+#include <QFile>
+#include <QTextStream>
 
 namespace Ui {
 class MainWindow;
@@ -83,6 +85,14 @@ private slots:
     void on_clearCan2MsgButton_clicked();
 
     void on_clearRs485MsgButton_clicked();
+
+    void on_recordAdcButton_clicked();
+
+    void on_recordResButton_clicked();
+
+    void on_recordAllButton_clicked();
+
+    void on_stepValueLineEdit_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

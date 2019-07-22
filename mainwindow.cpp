@@ -376,7 +376,6 @@ void MainWindow::updateCanData()
                 str.push_back(' ');
             }
             str += "\n";
-            if(can.id == 0x10) str += '\n'; //方便调试
         }
         else
         {
@@ -409,7 +408,6 @@ void MainWindow::updateCanData()
                 str.push_back(' ');
             }
             str += "\n";
-            if(can.id == 0x10) str += '\n'; //方便调试
         }
         else
         {
@@ -476,7 +474,7 @@ void MainWindow::updateAdcChart()
     for(int k=0; k<chNum; k++)
     {
         series[k]->clear();
-        qreal avg = 0;
+        qreal avg = 0; //折线图上的点的平均值（折线图上每一个点实际上已经经过了一次求平均值）
 
         int size = board->adcChartData[k].size();
         for(int i=0; i<size; i++)
@@ -493,19 +491,19 @@ void MainWindow::updateAdcChart()
         avg /= size;
 
         //ADC电压值
-        char buf[20] = {0};
-        sprintf(buf, "%d: %06.5f V", k+1, avg);
-        adcValueLineEdit[k]->setText(buf);
+        char buf1[20] = {0};
+        sprintf(buf1, "   %06.5f", avg);
+        adcValueLineEdit[k]->setText(buf1);
 
         //AIN理论输入
-        char buf1[20] = {0};
-        sprintf(buf1, "%d: %06.5f", k+1, board->calculateAin(k, avg));
-        ainLineEdit[k]->setText(buf1);
+        char buf2[20] = {0};
+        sprintf(buf2, "   %06.5f", board->calculateAin(k, avg));
+        ainLineEdit[k]->setText(buf2);
 
         //AIN标定输入
-        char buf2[20] = {0};
-        sprintf(buf2, "%d: %06.5f", k+1, board->calculateCalibAin(k, avg));
-        calibAinLineEdit[k]->setText(buf2);
+        char buf3[20] = {0};
+        sprintf(buf3, "%d: %06.5f", k, board->calculateCalibAin(k, avg));
+        calibAinLineEdit[k]->setText(buf3);
     }
 
 //    for(int k=0; k<chNum; k++)
@@ -665,7 +663,7 @@ void MainWindow::configLineChart()
         graphScene->addItem(chart[i]);
     }
 
-    graphView->move(50, 50); //窗体移动到某个点
+    graphView->move(20, 20); //窗体移动到某个点，相对屏幕左上角的位移
     graphView->show();
 }
 
@@ -701,9 +699,100 @@ void MainWindow::initializeUI()
     ui->resetSystemButton->setText(tr("复位系统"));
     ui->resetSystemButton->setEnabled(false);
 
+    ui->channelSpinBox_1->setValue(-1);
+    ui->channelSpinBox_2->setValue(-1);
+    ui->realValueSpinBox->setValue(0);
+
     this->setWindowTitle(tr("采集控制系统"));
     this->srvIP.clear();
     this->srvPort.clear();
     this->srvData.clear();
     this->cltData.clear();
+}
+
+void MainWindow::on_recordAdcButton_clicked()
+{
+    static QLineEdit *adcLineEdit[8] = {
+        ui->adcValue_1, ui->adcValue_2, ui->adcValue_3, ui->adcValue_4,
+        ui->adcValue_5, ui->adcValue_6, ui->adcValue_7, ui->adcValue_8
+    };
+    QFile file("file1.txt");
+    if(file.open(QFile::ReadWrite | QFile::Append))
+    {
+        QTextStream out(&file);
+        out << ui->realValueSpinBox->text();
+
+        int ch1 = ui->channelSpinBox_1->text().toInt();
+        int ch2 = ui->channelSpinBox_2->text().toInt();
+        if(ch1>=0 && ch1<=7)
+            out << "\t" << adcLineEdit[ch1]->text();
+        if(ch2>=0 && ch2<=7)
+            out << "\t" << adcLineEdit[ch2]->text();
+
+        out << "\n";
+    }
+
+
+    file.close();
+}
+
+void MainWindow::on_recordResButton_clicked()
+{
+    static QLineEdit *resLineEdit[8] = {
+        ui->ain_1, ui->ain_2, ui->ain_3, ui->ain_4,
+        ui->ain_5, ui->ain_6, ui->ain_7, ui->ain_8
+    };
+    QFile file("file2.txt");
+    if(file.open(QFile::ReadWrite | QFile::Append))
+    {
+        QTextStream out(&file);
+        out << ui->realValueSpinBox->text();
+
+        int ch1 = ui->channelSpinBox_1->text().toInt();
+        int ch2 = ui->channelSpinBox_2->text().toInt();
+        if(ch1>=0 && ch1<=7)
+            out << "\t" << resLineEdit[ch1]->text();
+        if(ch2>=0 && ch2<=7)
+            out << "\t" << resLineEdit[ch2]->text();
+
+        out << "\n";
+    }
+
+
+    file.close();
+}
+
+void MainWindow::on_recordAllButton_clicked()
+{
+    static QLineEdit *adcLineEdit[8] = {
+        ui->adcValue_1, ui->adcValue_2, ui->adcValue_3, ui->adcValue_4,
+        ui->adcValue_5, ui->adcValue_6, ui->adcValue_7, ui->adcValue_8
+    };
+    static QLineEdit *resLineEdit[8] = {
+        ui->ain_1, ui->ain_2, ui->ain_3, ui->ain_4,
+        ui->ain_5, ui->ain_6, ui->ain_7, ui->ain_8
+    };
+    QFile file("file3.txt");
+    if(file.open(QFile::ReadWrite | QFile::Append))
+    {
+        QTextStream out(&file);
+        out << ui->realValueSpinBox->text();
+
+        int ch1 = ui->channelSpinBox_1->text().toInt();
+        int ch2 = ui->channelSpinBox_2->text().toInt();
+        if(ch1>=0 && ch1<=7)
+            out << "\t" << adcLineEdit[ch1]->text() << "\t" << resLineEdit[ch1]->text();
+        if(ch2>=0 && ch2<=7)
+            out << "\t" << adcLineEdit[ch2]->text() << "\t" << resLineEdit[ch2]->text();
+
+        out << "\n";
+    }
+
+
+    file.close();
+}
+
+void MainWindow::on_stepValueLineEdit_textChanged(const QString &arg1)
+{
+    ui->realValueSpinBox->setSingleStep(arg1.toDouble());
 }

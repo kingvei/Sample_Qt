@@ -72,6 +72,9 @@ public:
     int can1MsgNum;
     int can2MsgNum;
     int rs485MsgNum;
+
+private:
+    int decodeFrame(QByteArray &msg, int index = 0);
 //signals:
 };
 

@@ -42,7 +42,20 @@ void SampleBoard::clear()
  */
 int SampleBoard::decodeMsg(QByteArray msg)
 {
-    int startPos = msg.indexOf(0xAA);
+    int index = 0;
+    while(index < msg.size())
+    {
+        int nextIndex = decodeFrame(msg, index);
+        index = nextIndex;
+    }
+
+    return 0;
+}
+
+
+int SampleBoard::decodeFrame(QByteArray &msg, int index)
+{
+    int startPos = msg.indexOf(0xAA, index);
     if(startPos == -1) //没有找到0xAA
         return 1;
     if(msg.size()-startPos < MIN_FRAME_SIZE)
@@ -129,6 +142,7 @@ int SampleBoard::decodeMsg(QByteArray msg)
         this->can1Data.push_back(data);
         can1Pos += PACKET_CAN_SIZE;
     }
+    pos += can1Len;
     this->can1MsgNum += can1Len / PACKET_CAN_SIZE;
 
     //提取CAN2数据
@@ -144,6 +158,7 @@ int SampleBoard::decodeMsg(QByteArray msg)
         this->can2Data.push_back(data); //this->can2Data.push_back(data);
         can2Pos += PACKET_CAN_SIZE;
     }
+    pos += can2Pos;
     this->can2MsgNum += can2Len / PACKET_CAN_SIZE;
 
     //提取RS485数据
@@ -153,9 +168,10 @@ int SampleBoard::decodeMsg(QByteArray msg)
     {
         tempRs485Data.push_back(msg[rs485Pos+i]); //rs485Data.push_back(msg[rs485Pos+i]);
     }
+    pos += rs485Len;
     this->rs485Data = tempRs485Data;
 
-    return 0;
+    return startPos + len;
 }
 
 /*
@@ -243,7 +259,6 @@ qreal SampleBoard::calculateAin(int chNum, qreal vout)
 
     return res;
 }
-
 
 /*
  * Vout = -R3 * (Va / R1 + Vin / R2)

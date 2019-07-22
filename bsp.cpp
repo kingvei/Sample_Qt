@@ -34,41 +34,42 @@ void SampleBoard::clear()
     this->can1MsgNum = this->can2MsgNum = this->rs485MsgNum = 0;
 }
 
-/*
- * @param: None
- * @ret: 1,没有找到帧头或者帧尾
- *       2,消息长度小于最小帧长度
- *       0,找到消息
- */
 int SampleBoard::decodeMsg(QByteArray msg)
 {
     int index = 0;
     while(index < msg.size())
     {
         int nextIndex = decodeFrame(msg, index);
+        if(nextIndex < 0) //不再存在符合条件的帧
+            break;
         index = nextIndex;
     }
 
     return 0;
 }
 
-
+/*
+ * @param: None
+ * @ret: -1,没有找到帧头或者帧尾
+ *       -2,消息长度小于最小帧长度或者帧头定义的总长度
+ *       0,找到消息
+ */
 int SampleBoard::decodeFrame(QByteArray &msg, int index)
 {
     int startPos = msg.indexOf(0xAA, index);
     if(startPos == -1) //没有找到0xAA
-        return 1;
+        return -1;
     if(msg.size()-startPos < MIN_FRAME_SIZE)
-        return 2;
+        return -2;
 
     if((quint8)msg[startPos]!=0xAA || (quint8)msg[startPos+1]!=0xBB || (quint8)msg[startPos+2]!=0xCC || (quint8)msg[startPos+3]!=0xDD)
-        return 1;
+        return -1;
 
     quint16 tmpLen = (quint8)msg[startPos+8] + ((quint8)msg[startPos+9]<<8);
     if(msg.size()-startPos < tmpLen)
-        return 2;
+        return -2;
     if(((quint8)msg[startPos+tmpLen-2]!=0xF0) || ((quint8)msg[startPos+tmpLen-1]!=0xFC)) //没有找到帧尾
-        return 1;
+        return -1;
 
     //偏移地址[4][5]为CRC值。下位机预留位置，但是未计算CRC值。
     //this->crc16 = (quint8)msg[4] + ((quint8)msg[5]<<8);

@@ -116,6 +116,4 @@ signals:
 #define LINE_CHART_LENGTH       (100)
 #define LINE_CHART_DISPLAY_ADC_VALUE  (0)
 
-#define SAMPLE_BOARD_NUM        (1) //本程序适用的采集板序号，用于标定函数使用
-
 #endif // MAINWINDOW_H

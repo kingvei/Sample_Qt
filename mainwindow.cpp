@@ -550,12 +550,14 @@ void MainWindow::updateAdcChart()
 
 void MainWindow::configLineChart()
 {
-    //画布
+    //graphScene是数据，graphView是窗体
     this->graphScene = new QGraphicsScene;
     this->graphView = new QGraphicsView(graphScene);
     graphView->setWindowTitle("ADC数据");
     graphView->setRenderHint(QPainter::Antialiasing);
-    graphView->setSceneRect(0, 0, 1300, 630);
+//    graphView->setSceneRect(0, 0, 1300, 630); //好像并没有任何卵用？
+    graphView->resize(1850, 820);
+    graphScene->setSceneRect(0, 0, 1850, 820);
     graphScene->setBackgroundBrush(QBrush(QColor(240, 240, 240)));
 
     for(int i=0; i<ADC_CH_NUM; i++)
@@ -597,10 +599,14 @@ void MainWindow::configLineChart()
                 break;
         }
 
+//        if(i<4)
+//            chart[i]->setGeometry(300*i+10, 10, 350, 300);
+//        else
+//            chart[i]->setGeometry(300*(i-4)+10, 310, 350, 300);
         if(i<4)
-            chart[i]->setGeometry(300*i+10, 10, 350, 300);
+            chart[i]->setGeometry(450*i, 0, 500, 400);//坐标是折线图左上脚的坐标
         else
-            chart[i]->setGeometry(300*(i-4)+10, 310, 350, 300);
+            chart[i]->setGeometry(450*(i-4), 420, 500, 400);
     }
 
 #if LINE_CHART_DISPLAY_ADC_VALUE

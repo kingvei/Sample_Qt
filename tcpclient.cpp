@@ -1,11 +1,12 @@
 #include "tcpclient.h"
 #include <QMessageBox>
+#include "mainwindow.h"
 
 TcpClient::TcpClient()
 {
     this->status = false;
-    tcpSocket = new QTcpSocket;//(this);
-    srvIP = new QHostAddress;
+    this->tcpSocket = new QTcpSocket;
+    this->srvIP = new QHostAddress;
 
     connect(tcpSocket, &QTcpSocket::connected, [=]{status = true;});
     connect(tcpSocket, &QTcpSocket::disconnected, [=]{status = false;});
@@ -40,7 +41,7 @@ void TcpClient::establish(QString ip, QString port)
 
 void TcpClient::receive(void)
 {
-    qDebug() << "TcpClient::receive threadID is :" << QThread::currentThreadId();
+    //qDebug() << "TcpClient::receive() threadID is:" << QThread::currentThreadId();
     while(tcpSocket->bytesAvailable()>0)
     {
         qint64 size = tcpSocket->bytesAvailable();
@@ -56,5 +57,5 @@ void TcpClient::receive(void)
 void TcpClient::send(QByteArray msg)
 {
     tcpSocket->write(msg, msg.size());
-    qDebug() << "TcpClient::send() threadID is :" << QThread::currentThreadId();
+    qDebug() << "TcpClient::send() threadID is:" << QThread::currentThreadId();
 }

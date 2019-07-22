@@ -89,7 +89,7 @@ int SampleBoard::decodeMsg(QByteArray msg)
     {
         QVector<quint16> channel;
         quint16 adcValue = 0;
-        qreal avgAdcValue = 0; //每一帧ADC数据的平均值，用于绘制折现图
+        qreal avgAdcValue = 0; //记录每一帧ADC数据的平均值，用于绘制折现图
         for(int j=0; j<adcLen/8; j++)
         {
             if(j%2==0)

@@ -15,7 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->thread = new QThread;
     tcpClient->moveToThread(thread);
     connect(this->tcpClient, &TcpClient::tcpReceiveSignal, this, &MainWindow::processTcpReceivedMsg);
-    //connect(this, &MainWindow::sendCmdSignal, this->tcpClient, &TcpClient::send); //不能放在主线程 todo
+    //使用信号与槽实现发送会出现错误：socket notifiers cannot be enabled from another thread
+    //connect(this, &MainWindow::sendCmdSignal, this->tcpClient, &TcpClient::send);
     thread->start();
 
     //定时器，用于更新UI
@@ -40,9 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(tcpClient->tcpSocket, &QTcpSocket::disconnected, [=]
     {
         ui->tcpEstablishButton->setText("连接");
-        //ui->runSystemButton->setText("启动系统");
         ui->runSystemButton->setEnabled(false);
-        //ui->resetSystemButton->setText("复位系统");
         ui->resetSystemButton->setEnabled(false);
         ui->tcpSendButton->setEnabled(false);
 
@@ -72,7 +71,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::processTcpReceivedMsg(QByteArray msg)
 {
-    qDebug() << "MainWindow::processTcpReceivedMsg() threadID is :" << QThread::currentThreadId();
+    //qDebug() << "MainWindow::processTcpReceivedMsg() threadID is :" << QThread::currentThreadId();
     while(tcpClient->receivedMsg.size() > 0)
     {
         board->decodeMsg(tcpClient->receivedMsg.front());
@@ -91,10 +90,9 @@ void MainWindow::processTcpReceivedMsg(QByteArray msg)
 //        }
 //        ui->tcpRecvText->insertPlainText(str);
     }
-    //board->decodeMsg(msg);
 
-    //ui->tcpRecvText->moveCursor(QTextCursor::End);
-    //ui->tcpRecvText->insertPlainText(msg);
+//    ui->tcpRecvText->moveCursor(QTextCursor::End);
+//    ui->tcpRecvText->insertPlainText(msg);
 //    QString sysTime = QTime::currentTime().toString("hh:mm:ss");
 //    ui->tcpRecvText->setText(sysTime + "  Receiving Board Data...\n");
 }

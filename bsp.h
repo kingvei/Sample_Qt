@@ -4,6 +4,7 @@
 #include <QByteArray>
 #include <QVector>
 #include <QObject>
+#include <QQueue>
 
 #define MIN_FRAME_SIZE  18
 #define PACKET_CAN_SIZE 15
@@ -65,6 +66,8 @@ public:
     QVector<CanDataType> can1Data;
     QVector<CanDataType> can2Data;
     QByteArray rs485Data;
+
+    QVector<QQueue<qreal>> adcChartData;
 
     int can1MsgNum;
     int can2MsgNum;

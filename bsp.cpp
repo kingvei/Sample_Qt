@@ -1,4 +1,5 @@
 #include "bsp.h"
+#include "mainwindow.h"
 
 SampleBoard::SampleBoard()
 {
@@ -27,6 +28,8 @@ void SampleBoard::clear()
     this->can1Data.clear();
     this->can2Data.clear();
     this->rs485Data.clear();
+
+    this->adcChartData.resize(8); //8个队列用于存储折线图数据
 
     this->can1MsgNum = this->can2MsgNum = this->rs485MsgNum = 0;
 }
@@ -86,6 +89,7 @@ int SampleBoard::decodeMsg(QByteArray msg)
     {
         QVector<quint16> channel;
         quint16 adcValue = 0;
+        qreal avgAdcValue = 0; //每一帧ADC数据的平均值，用于绘制折现图
         for(int j=0; j<adcLen/8; j++)
         {
             if(j%2==0)
@@ -94,9 +98,20 @@ int SampleBoard::decodeMsg(QByteArray msg)
             {
                 adcValue += (quint8)msg[adcPos++] << 8;
                 channel.push_back(adcValue);
+                avgAdcValue += adcValue;
             }
         }
         tempAdcData.push_back(channel);//this->adcData.push_back(channel);
+
+        //存储折线图数据，绘制100个点
+        avgAdcValue /= adcLen/8;
+        if(adcChartData[i].size() >= LINE_CHART_LENGTH)
+        {
+            adcChartData[i].pop_front();
+            adcChartData[i].push_back(avgAdcValue);
+        }
+        else
+            adcChartData[i].push_back(avgAdcValue);
     }
     this->adcData = tempAdcData;
     pos += adcLen;

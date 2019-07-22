@@ -478,29 +478,64 @@ void MainWindow::updateAdcChart()
     for(int k=0; k<chNum; k++)
     {
         series[k]->clear();
-        qreal sum = 0;
-        for(int i=0; i<sampleTimes; i++)
+        qreal avg = 0;
+
+        int size = board->adcChartData[k].size();
+        for(int i=0; i<size; i++)
         {
-            qreal temp = board->adcData[k][i] * 5.0 / 65535;
-            series[k]->append(i, temp);
-            sum += temp;//sum += adcValue[k][i];
+            qreal voltage = board->adcChartData[k][i] * 5.0 / 65535;
+#if LINE_CHART_DISPLAY_ADC_VALUE
+            series[k]->append(i, voltage);
+#else
+            series[k]->append(i, board->calculateAin(k, voltage));
+            //series[k]->append(i, board->calculateCalibAin(k, voltage));
+#endif
+            avg += voltage;
         }
+        avg /= size;
 
         //ADC电压值
         char buf[20] = {0};
-        sprintf(buf, "%d: %6.4f V", k+1, sum/sampleTimes);
+        sprintf(buf, "%d: %06.5f V", k+1, avg);
         adcValueLineEdit[k]->setText(buf);
 
         //AIN理论输入
         char buf1[20] = {0};
-        sprintf(buf1, "%d: %06.4f", k+1, board->calculateAin(k, sum/sampleTimes));
+        sprintf(buf1, "%d: %06.5f", k+1, board->calculateAin(k, avg));
         ainLineEdit[k]->setText(buf1);
 
         //AIN标定输入
         char buf2[20] = {0};
-        sprintf(buf2, "%d: %06.4f", k+1, board->calculateCalibAin(k, sum/sampleTimes));
+        sprintf(buf2, "%d: %06.5f", k+1, board->calculateCalibAin(k, avg));
         calibAinLineEdit[k]->setText(buf2);
     }
+
+//    for(int k=0; k<chNum; k++)
+//    {
+//        series[k]->clear();
+//        qreal sum = 0;
+//        for(int i=0; i<sampleTimes; i++)
+//        {
+//            qreal temp = board->adcData[k][i] * 5.0 / 65535;
+//            series[k]->append(i, temp);
+//            sum += temp;//sum += adcValue[k][i];
+//        }
+
+//        //ADC电压值
+//        char buf[20] = {0};
+//        sprintf(buf, "%d: %6.4f V", k+1, sum/sampleTimes);
+//        adcValueLineEdit[k]->setText(buf);
+
+//        //AIN理论输入
+//        char buf1[20] = {0};
+//        sprintf(buf1, "%d: %06.4f", k+1, board->calculateAin(k, sum/sampleTimes));
+//        ainLineEdit[k]->setText(buf1);
+
+//        //AIN标定输入
+//        char buf2[20] = {0};
+//        sprintf(buf2, "%d: %06.4f", k+1, board->calculateCalibAin(k, sum/sampleTimes));
+//        calibAinLineEdit[k]->setText(buf2);
+//    }
 
 //    //正弦波测试数据
 //    static int x=0;
@@ -568,6 +603,7 @@ void MainWindow::configLineChart()
             chart[i]->setGeometry(300*(i-4)+10, 310, 350, 300);
     }
 
+#if LINE_CHART_DISPLAY_ADC_VALUE
     for(int i=0; i<ADC_CH_NUM; i++)
     {
         //设置坐标轴初始显示范围
@@ -581,6 +617,45 @@ void MainWindow::configLineChart()
         series[i]->attachAxis(axisX[i]); //连接数据集与坐标轴。特别注意：如果不连接，那么坐标轴和数据集的尺度就不相同
         series[i]->attachAxis(axisY[i]);
     }
+#else
+    for(int i=0; i<ADC_CH_NUM; i++)
+    {
+        //设置坐标轴初始显示范围
+        this->axisX[i] = new QValueAxis();//轴变量、数据系列变量，都不能声明为局部临时变量
+        this->axisY[i] = new QValueAxis();//创建X/Y轴
+    }
+    axisX[0]->setRange(0, LINE_CHART_LENGTH); //设置X/Y显示的区间
+    axisY[0]->setRange(0, 16);
+
+    axisX[1]->setRange(0, LINE_CHART_LENGTH); //设置X/Y显示的区间
+    axisY[1]->setRange(0, 16);
+
+    axisX[2]->setRange(0, LINE_CHART_LENGTH); //设置X/Y显示的区间
+    axisY[2]->setRange(0, 25);
+
+    axisX[3]->setRange(0, LINE_CHART_LENGTH); //设置X/Y显示的区间
+    axisY[3]->setRange(0, 25);
+
+    axisX[4]->setRange(0, LINE_CHART_LENGTH); //设置X/Y显示的区间
+    axisY[4]->setRange(0, 20);
+
+    axisX[5]->setRange(0, LINE_CHART_LENGTH); //设置X/Y显示的区间
+    axisY[5]->setRange(0, 1000);
+
+    axisX[6]->setRange(0, LINE_CHART_LENGTH); //设置X/Y显示的区间
+    axisY[6]->setRange(0, 1000);
+
+    axisX[7]->setRange(0, LINE_CHART_LENGTH); //设置X/Y显示的区间
+    axisY[7]->setRange(0, 250);
+
+    for(int i=0; i<ADC_CH_NUM; i++)
+    {
+        chart[i]->setAxisX(axisX[i]);
+        chart[i]->setAxisY(axisY[i]); //设置chart的坐标轴
+        series[i]->attachAxis(axisX[i]); //连接数据集与坐标轴。特别注意：如果不连接，那么坐标轴和数据集的尺度就不相同
+        series[i]->attachAxis(axisY[i]);
+    }
+#endif
 
     for(int i=0; i<ADC_CH_NUM; i++)  {
         graphScene->addItem(chart[i]);

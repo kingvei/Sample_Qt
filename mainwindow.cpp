@@ -785,6 +785,10 @@ void MainWindow::on_recordAllButton_clicked()
         if(ch2>=0 && ch2<=7)
             out << "\t" << adcLineEdit[ch2]->text() << "\t" << resLineEdit[ch2]->text();
 
+        //同时记录分流器电流值
+        if(ui->isRecordCurrentCheckBox->isChecked())
+            out << "\t" << ui->currentValueSpinBox->text() << "\t" << ui->adcValue_8->text() << "\t" << ui->ain_8->text();
+
         out << "\n";
     }
 

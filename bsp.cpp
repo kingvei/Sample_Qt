@@ -412,10 +412,12 @@ qreal SampleBoard::calculateCalibAin(int chNum, qreal vout)
                 qreal vin = vout / gain; //ISO124隔离侧输入电压
                 //校准方法2 现场测试200~750V
                 res = vin / 7.5 * (7.5 + 510 + 510); //高压
-//                if(res < 500)
-//                    res = 1.0002 * res + 2.2209;
-//                else
-//                    res = 0.9748 * res + 14.759;
+                if(res < 200)
+                    res = res;
+                else if(res < 440)
+                    res = 0.9974 * res + 0.8957;
+                else
+                    res = 0.9992 * res - 3.75;
             }
             break;
         case 6: /* 第1路0~1000V */
@@ -424,10 +426,12 @@ qreal SampleBoard::calculateCalibAin(int chNum, qreal vout)
                 qreal vin = vout / gain; //ISO124隔离侧输入电压
                 //校准方法2 现场测试200~750V
                 res = vin / 7.5 * (7.5 + 510 + 510); //高压
-//                if(res < 500)
-//                    res = 0.9954 * res + 2.0678;
-//                else
-//                    res = 0.9736 * res + 12.726;
+                if(res < 200)
+                    res = res;
+                else if(res < 440)
+                    res = 0.9983 * res + 0.6108;//0.9974 * res + 0.8957;
+                else
+                    res = 1.0029 * res - 5.1598;//0.9917 * res + 1.4156;
             }
             break;
         case 7: /* 分流器250A:75mV */
@@ -441,7 +445,7 @@ qreal SampleBoard::calculateCalibAin(int chNum, qreal vout)
                 //res = vin / 0.075 * 250; //通过的电流
                 //校准方法2 现场测试5~20A
                 res = vin / gain / 0.075 * 250; //通过的电流
-//                res = 1.0194 * res - 0.2; // 5~20A测试数据拟合
+                res = 1.0166 * res + 0.0247; // 5~20A测试数据拟合
             }
             break;
 

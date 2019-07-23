@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>892</width>
-    <height>860</height>
+    <height>894</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1479,8 +1479,8 @@
    <widget class="QSpinBox" name="channelSpinBox_1">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>760</y>
+      <x>100</x>
+      <y>750</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -1497,8 +1497,8 @@
    <widget class="QSpinBox" name="channelSpinBox_2">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>760</y>
+      <x>100</x>
+      <y>790</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -1515,8 +1515,8 @@
    <widget class="QPushButton" name="recordAdcButton">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>752</y>
+      <x>750</x>
+      <y>740</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -1533,8 +1533,8 @@
    <widget class="QPushButton" name="recordResButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>752</y>
+      <x>750</x>
+      <y>780</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -1551,8 +1551,8 @@
    <widget class="QPushButton" name="recordAllButton">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>752</y>
+      <x>590</x>
+      <y>760</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -1563,14 +1563,14 @@
      </font>
     </property>
     <property name="text">
-     <string>记录两者</string>
+     <string>记录所有</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="realValueSpinBox">
     <property name="geometry">
      <rect>
-      <x>368</x>
-      <y>761</y>
+      <x>420</x>
+      <y>752</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -1580,6 +1580,9 @@
       <family>微软雅黑</family>
      </font>
     </property>
+    <property name="maximum">
+     <double>1000.000000000000000</double>
+    </property>
     <property name="singleStep">
      <double>1.000000000000000</double>
     </property>
@@ -1587,8 +1590,8 @@
    <widget class="QLineEdit" name="stepValueLineEdit">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>761</y>
+      <x>270</x>
+      <y>752</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -1600,8 +1603,8 @@
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>740</y>
+      <x>20</x>
+      <y>757</y>
       <width>72</width>
       <height>15</height>
      </rect>
@@ -1615,31 +1618,13 @@
      <string>通道选择1</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_11">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>740</y>
-      <width>72</width>
-      <height>15</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>微软雅黑</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>通道选择2</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>740</y>
-      <width>72</width>
-      <height>15</height>
+      <x>230</x>
+      <y>760</y>
+      <width>31</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="font">
@@ -1655,7 +1640,46 @@
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>740</y>
+      <y>760</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>实际值</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="currentValueSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>789</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
+    </property>
+    <property name="maximum">
+     <double>1000.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>1.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>798</y>
       <width>72</width>
       <height>15</height>
      </rect>
@@ -1666,7 +1690,25 @@
      </font>
     </property>
     <property name="text">
-     <string>实际值</string>
+     <string>通道选择2</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="isRecordCurrentCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>242</x>
+      <y>796</y>
+      <width>161</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>同时记录分流器电流</string>
     </property>
    </widget>
    <zorder>tabWidget</zorder>
@@ -1682,9 +1724,11 @@
    <zorder>realValueSpinBox</zorder>
    <zorder>stepValueLineEdit</zorder>
    <zorder>label_10</zorder>
-   <zorder>label_11</zorder>
    <zorder>label_12</zorder>
    <zorder>label_13</zorder>
+   <zorder>currentValueSpinBox</zorder>
+   <zorder>label_11</zorder>
+   <zorder>isRecordCurrentCheckBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>892</width>
-    <height>894</height>
+    <height>940</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1551,8 +1551,8 @@
    <widget class="QPushButton" name="recordAllButton">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>760</y>
+      <x>610</x>
+      <y>740</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -1595,6 +1595,11 @@
       <width>81</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>微软雅黑</family>
+     </font>
     </property>
     <property name="text">
      <string>1</string>
@@ -1708,7 +1713,7 @@
      </font>
     </property>
     <property name="text">
-     <string>同时记录分流器电流</string>
+     <string>同时记录分流器电流:</string>
     </property>
    </widget>
    <zorder>tabWidget</zorder>

@@ -366,14 +366,15 @@ void MainWindow::updateCanData()
         CanDataType can = board->can1Data[i];
         if(can.ide == 0) str += "StdID 0x";
         else str += "ExtID 0x";
-        str += QString::number(can.id, 16) + ": ";
+        str += QString::number(can.id, 16).toUpper() + ": ";
         if(isCan1Hex)
         {
             for(int k=0; k<can.dlc; k++)
             {
-                str.push_back((can.data[k] >> 4) + '0');
-                str.push_back((can.data[k] & 0x0F) + '0');
-                str.push_back(' ');
+//                str.push_back((can.data[k] >> 4) + '0');
+//                str.push_back((can.data[k] & 0x0F) + '0');
+//                str.push_back(' ');
+                str += QString::number(can.data[k], 16).toUpper() + " ";
             }
             str += "\n";
         }
@@ -398,14 +399,15 @@ void MainWindow::updateCanData()
         CanDataType can = board->can2Data[i];
         if(can.ide == 0) str += "StdID 0x";
         else str += "ExtID 0x";
-        str += QString::number(can.id, 16) + ": ";
+        str += QString::number(can.id, 16).toUpper() + ": ";
         if(isCan2Hex)
         {
             for(int k=0; k<can.dlc; k++)
             {
-                str.push_back((can.data[k] >> 4)+'0');
-                str.push_back((can.data[k] & 0x0F) + '0');
-                str.push_back(' ');
+//                str.push_back((can.data[k] >> 4)+'0');
+//                str.push_back((can.data[k] & 0x0F) + '0');
+//                str.push_back(' ');
+                str += QString::number(can.data[k], 16).toUpper() + " ";
             }
             str += "\n";
         }
